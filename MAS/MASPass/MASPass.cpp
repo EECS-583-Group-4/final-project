@@ -55,13 +55,16 @@ namespace {
 
 	llvm::Value *getUD(llvm::Value *v) {
 		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
+			int opcnt = 0;
 			for (llvm::Use &U : I->operands()) {
+				llvm::errs() << "OPERAND " << opcnt << "\n";
 				llvm::Value *nv = U.get();
 				llvm::errs() << *nv << "\n";
-				return getUD(nv);
+				getUD(nv);
+				opcnt+=1;
 			}
 		}
-		else {
+		else if (v != nullptr) {
 			llvm::errs() << "END OF UD WITH: " << *v << "\n";
 			return v;
 		}
