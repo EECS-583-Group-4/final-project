@@ -19,8 +19,8 @@ return a+b;
 int main(){
 int A[SIZE] = {0};
 int B[SIZE] = {1};
-float C[SIZE] = {0.1};
-float D[SIZE] = {3.2};
+float C[SIZE] = {3.2};
+float D[SIZE] = {0.1};
 
 for(int i=0;i<SIZE;i++){
 if (i < SIZE*0.8){

@@ -11,8 +11,6 @@
 
 namespace {
 
-    enum LEAF_TYPE {CONST, BASE_MEM_ADDR, FUNC_PARAM, DATA_DEP_VAR, FUNC_RET_VAL, LOOP_IND_VAR};
-
 	MAS::p_MASNode getUD(MAS::p_MASNode node);
 
     struct MASPass : public llvm::PassInfoMixin<MASPass> {
@@ -50,7 +48,7 @@ namespace {
 
 					getUD(node);
 
-                    llvm::errs() << " ----------------------------------- \n";
+                    llvm::errs() << " -----------------------------------\n";
                 }
             };
 
@@ -58,6 +56,23 @@ namespace {
 			storeDepMaker.curr_mas = curr_mas;
 
             storeDepMaker.visit(F);
+
+			llvm::errs() << "------ META ANALYSIS OF THE MAS ------\n";
+
+			for (MAS::p_MASNode root : curr_mas->roots) {
+				llvm::errs() << *(root->v) << "\n";
+				for (MAS::p_MASNode child : root->children) {
+					llvm::errs() <<  "    |" << *(child->v) << "\n";
+					if (child->label != MAS::UNSET) {
+						llvm::errs() << "    | I AM A LEAF NODE OF TYPE = " << child->label << "\n";
+					}
+					for (MAS::p_MASNode child2 : child->children) {
+						llvm::errs() <<  "    |    |" << *(child2->v) << "\n";
+					}
+				}
+			}
+
+			llvm::errs() << "---------------------\n";
 
 
             return llvm::PreservedAnalyses::all();
@@ -79,9 +94,18 @@ namespace {
 				getUD(child);
 				opcnt+=1;
 			}
+
+			if (opcnt == 0) {
+				// Categorize leaf node
+			}
 		}
 		else if (v != nullptr) {
 			llvm::errs() << "END OF UD WITH: " << *v << "\n";
+
+			// Categorize leaf node 
+			if (llvm::isa<llvm::Constant>(v)) {
+				node->label = MAS::CONST;
+			}
 			return node;
 		}
 		return nullptr;
