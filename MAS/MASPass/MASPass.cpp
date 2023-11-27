@@ -11,6 +11,8 @@ namespace {
 
     enum LEAF_TYPE {CONST, BASE_MEM_ADDR, FUNC_PARAM, DATA_DEP_VAR, FUNC_RET_VAL, LOOP_IND_VAR};
 
+	llvm::Value *getUD(llvm::Value *v);
+
     struct MASPass : public llvm::PassInfoMixin<MASPass> {
 
         llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &FAM) {
@@ -30,10 +32,12 @@ namespace {
 
                     llvm::errs() << "U-D CHAIN FOR: " << I << "\n";
 
-                    for (llvm::Use &U : I.operands()) {
-                        llvm::Value *v = U.get();
-                        llvm::errs() << *v << "\n";
-                    }
+                    // for (llvm::Use &U : I.operands()) {
+                    //     llvm::Value *v = U.get();
+                    //     llvm::errs() << *v << "\n";
+                    // }
+
+					getUD(&I);
 
                     llvm::errs() << " ----------------------------------- \n";
                 }
@@ -48,6 +52,21 @@ namespace {
         }
 
     };
+
+	llvm::Value *getUD(llvm::Value *v) {
+		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
+			for (llvm::Use &U : I->operands()) {
+				llvm::Value *nv = U.get();
+				llvm::errs() << *nv << "\n";
+				return getUD(nv);
+			}
+		}
+		else {
+			llvm::errs() << "END OF UD WITH: " << *v << "\n";
+			return v;
+		}
+		return nullptr;
+	}
 }
 
 extern "C" ::llvm::PassPluginLibraryInfo LLVM_ATTRIBUTE_WEAK llvmGetPassPluginInfo() {
