@@ -7,11 +7,13 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/Support/raw_ostream.h"
 
+#include "MAS.h"
+
 namespace {
 
     enum LEAF_TYPE {CONST, BASE_MEM_ADDR, FUNC_PARAM, DATA_DEP_VAR, FUNC_RET_VAL, LOOP_IND_VAR};
 
-	llvm::Value *getUD(llvm::Value *v);
+	MAS::p_MASNode getUD(MAS::p_MASNode node);
 
     struct MASPass : public llvm::PassInfoMixin<MASPass> {
 
@@ -26,7 +28,11 @@ namespace {
 
             // How to iterate over U-D chain
 
+			MAS::p_MAS curr_mas = new MAS::MAS;
+
             struct StoreVisitor : public llvm::InstVisitor<StoreVisitor> {
+				MAS::p_MAS curr_mas;
+
                 inline void visitStoreInst(llvm::StoreInst &I) {
                     // Now we can get the U-D chain
 
@@ -37,13 +43,19 @@ namespace {
                     //     llvm::errs() << *v << "\n";
                     // }
 
-					getUD(&I);
+					MAS::p_MASNode node = new MAS::MASNode;
+					node->v = &I;
+
+					curr_mas->roots.push_back(node);
+
+					getUD(node);
 
                     llvm::errs() << " ----------------------------------- \n";
                 }
             };
 
             StoreVisitor storeDepMaker;
+			storeDepMaker.curr_mas = curr_mas;
 
             storeDepMaker.visit(F);
 
@@ -53,20 +65,24 @@ namespace {
 
     };
 
-	llvm::Value *getUD(llvm::Value *v) {
+	MAS::p_MASNode getUD(MAS::p_MASNode node) {
+		llvm::Value *v = node->v;
 		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
 			int opcnt = 0;
 			for (llvm::Use &U : I->operands()) {
+				MAS::p_MASNode child = new MAS::MASNode;
+				child->v = U.get();
+				node->children.push_back(child);
 				llvm::errs() << "OPERAND " << opcnt << "\n";
 				llvm::Value *nv = U.get();
 				llvm::errs() << *nv << "\n";
-				getUD(nv);
+				getUD(child);
 				opcnt+=1;
 			}
 		}
 		else if (v != nullptr) {
 			llvm::errs() << "END OF UD WITH: " << *v << "\n";
-			return v;
+			return node;
 		}
 		return nullptr;
 	}
