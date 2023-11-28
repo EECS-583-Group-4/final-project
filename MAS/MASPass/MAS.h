@@ -22,6 +22,8 @@ namespace MAS {
 
         std::vector<MASNode *> getChildren();
 
+        MASNode *visitNodes(size_t depth);
+
     private:
         llvm::Value *value;
         std::vector<MASNode *> children;
@@ -30,10 +32,15 @@ namespace MAS {
 
     llvm::raw_ostream& operator<< (llvm::raw_ostream& os, const MASNode& obj);
 
+    class MAS {
+    public:
+        std::vector<MASNode *> getRoots();
+        void addRoot(MASNode *r);
+    private: 
+        std::vector<MASNode *> root_nodes;
+    };
 
-    typedef struct {
-        std::vector<MASNode *> roots;
-    } MAS, *p_MAS;
+    llvm::raw_ostream& operator<< (llvm::raw_ostream& os, const MAS& obj);
 
 } 
 

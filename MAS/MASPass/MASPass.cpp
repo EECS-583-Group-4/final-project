@@ -6,6 +6,7 @@
 #include "llvm/IR/InstVisitor.h"
 #include "llvm/IR/Instruction.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/IR/Attributes.h"
 
 #include "MAS.h"
 
@@ -26,10 +27,10 @@ namespace {
 
             // How to iterate over U-D chain
 
-			MAS::p_MAS curr_mas = new MAS::MAS;
+			MAS::MAS *curr_mas = new MAS::MAS();
 
             struct StoreVisitor : public llvm::InstVisitor<StoreVisitor> {
-				MAS::p_MAS curr_mas;
+				MAS::MAS *curr_mas;
 
                 inline void visitStoreInst(llvm::StoreInst &I) {
                     // Now we can get the U-D chain
@@ -43,7 +44,7 @@ namespace {
 
 					MAS::MASNode *node = new MAS::MASNode(&I);
 
-					curr_mas->roots.push_back(node);
+					curr_mas->addRoot(node);
 
 					getUD(node);
 
@@ -58,7 +59,7 @@ namespace {
 
 			llvm::errs() << "------ META ANALYSIS OF THE MAS ------\n";
 
-			for (MAS::MASNode *root : curr_mas->roots) {
+			for (MAS::MASNode *root : curr_mas->getRoots()) {
 				llvm::errs() << *(root->getValue()) << "\n";
 				for (MAS::MASNode *child : root->getChildren()) {
 					llvm::errs() <<  "    |" << *(child->getValue()) << "\n";
@@ -73,25 +74,34 @@ namespace {
 
 			llvm::errs() << "---------------------\n";
 
+			llvm::errs() << " -------- BIG TEST --------- \n";
+			for (MAS::MASNode *r : curr_mas->getRoots()) {
+				r->visitNodes(0);
+			}
+
 
             return llvm::PreservedAnalyses::all();
         }
 
     };
 
+	// NOTE THAT RIGHT NOW THIS IGNORES CALL INSTRUCTIONS BECAUSE WE 
+	// ARE JUST DOING INTRAPROCEDURAL ANALYSIS HERE
 	MAS::MASNode *getUD(MAS::MASNode *node) {
-		llvm::errs() << "GETTING UD FOR " << *node << "\n";
+		llvm::errs() << "TYPE = " << *(node->getValue()->getType()) << " GETTING UD FOR " << *node << "\n";
 		llvm::Value *v = node->getValue();
 		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
 			int opcnt = 0;
 			for (llvm::Use &U : I->operands()) {
-				MAS::MASNode *child = new MAS::MASNode(U.get());
-				node->addChild(child);
-				llvm::errs() << "OPERAND " << opcnt << "\n";
-				llvm::Value *nv = U.get();
-				llvm::errs() << *nv << "\n";
-				getUD(child);
-				opcnt+=1;
+				if (!llvm::isa<llvm::CallInst>(U)) {
+					MAS::MASNode *child = new MAS::MASNode(U.get());
+					node->addChild(child);
+					llvm::errs() << "OPERAND " << opcnt << "\n";
+					llvm::Value *nv = U.get();
+					llvm::errs() << *nv << "\n";
+					getUD(child);
+					opcnt+=1;
+				}
 			}
 
 			if (opcnt == 0) {
