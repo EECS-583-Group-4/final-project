@@ -11,7 +11,7 @@
 
 namespace {
 
-	MAS::p_MASNode getUD(MAS::p_MASNode node);
+	MAS::MASNode *getUD(MAS::MASNode *node);
 
     struct MASPass : public llvm::PassInfoMixin<MASPass> {
 
@@ -41,8 +41,7 @@ namespace {
                     //     llvm::errs() << *v << "\n";
                     // }
 
-					MAS::p_MASNode node = new MAS::MASNode;
-					node->v = &I;
+					MAS::MASNode *node = new MAS::MASNode(&I);
 
 					curr_mas->roots.push_back(node);
 
@@ -59,15 +58,15 @@ namespace {
 
 			llvm::errs() << "------ META ANALYSIS OF THE MAS ------\n";
 
-			for (MAS::p_MASNode root : curr_mas->roots) {
-				llvm::errs() << *(root->v) << "\n";
-				for (MAS::p_MASNode child : root->children) {
-					llvm::errs() <<  "    |" << *(child->v) << "\n";
-					if (child->label != MAS::UNSET) {
-						llvm::errs() << "    | I AM A LEAF NODE OF TYPE = " << child->label << "\n";
+			for (MAS::MASNode *root : curr_mas->roots) {
+				llvm::errs() << *(root->getValue()) << "\n";
+				for (MAS::MASNode *child : root->getChildren()) {
+					llvm::errs() <<  "    |" << *(child->getValue()) << "\n";
+					if (child->getLabel() != MAS::UNSET) {
+						llvm::errs() << "    | I AM A LEAF NODE OF TYPE = " << child->getLabel() << "\n";
 					}
-					for (MAS::p_MASNode child2 : child->children) {
-						llvm::errs() <<  "    |    |" << *(child2->v) << "\n";
+					for (MAS::MASNode *child2 : child->getChildren()) {
+						llvm::errs() <<  "    |    |" << *(child2->getValue()) << "\n";
 					}
 				}
 			}
@@ -80,14 +79,14 @@ namespace {
 
     };
 
-	MAS::p_MASNode getUD(MAS::p_MASNode node) {
-		llvm::Value *v = node->v;
+	MAS::MASNode *getUD(MAS::MASNode *node) {
+		llvm::errs() << "GETTING UD FOR " << *node << "\n";
+		llvm::Value *v = node->getValue();
 		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
 			int opcnt = 0;
 			for (llvm::Use &U : I->operands()) {
-				MAS::p_MASNode child = new MAS::MASNode;
-				child->v = U.get();
-				node->children.push_back(child);
+				MAS::MASNode *child = new MAS::MASNode(U.get());
+				node->addChild(child);
 				llvm::errs() << "OPERAND " << opcnt << "\n";
 				llvm::Value *nv = U.get();
 				llvm::errs() << *nv << "\n";
@@ -104,7 +103,7 @@ namespace {
 
 			// Categorize leaf node 
 			if (llvm::isa<llvm::Constant>(v)) {
-				node->label = MAS::CONST;
+				node->setLabel(MAS::CONST);
 			}
 			return node;
 		}

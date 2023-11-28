@@ -203,6 +203,30 @@ install-MASPass-stripped/fast:
 	cd /home/ivris/583-project/final-project/MAS && $(MAKE) $(MAKESILENT) -f MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make MASPass/CMakeFiles/install-MASPass-stripped.dir/build
 .PHONY : install-MASPass-stripped/fast
 
+MAS.o: MAS.cpp.o
+.PHONY : MAS.o
+
+# target to build an object file
+MAS.cpp.o:
+	cd /home/ivris/583-project/final-project/MAS && $(MAKE) $(MAKESILENT) -f MASPass/CMakeFiles/MASPass.dir/build.make MASPass/CMakeFiles/MASPass.dir/MAS.cpp.o
+.PHONY : MAS.cpp.o
+
+MAS.i: MAS.cpp.i
+.PHONY : MAS.i
+
+# target to preprocess a source file
+MAS.cpp.i:
+	cd /home/ivris/583-project/final-project/MAS && $(MAKE) $(MAKESILENT) -f MASPass/CMakeFiles/MASPass.dir/build.make MASPass/CMakeFiles/MASPass.dir/MAS.cpp.i
+.PHONY : MAS.cpp.i
+
+MAS.s: MAS.cpp.s
+.PHONY : MAS.s
+
+# target to generate assembly for a file
+MAS.cpp.s:
+	cd /home/ivris/583-project/final-project/MAS && $(MAKE) $(MAKESILENT) -f MASPass/CMakeFiles/MASPass.dir/build.make MASPass/CMakeFiles/MASPass.dir/MAS.cpp.s
+.PHONY : MAS.cpp.s
+
 MASPass.o: MASPass.cpp.o
 .PHONY : MASPass.o
 
@@ -242,6 +266,9 @@ help:
 	@echo "... install-MASPass"
 	@echo "... install-MASPass-stripped"
 	@echo "... MASPass"
+	@echo "... MAS.o"
+	@echo "... MAS.i"
+	@echo "... MAS.s"
 	@echo "... MASPass.o"
 	@echo "... MASPass.i"
 	@echo "... MASPass.s"
