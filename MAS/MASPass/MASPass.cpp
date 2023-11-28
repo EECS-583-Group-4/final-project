@@ -7,9 +7,11 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/Support/raw_ostream.h"
 
+#include "MAS.h"
+
 namespace {
 
-    enum LEAF_TYPE {CONST, BASE_MEM_ADDR, FUNC_PARAM, DATA_DEP_VAR, FUNC_RET_VAL, LOOP_IND_VAR};
+	MAS::MASNode *getUD(MAS::MASNode *node);
 
     struct MASPass : public llvm::PassInfoMixin<MASPass> {
 
@@ -24,30 +26,89 @@ namespace {
 
             // How to iterate over U-D chain
 
+			MAS::p_MAS curr_mas = new MAS::MAS;
+
             struct StoreVisitor : public llvm::InstVisitor<StoreVisitor> {
+				MAS::p_MAS curr_mas;
+
                 inline void visitStoreInst(llvm::StoreInst &I) {
                     // Now we can get the U-D chain
 
                     llvm::errs() << "U-D CHAIN FOR: " << I << "\n";
 
-                    for (llvm::Use &U : I.operands()) {
-                        llvm::Value *v = U.get();
-                        llvm::errs() << *v << "\n";
-                    }
+                    // for (llvm::Use &U : I.operands()) {
+                    //     llvm::Value *v = U.get();
+                    //     llvm::errs() << *v << "\n";
+                    // }
 
-                    llvm::errs() << " ----------------------------------- \n";
+					MAS::MASNode *node = new MAS::MASNode(&I);
+
+					curr_mas->roots.push_back(node);
+
+					getUD(node);
+
+                    llvm::errs() << " -----------------------------------\n";
                 }
             };
 
             StoreVisitor storeDepMaker;
+			storeDepMaker.curr_mas = curr_mas;
 
             storeDepMaker.visit(F);
+
+			llvm::errs() << "------ META ANALYSIS OF THE MAS ------\n";
+
+			for (MAS::MASNode *root : curr_mas->roots) {
+				llvm::errs() << *(root->getValue()) << "\n";
+				for (MAS::MASNode *child : root->getChildren()) {
+					llvm::errs() <<  "    |" << *(child->getValue()) << "\n";
+					if (child->getLabel() != MAS::UNSET) {
+						llvm::errs() << "    | I AM A LEAF NODE OF TYPE = " << child->getLabel() << "\n";
+					}
+					for (MAS::MASNode *child2 : child->getChildren()) {
+						llvm::errs() <<  "    |    |" << *(child2->getValue()) << "\n";
+					}
+				}
+			}
+
+			llvm::errs() << "---------------------\n";
 
 
             return llvm::PreservedAnalyses::all();
         }
 
     };
+
+	MAS::MASNode *getUD(MAS::MASNode *node) {
+		llvm::errs() << "GETTING UD FOR " << *node << "\n";
+		llvm::Value *v = node->getValue();
+		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
+			int opcnt = 0;
+			for (llvm::Use &U : I->operands()) {
+				MAS::MASNode *child = new MAS::MASNode(U.get());
+				node->addChild(child);
+				llvm::errs() << "OPERAND " << opcnt << "\n";
+				llvm::Value *nv = U.get();
+				llvm::errs() << *nv << "\n";
+				getUD(child);
+				opcnt+=1;
+			}
+
+			if (opcnt == 0) {
+				// Categorize leaf node
+			}
+		}
+		else if (v != nullptr) {
+			llvm::errs() << "END OF UD WITH: " << *v << "\n";
+
+			// Categorize leaf node 
+			if (llvm::isa<llvm::Constant>(v)) {
+				node->setLabel(MAS::CONST);
+			}
+			return node;
+		}
+		return nullptr;
+	}
 }
 
 extern "C" ::llvm::PassPluginLibraryInfo LLVM_ATTRIBUTE_WEAK llvmGetPassPluginInfo() {

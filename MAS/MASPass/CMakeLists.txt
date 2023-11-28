@@ -1,1 +1,1 @@
-add_llvm_pass_plugin(MASPass MASPass.cpp)
+add_llvm_pass_plugin(MASPass MASPass.cpp MAS.cpp)
