@@ -9,3 +9,10 @@ clang -emit-llvm -S ${test_name}.c -Xclang -disable-O0-optnone -o ${test_name}.l
 
 # Run the pass
 opt -disable-output -load-pass-plugin=./build/NaivePass/NaivePass.so -passes="func-name" ${test_name}.ll
+
+# Generate binary executable
+clang ${test_name}.ll -o ${test_name}_NaivePass
+
+# # Run the executable
+./${test_name}_NaivePass > ${test_name}_NaivePass_output
+

@@ -4,12 +4,32 @@
 #include "llvm/Support/raw_ostream.h"
 
 #include <iostream>
+#include <string>
 
 using namespace llvm;
 
 namespace {
 
 struct NaivePass : public PassInfoMixin<NaivePass> {
+
+    void insertPrint(Instruction & I, Module * module){
+        LLVMContext &context = module->getContext();
+        IRBuilder<> builder(context);
+
+        Type *intType = Type::getInt32Ty(context);
+
+        // Declare C standard library printf 
+        std::vector<Type *> printfArgsTypes({Type::getInt8PtrTy(context)});
+        FunctionType *printfType = FunctionType::get(intType, printfArgsTypes, true);
+        FunctionCallee printfFunc = module->getOrInsertFunction("printf", printfType);
+
+        // The format string for the printf function, declared as a global literal
+        //Value *str = builder.CreateGlobalStringPtr(StringRef("Out of bounds access detected\n"));
+        // Value* str = ("Out of bounds access detected\n");
+        // std::vector<Value *> argsV({str});
+        // CallInst * newPrint = CallInst::Create(printfFunc, argsV);
+        // I.insertAfter(newPrint);
+    }
 
     PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM) {
         // References:
@@ -51,15 +71,31 @@ struct NaivePass : public PassInfoMixin<NaivePass> {
                     errs() << "\n";
 
                     Value *cur_ptr = GEP->getPointerOperand();
+                    
+                    Type * eleType = GEP->getSourceElementType();
+                    uint64_t numElements = 0;
+                    if (isa<ArrayType>(eleType)) {
+                        ArrayType *arrTy = cast<ArrayType>(eleType);
+                        numElements = arrTy->getNumElements();
 
+                        errs() << "Array size: " << numElements << "\n";
+                    }
+                    
                     // Print the indices being used to access the pointer
                     errs() << "Indices being used to access the pointer:\n";
                     for (auto &Index : GEP->indices()) {
                         Index->print(errs());
+
+                        // Insert instructions to ensure cur_index is in bounds of cur_type
+
+                        // If there is an out of bounds error, add instruction to print the error
+                        // if () {
+                            insertPrint(I, F.getParent());
+                        // }
+
                         errs() << "\n";
                     }
-
-                    // TODO: Insert instructions to check if current operand is in bounds based on current type
+                    
                     
                     errs() << "--------------\n";
                 }
