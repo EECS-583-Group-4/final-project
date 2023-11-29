@@ -89,21 +89,45 @@ namespace {
 		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
 			int opcnt = 0;
 			for (llvm::Use &U : I->operands()) {
-				if (!llvm::isa<llvm::CallInst>(U)) {
-					MAS::MASNode *child = new MAS::MASNode(U.get());
-					node->addChild(child);
-					// llvm::errs() << "OPERAND " << opcnt << "\n";
-					llvm::Value *nv = U.get();
-					// llvm::errs() << *nv << "\n";
+
+				// Need to restructure this to instead be
+				// if U.isElementOf(TYPES) then stop
+
+				MAS::MASNode *child = new MAS::MASNode(U.get());
+				node->addChild(child);
+				
+				if (categorizeNode(child) == MAS::UNSET) {
 					getUD(child);
 					opcnt+=1;
 				}
+				else {
+					switch (child->getLabel()) {
+						case MAS::CONST:
+						break;
+						default:
+						break;
+					}
+				}
+
+				// if (!llvm::isa<llvm::CallInst>(U)) {
+				// 	MAS::MASNode *child = new MAS::MASNode(U.get());
+				// 	node->addChild(child);
+
+				// 	if (llvm::isa<llvm::AllocaInst>(child->getValue())) {
+				// 		categorizeNode(child);
+				// 	}
+				// 	// llvm::errs() << "OPERAND " << opcnt << "\n";
+				// 	llvm::Value *nv = U.get();
+				// 	// llvm::errs() << *nv << "\n";
+				// 	getUD(child);
+				// 	opcnt+=1;
+				// }
 			}
 
-			if (opcnt == 0) {
-				// Categorize leaf node
-				categorizeNode(node);
-			}
+			// if (opcnt == 0) {
+			// 	// Categorize leaf node
+			// 	categorizeNode(node);
+			// }
 		}
 		else if (v != nullptr) {
 			// llvm::errs() << "END OF UD WITH: " << *v << "\n";
@@ -127,9 +151,17 @@ namespace {
 			llvm::errs() << "TYPE OF LEAF IS = BASE_MEM_ADDR \n"; 
 			node->setLabel(MAS::BASE_MEM_ADDR);
 		}
-		else {
-			llvm::errs() << "TYPE OF LEAF IS = " << *(node->getValue()->getType()) << "\n"; 
+		else if (llvm::isa<llvm::CallInst>(node->getValue())) {
+			llvm::errs() << "TYPE FO LEAF IS = FUNC_RET_VAL \n";
+			node->setLabel(MAS::FUNC_RET_VAL);
 		}
+		else {
+			llvm::errs() << "NOW CATEGORIZING " << *node << "\n";
+			llvm::errs() << "TYPE OF LEAF IS = " << *(node->getValue()->getType()) << "\n"; 
+			node->setLabel(MAS::UNSET);
+		}
+
+		return node->getLabel();
 	}
 }
 

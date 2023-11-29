@@ -1,5 +1,8 @@
 #include "MAS.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/IR/Instruction.h"
+#include "llvm/IR/Instructions.h"
+#include "llvm/IR/Value.h"
 
 namespace MAS {
 
@@ -27,7 +30,14 @@ namespace MAS {
             for (int i = 0; i < depth; i++) {
                 llvm::errs() << "    |";
             }
-            llvm::errs() << *this << "\n";
+            if (this->getLabel() == FUNC_RET_VAL){
+                llvm::CallInst *c = llvm::dyn_cast<llvm::CallInst>(this->getValue());
+                this->getValue()->printAsOperand(llvm::errs());
+                llvm::errs() << " = Return Val of " << c->getCalledFunction()->getName() << "\n";
+            }
+            else {
+                llvm::errs() << *this << "\n";
+            }
             for (MASNode *c : children) {
                 c->visitNodes(depth+1);
             }
