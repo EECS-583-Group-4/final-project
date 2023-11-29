@@ -53,24 +53,7 @@ namespace {
 
             storeDepMaker.visit(F);
 
-			// llvm::errs() << "------ META ANALYSIS OF THE MAS ------\n";
-
-			// for (MAS::MASNode *root : curr_mas->getRoots()) {
-			// 	llvm::errs() << *(root->getValue()) << "\n";
-			// 	for (MAS::MASNode *child : root->getChildren()) {
-			// 		llvm::errs() <<  "    |" << *(child->getValue()) << "\n";
-			// 		if (child->getLabel() != MAS::UNSET) {
-			// 			llvm::errs() << "    | I AM A LEAF NODE OF TYPE = " << child->getLabel() << "\n";
-			// 		}
-			// 		for (MAS::MASNode *child2 : child->getChildren()) {
-			// 			llvm::errs() <<  "    |    |" << *(child2->getValue()) << "\n";
-			// 		}
-			// 	}
-			// }
-
-			// llvm::errs() << "---------------------\n";
-
-			llvm::errs() << "========== MAS FOR FUNCTION = " << F.getName() << " ===========\n";
+			llvm::errs() << "\n========== MAS FOR FUNCTION = " << F.getName() << " ===========\n";
 			for (MAS::MASNode *r : curr_mas->getRoots()) {
 				r->visitNodes(0);
 			}
@@ -81,54 +64,26 @@ namespace {
 
     };
 
-	// NOTE THAT RIGHT NOW THIS IGNORES CALL INSTRUCTIONS BECAUSE WE 
-	// ARE JUST DOING INTRAPROCEDURAL ANALYSIS HERE
+	// This essentially implements the WorkList Algorithm outlined in the Spindle Paper
 	MAS::MASNode *getUD(MAS::MASNode *node) {
-		// llvm::errs() << "TYPE = " << *(node->getValue()->getType()) << " GETTING UD FOR " << *node << "\n";
 		llvm::Value *v = node->getValue();
 		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
-			int opcnt = 0;
+			//int opcnt = 0;
 			for (llvm::Use &U : I->operands()) {
-
-				// Need to restructure this to instead be
-				// if U.isElementOf(TYPES) then stop
-
 				MAS::MASNode *child = new MAS::MASNode(U.get());
 				node->addChild(child);
 				
 				if (categorizeNode(child) == MAS::UNSET) {
 					getUD(child);
-					opcnt+=1;
+					//opcnt+=1;
 				}
 				else {
-					switch (child->getLabel()) {
-						case MAS::CONST:
-						break;
-						default:
-						break;
-					}
+					// If we wanted to add a property to nodes to specificly mark them
+					// as leaf nodes when they are, this is where we would set that
 				}
-
-				// if (!llvm::isa<llvm::CallInst>(U)) {
-				// 	MAS::MASNode *child = new MAS::MASNode(U.get());
-				// 	node->addChild(child);
-
-				// 	if (llvm::isa<llvm::AllocaInst>(child->getValue())) {
-				// 		categorizeNode(child);
-				// 	}
-				// 	// llvm::errs() << "OPERAND " << opcnt << "\n";
-				// 	llvm::Value *nv = U.get();
-				// 	// llvm::errs() << *nv << "\n";
-				// 	getUD(child);
-				// 	opcnt+=1;
-				// }
 			}
-
-			// if (opcnt == 0) {
-			// 	// Categorize leaf node
-			// 	categorizeNode(node);
-			// }
 		}
+		// Not sure we need this anymore
 		else if (v != nullptr) {
 			// llvm::errs() << "END OF UD WITH: " << *v << "\n";
 
@@ -139,25 +94,31 @@ namespace {
 			categorizeNode(node);
 			return node;
 		}
+		// Definitely still want this though
 		return nullptr;
 	}
 
+	// This function handles the logic of how to categorize a given node. 
+	// For the most part it seems like we can do this based on the instruction type,
+	// but the issue is for stuff like DATA_DEP_VAR, where it's not so clear.
+	// We are mostly concerned with computable types for the moment for the project though, 
+	// so categorizing these other types may not be as necessary yet 
 	MAS::LEAF_TYPE categorizeNode(MAS::MASNode *node) {
 		if (llvm::isa<llvm::Constant>(node->getValue())) {
-			llvm::errs() << "TYPE OF LEAF IS = CONST \n"; 
+			// llvm::errs() << "TYPE OF LEAF IS = CONST \n"; 
 			node->setLabel(MAS::CONST);
 		}
 		else if (llvm::isa<llvm::AllocaInst>(node->getValue())) {
-			llvm::errs() << "TYPE OF LEAF IS = BASE_MEM_ADDR \n"; 
+			// llvm::errs() << "TYPE OF LEAF IS = BASE_MEM_ADDR \n"; 
 			node->setLabel(MAS::BASE_MEM_ADDR);
 		}
 		else if (llvm::isa<llvm::CallInst>(node->getValue())) {
-			llvm::errs() << "TYPE FO LEAF IS = FUNC_RET_VAL \n";
+			// llvm::errs() << "TYPE FO LEAF IS = FUNC_RET_VAL \n";
 			node->setLabel(MAS::FUNC_RET_VAL);
 		}
 		else {
-			llvm::errs() << "NOW CATEGORIZING " << *node << "\n";
-			llvm::errs() << "TYPE OF LEAF IS = " << *(node->getValue()->getType()) << "\n"; 
+			// llvm::errs() << "NOW CATEGORIZING " << *node << "\n";
+			// llvm::errs() << "TYPE OF LEAF IS = " << *(node->getValue()->getType()) << "\n"; 
 			node->setLabel(MAS::UNSET);
 		}
 

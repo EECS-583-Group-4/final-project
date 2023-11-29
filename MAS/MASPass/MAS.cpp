@@ -26,29 +26,34 @@ namespace MAS {
 
     MASNode *MASNode::visitNodes(size_t depth) {
         if (this != nullptr) {
-            //llvm::errs() << "DEPTH = " << depth;
             for (int i = 0; i < depth; i++) {
                 llvm::errs() << "    |";
             }
-            if (this->getLabel() == FUNC_RET_VAL){
-                llvm::CallInst *c = llvm::dyn_cast<llvm::CallInst>(this->getValue());
-                this->getValue()->printAsOperand(llvm::errs());
-                llvm::errs() << " = Return Val of " << c->getCalledFunction()->getName() << "\n";
-            }
-            else {
-                llvm::errs() << *this << "\n";
-            }
+            llvm::errs() << *this << "\n";
             for (MASNode *c : children) {
                 c->visitNodes(depth+1);
             }
         }
-        //llvm::errs() << "\n";
         return nullptr;
     }
 
     llvm::raw_ostream& operator<< (llvm::raw_ostream& os, const MASNode& obj) {
         
-        os << *(obj.getValue());
+        if (llvm::isa<llvm::Instruction>(obj.getValue())) {
+            if (llvm::isa<llvm::CallInst>(obj.getValue())) {
+                llvm::CallInst *c = llvm::dyn_cast<llvm::CallInst>(obj.getValue());
+                os << "  ";
+                obj.getValue()->printAsOperand(os);
+                os << " = Return Val of " << c->getCalledFunction()->getName();
+            }
+            else {
+                os << *(obj.getValue());
+            }
+        }
+        else {
+            os << "  ";
+            obj.getValue()->printAsOperand(os);
+        }
 
         return os;
     }
@@ -57,10 +62,6 @@ namespace MAS {
 
     void MAS::addRoot(MASNode *r) {
         root_nodes.push_back(r);
-    }
-
-    llvm::raw_ostream& operator<< (llvm::raw_ostream& os, const MAS& obj) {
-
     }
     
 
