@@ -6,6 +6,8 @@
 
 namespace MAS {
 
+    const char* READ_LEAF_TYPE[] = {"CONST", "BASE_MEM_ADDR", "FUNC_PARAM", "DATA_DEP_VAR", "FUNC_RET_VAL", "LOOP_IND_VAR", "UNSET"};
+
     MASNode::MASNode(llvm::Value *v) {
         value = v;
     }
@@ -54,6 +56,8 @@ namespace MAS {
             os << "  ";
             obj.getValue()->printAsOperand(os);
         }
+
+        os << " (" << READ_LEAF_TYPE[obj.getLabel()] << ")";
 
         return os;
     }

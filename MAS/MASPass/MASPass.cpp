@@ -1,5 +1,7 @@
 // This pass only performs the intraprocedural analysis of Spindle
 
+#include "MAS.h"
+
 #include "llvm/IR/PassManager.h"
 #include "llvm/Passes/PassBuilder.h"
 #include "llvm/Passes/PassPlugin.h"
@@ -7,8 +9,6 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/IR/Attributes.h"
-
-#include "MAS.h"
 
 namespace {
 
@@ -33,7 +33,7 @@ namespace {
             struct StoreVisitor : public llvm::InstVisitor<StoreVisitor> {
 				MAS::MAS *curr_mas;
 
-                inline void visitStoreInst(llvm::StoreInst &I) {
+                inline void visitLoadInst(llvm::LoadInst &I) {
                     // Now we can get the U-D chain
 
                     // llvm::errs() << "U-D CHAIN FOR: " << I << "\n";
