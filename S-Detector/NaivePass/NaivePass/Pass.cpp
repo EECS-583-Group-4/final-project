@@ -16,12 +16,8 @@ namespace
     struct NaivePass : public PassInfoMixin<NaivePass>
     {
 
-        void insertPrint(Instruction &I, Function &F)
+        void insertPrint(IRBuilder<> &builder, LLVMContext &context, Module *module)
         {
-            Module *module = F.getParent();
-            LLVMContext &context = module->getContext();
-            IRBuilder<> builder(&I);
-
             Type *intType = Type::getInt32Ty(context);
 
             // Declare C standard library printf
@@ -35,44 +31,58 @@ namespace
             CallInst *call = builder.CreateCall(printfFunc, argsV);
         }
 
-        BasicBlock *insertIfBlock(GetElementPtrInst *GEP, BasicBlock &BB, Function &F)
+        void insertIfBlock(GetElementPtrInst *GEP, Function &F)
         {
             Module *module = F.getParent();
             LLVMContext &context = module->getContext();
-            IRBuilder<> builder(&BB);
+            BasicBlock *BB = GEP->getParent();
+            IRBuilder<> builder(BB);
+            BasicBlock *mergeBlock = BB->splitBasicBlock(GEP, "split", false);
+
+            BasicBlock *ifBlock = BasicBlock::Create(context, "ifBlock", &F);
+            BB->getTerminator()->eraseFromParent();
+
             AllocaInst *variable = builder.CreateAlloca(Type::getInt32Ty(context), nullptr, "myVariable");
             builder.CreateStore(ConstantInt::get(Type::getInt32Ty(context), 42), variable);
-            GEP->getPointerOperand()->getType()->print(errs());
-            errs() << " gep\n";
-            ConstantInt::get(GEP->getPointerOperand()->getType(), 42)->getType()->print(errs());
-            errs() << " c\n";
             Value *condition = builder.CreateICmpEQ(GEP->getPointerOperand(), ConstantPointerNull::get(dyn_cast<PointerType>(GEP->getPointerOperand()->getType())));
-            BasicBlock *ifBlock = BasicBlock::Create(context, "ifBlock", &F);
-            BasicBlock *mergeBlock = BB.splitBasicBlock(GEP);
-
             builder.CreateCondBr(condition, ifBlock, mergeBlock);
 
             builder.SetInsertPoint(ifBlock);
 
+            insertPrint(builder, context, module);
             builder.CreateBr(mergeBlock);
-
-            builder.SetInsertPoint(mergeBlock);
-            return ifBlock;
         }
 
         PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM)
         {
-
+            std::vector<GetElementPtrInst *> arrays;
             for (auto &BB : F)
             {
                 for (auto &I : BB)
                 {
                     if (auto *GEP = dyn_cast<GetElementPtrInst>(&I))
                     {
-                        insertIfBlock(GEP, BB, F);
-                        return PreservedAnalyses::all();
+                        Type *eleType = GEP->getSourceElementType();
+                        if (isa<ArrayType>(eleType))
+                        {
+                            errs() << *GEP << "\n";
+                            errs() << "Type of data structure being accessed:\n";
+                            GEP->getSourceElementType()->print(errs());
+                            errs() << "\n";
+                            errs() << "Pointer being accessed:\n";
+                            GEP->getPointerOperand()->getType()->print(errs());
+                            ArrayType *arrTy = cast<ArrayType>(eleType);
+                            uint64_t numElements = arrTy->getNumElements();
+                            errs() << "\n";
+                            arrays.push_back(GEP);
+                        }
                     }
                 }
+            }
+
+            for (auto &GEP : arrays)
+            {
+                insertIfBlock(GEP, F);
             }
 
             return PreservedAnalyses::all();
