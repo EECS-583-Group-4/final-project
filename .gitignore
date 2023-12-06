@@ -1,3 +1,11 @@
 MAS/CMakeFiles/
 MAS/CMakeCache.txt
 MAS/MASPass/CMakeFiles/
+default.profraw 
+*_prof 
+*_optim 
+*.bc 
+*.profdata 
+*_output 
+*.ll 
+*_NaivePass
