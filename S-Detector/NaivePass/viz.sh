@@ -1,5 +1,5 @@
 #!/bin/bash
-# Usage: viz.sh hw2correctN or vis.sh hw2correctN.optim [TYPE]
+# Usage: viz.sh testcase or vis.sh testcase.optim [TYPE]
 # TYPE should be one of: cfg, cfg-only, dom, dom-only, postdom, postdom-only.
 # Default type is cfg.
 
@@ -43,7 +43,9 @@ if [ $VIZ_TYPE = "cfg" ]; then
 else
   DOT_FILES=$(ls *.dot)
 fi
-cat $DOT_FILES | dot -Tpdf > $OUTPUT_DIR/$BENCH.$VIZ_TYPE.pdf
+for f in .*.dot; do
+  cat $f | dot -Tpdf > $OUTPUT_DIR/$BENCH.$f.$VIZ_TYPE.pdf
+done
 echo "Created $BENCH.$VIZ_TYPE.pdf"
 
 rm -rf $TMP_DIR

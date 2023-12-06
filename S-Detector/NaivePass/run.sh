@@ -1,7 +1,5 @@
 #!/bin/bash
-# Run script for Homework 2 EECS 583 Fall 2023
-# Place this script in the benchmarks folder and run it using the name of the file (without the file type)
-# e.g. sh run.sh hw2correct1
+# e.g. sh run.sh testcase
 
 # ACTION NEEDED: If the path is different, please update it here.
 PATH2LIB="/home/leshlu/final-project/S-Detector/NaivePass/build/NaivePass/NaivePass.so"        # Specify your build directory in the project

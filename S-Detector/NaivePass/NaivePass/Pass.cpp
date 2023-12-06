@@ -16,8 +16,9 @@ namespace
     struct NaivePass : public PassInfoMixin<NaivePass>
     {
 
-        void insertPrint(Instruction &I, Module *module)
+        void insertPrint(Instruction &I, Function &F)
         {
+            Module *module = F.getParent();
             LLVMContext &context = module->getContext();
             IRBuilder<> builder(&I);
 
@@ -34,6 +35,31 @@ namespace
             CallInst *call = builder.CreateCall(printfFunc, argsV);
         }
 
+        BasicBlock *insertIfBlock(GetElementPtrInst *GEP, BasicBlock &BB, Function &F)
+        {
+            Module *module = F.getParent();
+            LLVMContext &context = module->getContext();
+            IRBuilder<> builder(&BB);
+            AllocaInst *variable = builder.CreateAlloca(Type::getInt32Ty(context), nullptr, "myVariable");
+            builder.CreateStore(ConstantInt::get(Type::getInt32Ty(context), 42), variable);
+            GEP->getPointerOperand()->getType()->print(errs());
+            errs() << " gep\n";
+            ConstantInt::get(GEP->getPointerOperand()->getType(), 42)->getType()->print(errs());
+            errs() << " c\n";
+            Value *condition = builder.CreateICmpEQ(GEP->getPointerOperand(), ConstantPointerNull::get(dyn_cast<PointerType>(GEP->getPointerOperand()->getType())));
+            BasicBlock *ifBlock = BasicBlock::Create(context, "ifBlock", &F);
+            BasicBlock *mergeBlock = BB.splitBasicBlock(GEP);
+
+            builder.CreateCondBr(condition, ifBlock, mergeBlock);
+
+            builder.SetInsertPoint(ifBlock);
+
+            builder.CreateBr(mergeBlock);
+
+            builder.SetInsertPoint(mergeBlock);
+            return ifBlock;
+        }
+
         PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM)
         {
 
@@ -43,33 +69,8 @@ namespace
                 {
                     if (auto *GEP = dyn_cast<GetElementPtrInst>(&I))
                     {
-                        Value *cur_ptr = GEP->getPointerOperand();
-                        /*
-                                                // Print the indices being used to access the pointer
-                                                errs() << "Indices being used to access the pointer:\n";
-                                                for (auto &Index : GEP->indices())
-                                                {
-                                                    Type *eleType = Index.getSourceElementType();
-                                                    uint64_t numElements = 0;
-                                                    if (isa<ArrayType>(eleType))
-                                                    {
-                                                        ArrayType *arrTy = cast<ArrayType>(eleType);
-                                                        numElements = arrTy->getNumElements();
-
-                                                        errs() << "Array size: " << numElements << "\n";
-                                                    }
-
-                                                    // Insert instructions to ensure cur_index is in bounds of cur_type
-
-                                                    // If there is an out of bounds error, add instruction to print the error
-                                                    // if () {
-                                                    insertPrint(I, F.getParent());
-                                                    // }
-
-                                                    errs() << "\n";
-                                                }
-                                                */
-                        insertPrint(I, F.getParent());
+                        insertIfBlock(GEP, BB, F);
+                        return PreservedAnalyses::all();
                     }
                 }
             }
