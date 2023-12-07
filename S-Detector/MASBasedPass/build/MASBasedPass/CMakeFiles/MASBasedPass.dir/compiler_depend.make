@@ -470,6 +470,11 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
   /usr/local/include/llvm/Transforms/Utils/ValueMapper.h \
   /usr/local/include/llvm/Passes/PassPlugin.h \
   /usr/local/include/llvm/Support/DynamicLibrary.h \
+  /usr/local/include/llvm/Transforms/Scalar/EarlyCSE.h \
+  /usr/local/include/llvm/Transforms/Scalar/DCE.h \
+  /usr/local/include/llvm/Transforms/InstCombine/InstCombine.h \
+  /usr/local/include/llvm/Transforms/Utils/InstructionWorklist.h \
+  /usr/local/include/llvm/Transforms/Scalar/NewGVN.h \
   /usr/include/c++/11/iostream \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/ios \
@@ -498,6 +503,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /usr/include/c++/11/ostream:
+
+/usr/local/include/llvm/Transforms/InstCombine/InstCombine.h:
 
 /usr/local/include/llvm/Support/DynamicLibrary.h:
 
@@ -532,6 +539,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/local/include/llvm/IR/Operator.h:
 
 /usr/local/include/llvm/IR/IRBuilderFolder.h:
+
+/usr/local/include/llvm/Transforms/Scalar/DCE.h:
 
 /usr/local/include/llvm/Support/Discriminator.h:
 
@@ -1049,6 +1058,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
+/usr/local/include/llvm/Transforms/Utils/InstructionWorklist.h:
+
 /usr/include/c++/11/ext/type_traits.h:
 
 /usr/include/c++/11/pstl/glue_memory_defs.h:
@@ -1066,6 +1077,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/include/c++/11/debug/debug.h:
 
 /usr/include/features-time64.h:
+
+/usr/local/include/llvm/Transforms/Scalar/EarlyCSE.h:
 
 /usr/local/include/llvm/Support/TrailingObjects.h:
 
@@ -1446,6 +1459,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/local/include/llvm/ADT/identity.h:
 
 /usr/local/include/llvm/Support/SwapByteOrder.h:
+
+/usr/local/include/llvm/Transforms/Scalar/NewGVN.h:
 
 /usr/include/c++/11/bits/stl_map.h:
 

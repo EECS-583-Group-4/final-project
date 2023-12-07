@@ -9,5 +9,6 @@ default.profraw
 *_output 
 *.ll 
 *_NaivePass
+*_MASBasedPass
 .vscode/
 Spindle/

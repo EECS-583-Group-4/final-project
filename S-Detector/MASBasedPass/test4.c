@@ -15,7 +15,7 @@ struct test_struct {
 
 void test_func() {
     // Allocate memory for new array
-    struct test_struct* new = malloc(sizeof(struct test_struct) * 100);
+    struct test_struct new[100];
     int pos = 1;
     int red_cost = 0;
     int* tail = new[pos-1].tail;
@@ -30,8 +30,6 @@ void test_func() {
         // Four more accesses to struct members
         // of new[pos-1].
     }
-
-    free(new);
 
     return;
 }
