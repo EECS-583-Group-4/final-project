@@ -1,4 +1,4 @@
-# Install script for directory: /home/rlhou/EECS583Project/final-project/S-Detector/NaivePass/NaivePass
+# Install script for directory: /home/leshlu/final-project/S-Detector/NaivePass/NaivePass
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -49,7 +49,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xNaivePassx" OR NOT CMAKE_INSTALL_CO
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/NaivePass.so"
          RPATH "\$ORIGIN/../lib")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE MODULE FILES "/home/rlhou/EECS583Project/final-project/S-Detector/NaivePass/build/NaivePass/NaivePass.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE MODULE FILES "/home/leshlu/final-project/S-Detector/NaivePass/build/NaivePass/NaivePass.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/NaivePass.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/NaivePass.so")
     file(RPATH_CHANGE

@@ -1,4 +1,4 @@
-# Install script for directory: /home/rlhou/EECS583Project/final-project/S-Detector/NaivePass
+# Install script for directory: /home/leshlu/final-project/S-Detector/NaivePass
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/rlhou/EECS583Project/final-project/S-Detector/NaivePass/build/NaivePass/cmake_install.cmake")
+  include("/home/leshlu/final-project/S-Detector/NaivePass/build/NaivePass/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/rlhou/EECS583Project/final-project/S-Detector/NaivePass/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/leshlu/final-project/S-Detector/NaivePass/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
