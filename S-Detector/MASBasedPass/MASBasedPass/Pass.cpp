@@ -13,7 +13,7 @@ using namespace llvm;
 namespace
 {
 
-    struct NaivePass : public PassInfoMixin<NaivePass>
+    struct MASBasedPass : public PassInfoMixin<MASBasedPass>
     {
 
         void insertPrint(IRBuilder<> &builder, LLVMContext &context, Module *module)
@@ -133,16 +133,16 @@ namespace
 extern "C" ::llvm::PassPluginLibraryInfo LLVM_ATTRIBUTE_WEAK llvmGetPassPluginInfo()
 {
     return {
-        LLVM_PLUGIN_API_VERSION, "NaivePass", "v0.1",
+        LLVM_PLUGIN_API_VERSION, "MASBasedPass", "v0.1",
         [](PassBuilder &PB)
         {
             PB.registerPipelineParsingCallback(
                 [](StringRef Name, FunctionPassManager &FPM,
                    ArrayRef<PassBuilder::PipelineElement>)
                 {
-                    if (Name == "naive-pass")
+                    if (Name == "masbased-pass")
                     {
-                        FPM.addPass(NaivePass());
+                        FPM.addPass(MASBasedPass());
                         return true;
                     }
                     return false;
