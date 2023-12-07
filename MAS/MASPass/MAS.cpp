@@ -3,6 +3,7 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/Value.h"
+#include "llvm/Analysis/LoopInfo.h"
 
 namespace MAS {
 
@@ -25,6 +26,19 @@ namespace MAS {
     LEAF_TYPE MASNode::getLabel() const { return label; }
 
     std::vector<MASNode *> MASNode::getChildren() { return children; }
+
+    size_t MASNode::getLoopIndVarStart() { 
+        if (this->label == LOOP_IND_VAR) {
+            return this->loop_ind_var_start;
+        }
+        return ULONG_MAX;
+    }
+    size_t MASNode::getLoopIndVarEnd() {
+        if (this->label == LOOP_IND_VAR) {
+            return this->loop_ind_var_end;
+        }
+        return ULONG_MAX;
+    }
 
     MASNode *MASNode::visitNodes(size_t depth) {
         if (this != nullptr) {
@@ -69,8 +83,49 @@ namespace MAS {
     }
 
     std::vector<MASNode *> MAS::getLeaves(MASNode *r) {
+        std::vector<MASNode *> leaves;
+
         
     }
+
+    // This essentially implements the WorkList Algorithm outlined in the Spindle Paper
+	MASNode *getUD(MASNode *node, llvm::LoopAnalysis::Result *li) {
+		llvm::Value *v = node->getValue();
+		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
+			//int opcnt = 0;
+			for (llvm::Use &U : I->operands()) {
+
+				MAS::MASNode *child = new MAS::MASNode(U.get());
+				node->addChild(child);
+
+				if (llvm::isa<llvm::PHINode>(child->getValue())) {
+					llvm::errs() << "PHI NODE HERE!\n";
+				}
+				
+				if (categorizeNode(child) == MAS::UNSET) {
+					getUD(child, li);
+					//opcnt+=1;
+				}
+				else {
+					// If we wanted to add a property to nodes to specificly mark them
+					// as leaf nodes when they are, this is where we would set that
+				}
+			}
+		}
+		// Not sure we need this anymore
+		else if (v != nullptr) {
+			// llvm::errs() << "END OF UD WITH: " << *v << "\n";
+
+			// Categorize leaf node 
+			// if (llvm::isa<llvm::Constant>(v)) {
+			// 	node->setLabel(MAS::CONST);
+			// }
+			categorizeNode(node);
+			return node;
+		}
+		// Definitely still want this though
+		return nullptr;
+	}
     
 
 }

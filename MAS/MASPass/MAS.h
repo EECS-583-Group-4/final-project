@@ -22,12 +22,17 @@ namespace MAS {
 
         std::vector<MASNode *> getChildren();
 
+        size_t getLoopIndVarEnd();
+        size_t getLoopIndVarStart(); 
+
         MASNode *visitNodes(size_t depth);
 
     private:
         llvm::Value *value;
         std::vector<MASNode *> children;
         LEAF_TYPE label = UNSET;
+        size_t loop_ind_var_end;
+        size_t loop_ind_var_start;
     };
 
     llvm::raw_ostream& operator<< (llvm::raw_ostream& os, const MASNode& obj);

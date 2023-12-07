@@ -9,17 +9,42 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/IR/Attributes.h"
+#include "llvm/Analysis/LoopInfo.h"
+#include "llvm/Analysis/LoopIterator.h"
+#include "llvm/Analysis/LoopPass.h"
+#include "llvm/Transforms/Utils/LoopUtils.h"
+#include "llvm/Transforms/Scalar/LoopPassManager.h"
+#include "llvm/IR/CFG.h"
+#include "llvm/Analysis/ScalarEvolution.h"
+#include "llvm/Analysis/LoopAnalysisManager.h"
 
 namespace {
 
-	MAS::MASNode *getUD(MAS::MASNode *node);
+	MAS::MASNode *getUD(MAS::MASNode *node, llvm::LoopAnalysis::Result *li);
 	MAS::LEAF_TYPE categorizeNode(MAS::MASNode *node);
+
+	int LoopRotatePass();
 
     struct MASPass : public llvm::PassInfoMixin<MASPass> {
 
 		MAS::MAS *curr_mas = new MAS::MAS();
 
         llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &FAM) {
+
+			llvm::LoopAnalysis::Result &li = FAM.getResult<llvm::LoopAnalysis>(F);
+			auto &SE = FAM.getResult<llvm::ScalarEvolutionAnalysis>(F);
+			// auto &LAMProxy = FAM.getResult<llvm::LoopAnalysisManagerFunctionProxy>(F).getManager();
+
+			for (llvm::Loop *lo : li.getLoopsInPreorder()) {
+				auto value = SE.getBackedgeTakenCount(lo);
+				llvm::errs() << "TYPE OF BACK TAK CNT = ";
+				value->getType()->print(llvm::errs());
+				llvm::errs() << " = ";
+				value->print(llvm::errs());
+				llvm::errs() << "\n";
+				auto lIndVar = lo->getCanonicalInductionVariable();
+				llvm::errs() << "Ind var = " << *lIndVar << "\n";
+			}
 
             //WLA to do intraprocedural analysis 
 
@@ -30,8 +55,16 @@ namespace {
 
             // How to iterate over U-D chain
 
+			llvm::errs() << "PRINTING THE IR\n";
+			for (llvm::BasicBlock &B : F) {
+					for (llvm::Instruction &I : B) {
+					llvm::errs() << I << "\n"; 
+				}
+			}
+
             struct StoreVisitor : public llvm::InstVisitor<StoreVisitor> {
 				MAS::MAS *curr_mas;
+				llvm::LoopAnalysis::Result *li;
 
                 inline void visitLoadInst(llvm::LoadInst &I) {
                     // Now we can get the U-D chain
@@ -42,14 +75,23 @@ namespace {
 
 					curr_mas->addRoot(node);
 
-					getUD(node);
+					getUD(node, li);
 
                     // llvm::errs() << " -----------------------------------\n";
                 }
             };
 
+			for (llvm::Loop *lo : li.getLoopsInPreorder()) {
+				llvm::errs() << "HERE BE IND VAR!\n";
+				// llvm::ScalarEvolutionAnalysis::Result *scevi = LAMProxy.getCachedResult<llvm::ScalarEvolutionAnalysis>(*lo);
+				// llvm::errs() << lo->getCanonicalInductionVariable()->getName() << "\n";
+				// scevi->getTripCountFromExitCount(scevi->getExitCount(lo, lo->getExitBlock()))->print(llvm::errs());
+				
+			}
+
             StoreVisitor storeDepMaker;
 			storeDepMaker.curr_mas = curr_mas;
+			storeDepMaker.li = &li;
 
             storeDepMaker.visit(F);
 
@@ -59,22 +101,27 @@ namespace {
 			}
 
 
-            return llvm::PreservedAnalyses::all();
+            return llvm::PreservedAnalyses::none();
         }
 
     };
 
 	// This essentially implements the WorkList Algorithm outlined in the Spindle Paper
-	MAS::MASNode *getUD(MAS::MASNode *node) {
+	MAS::MASNode *getUD(MAS::MASNode *node, llvm::LoopAnalysis::Result *li) {
 		llvm::Value *v = node->getValue();
 		if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v)) {
 			//int opcnt = 0;
 			for (llvm::Use &U : I->operands()) {
+
 				MAS::MASNode *child = new MAS::MASNode(U.get());
 				node->addChild(child);
+
+				if (llvm::isa<llvm::PHINode>(child->getValue())) {
+					llvm::errs() << "PHI NODE HERE!\n";
+				}
 				
 				if (categorizeNode(child) == MAS::UNSET) {
-					getUD(child);
+					getUD(child, li);
 					//opcnt+=1;
 				}
 				else {
@@ -115,6 +162,9 @@ namespace {
 		else if (llvm::isa<llvm::CallInst>(node->getValue())) {
 			// llvm::errs() << "TYPE FO LEAF IS = FUNC_RET_VAL \n";
 			node->setLabel(MAS::FUNC_RET_VAL);
+		}
+		else if (llvm::isa<llvm::PHINode>(node->getValue())) {
+			node->setLabel(MAS::LOOP_IND_VAR);
 		}
 		else {
 			// llvm::errs() << "NOW CATEGORIZING " << *node << "\n";
