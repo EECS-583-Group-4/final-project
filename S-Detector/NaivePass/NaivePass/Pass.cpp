@@ -31,7 +31,7 @@ namespace
             CallInst *call = builder.CreateCall(printfFunc, argsV);
         }
 
-        void insertIfBlock(GetElementPtrInst *GEP, Function &F)
+        void insertIfBlock(GetElementPtrInst *GEP, Value *v1, Value *v2, Function &F)
         {
             Module *module = F.getParent();
             LLVMContext &context = module->getContext();
@@ -42,9 +42,7 @@ namespace
             BasicBlock *ifBlock = BasicBlock::Create(context, "ifBlock", &F);
             BB->getTerminator()->eraseFromParent();
 
-            AllocaInst *variable = builder.CreateAlloca(Type::getInt32Ty(context), nullptr, "myVariable");
-            builder.CreateStore(ConstantInt::get(Type::getInt32Ty(context), 42), variable);
-            Value *condition = builder.CreateICmpEQ(GEP->getPointerOperand(), ConstantPointerNull::get(dyn_cast<PointerType>(GEP->getPointerOperand()->getType())));
+            Value *condition = builder.CreateICmpSLT(v1, v2);
             builder.CreateCondBr(condition, ifBlock, mergeBlock);
 
             builder.SetInsertPoint(ifBlock);
@@ -62,27 +60,32 @@ namespace
                 {
                     if (auto *GEP = dyn_cast<GetElementPtrInst>(&I))
                     {
-                        Type *eleType = GEP->getSourceElementType();
-                        if (isa<ArrayType>(eleType))
-                        {
-                            errs() << *GEP << "\n";
-                            errs() << "Type of data structure being accessed:\n";
-                            GEP->getSourceElementType()->print(errs());
-                            errs() << "\n";
-                            errs() << "Pointer being accessed:\n";
-                            GEP->getPointerOperand()->getType()->print(errs());
-                            ArrayType *arrTy = cast<ArrayType>(eleType);
-                            uint64_t numElements = arrTy->getNumElements();
-                            errs() << "\n";
-                            arrays.push_back(GEP);
-                        }
+                        arrays.push_back(GEP);
                     }
                 }
             }
 
             for (auto &GEP : arrays)
             {
-                insertIfBlock(GEP, F);
+                Type *eleType = GEP->getSourceElementType();
+                if (isa<ArrayType>(eleType))
+                {
+                    for (auto &Index : GEP->indices())
+                    {
+                        ArrayType *arrTy = cast<ArrayType>(eleType);
+                        int numElements = arrTy->getNumElements();
+                        Value *actual = Index.get();
+                        if (!dyn_cast<ConstantInt>(actual))
+                        {
+                            Value *upper = ConstantInt::get(actual->getType(), numElements - 1);
+                            Value *lower = ConstantInt::get(actual->getType(), 0);
+                            // error if actual < 0
+                            insertIfBlock(GEP, actual, lower, F);
+                            // error if numElements - 1 < actual
+                            insertIfBlock(GEP, upper, actual, F);
+                        }
+                    }
+                }
             }
 
             return PreservedAnalyses::all();
@@ -109,52 +112,3 @@ extern "C" ::llvm::PassPluginLibraryInfo LLVM_ATTRIBUTE_WEAK llvmGetPassPluginIn
                 });
         }};
 }
-
-/*
-                        errs() << "--------------\n";
-                        errs() << "Found getelementptr instruction:\n";
-                        GEP->print(errs());
-                        errs() << "\n";
-
-                        // Print the type being accessed by the getelementptr
-                        errs() << "Type of data structure being accessed:\n";
-                        GEP->getSourceElementType()->print(errs());
-                        errs() << "\n";
-
-                        Type *cur_type = GEP->getSourceElementType();
-
-                        // Print the pointer being accessed by the getelementptr
-                        errs() << "Pointer being accessed:\n";
-                        GEP->getPointerOperand()->print(errs());
-                        errs() << "\n";
-
-                        Value *cur_ptr = GEP->getPointerOperand();
-
-                        Type *eleType = GEP->getSourceElementType();
-                        uint64_t numElements = 0;
-                        if (isa<ArrayType>(eleType))
-                        {
-                            ArrayType *arrTy = cast<ArrayType>(eleType);
-                            numElements = arrTy->getNumElements();
-
-                            errs() << "Array size: " << numElements << "\n";
-                        }
-
-                        // Print the indices being used to access the pointer
-                        errs() << "Indices being used to access the pointer:\n";
-                        for (auto &Index : GEP->indices())
-                        {
-                            Index->print(errs());
-
-                            // Insert instructions to ensure cur_index is in bounds of cur_type
-
-                            // If there is an out of bounds error, add instruction to print the error
-                            // if () {
-                            insertPrint(I, F.getParent());
-                            // }
-
-                            errs() << "\n";
-                        }
-
-                        errs() << "--------------\n";
-                        */
