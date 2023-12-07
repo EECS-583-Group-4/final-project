@@ -51,21 +51,32 @@ namespace
             builder.CreateBr(mergeBlock);
         }
 
-        Type * getNextType(Type * curType){
-            if (isa<ArrayType>(curType)){
+        Type *getNextType(Type *curType, Value *curI)
+        {
+            if (isa<ArrayType>(curType))
+            {
                 ArrayType *ty = cast<ArrayType>(curType);
                 return ty->getElementType();
             }
-            else if (isa<PointerType>(curType)){
+            else if (isa<PointerType>(curType))
+            {
                 PointerType *ty = cast<PointerType>(curType);
                 return ty->getArrayElementType();
             }
-            else if (isa<VectorType>(curType)) {
+            else if (isa<VectorType>(curType))
+            {
                 VectorType *ty = cast<VectorType>(curType);
                 return ty->getElementType();
             }
-            else if (isa<StructType>(curType)) {
+            else if (isa<StructType>(curType))
+            {
                 StructType *ty = cast<StructType>(curType);
+                if (dyn_cast<ConstantInt>(curI))
+                {
+                    ConstantInt *test = cast<ConstantInt>(curI);
+                    errs() << test->getSExtValue() << "\n";
+                    return ty->getElementType(test->getSExtValue());
+                }
                 return ty->getElementType(0);
             }
             return nullptr;
@@ -88,13 +99,19 @@ namespace
             for (auto &GEP : arrays)
             {
                 Type *curType = GEP->getSourceElementType();
-                for (auto &Index : GEP->indices())
+                for (auto it = GEP->idx_begin() + 1; it != GEP->idx_end(); ++it)
+                {
+                    if (!curType)
                     {
+                        break;
+                    }
+                    Value *actual = it->get();
+
                     if (isa<ArrayType>(curType))
                     {
                         ArrayType *arrTy = cast<ArrayType>(curType);
                         int numElements = arrTy->getNumElements();
-                        Value *actual = Index.get();
+
                         if (!dyn_cast<ConstantInt>(actual))
                         {
                             Value *upper = ConstantInt::get(actual->getType(), numElements - 1);
@@ -105,7 +122,7 @@ namespace
                             insertIfBlock(GEP, upper, actual, F);
                         }
                     }
-                    // curType = getNextType(curType);
+                    curType = getNextType(curType, actual);
                 }
             }
 
