@@ -67,6 +67,10 @@ namespace MAS {
     void MAS::addRoot(MASNode *r) {
         root_nodes.push_back(r);
     }
+
+    std::vector<MASNode *> MAS::getLeaves(MASNode *r) {
+        
+    }
     
 
 }

@@ -11,7 +11,7 @@ So in the S-Detector Case, probably it looks something like...
 ```
 BA = set of all base addresses used in the program
 
-for each root node: 
+for each root node (this load): 
     if BA[i] in leaf nodes --> 
         check for valid BA[i] above this load
 ```

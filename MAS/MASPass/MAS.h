@@ -36,6 +36,7 @@ namespace MAS {
     public:
         std::vector<MASNode *> getRoots();
         void addRoot(MASNode *r);
+        std::vector<MASNode *> getLeaves(MASNode *r);
     private: 
         std::vector<MASNode *> root_nodes;
     };
