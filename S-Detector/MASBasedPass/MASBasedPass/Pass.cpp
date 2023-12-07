@@ -27,8 +27,17 @@ namespace
 
             // The format string for the printf function, declared as a global literal
             Value *str = builder.CreateGlobalStringPtr("Out of bounds access detected\n", "str");
-            std::vector<Value *> argsV({str});
-            CallInst *call = builder.CreateCall(printfFunc, argsV);
+            std::vector<Value *> argsVprintf({str});
+            builder.CreateCall(printfFunc, argsVprintf);
+
+            // insert exit function
+            std::vector<Type *> params({Type::getInt32Ty(context)});
+            FunctionType *exitType = FunctionType::get(Type::getVoidTy(context), params, false);
+            FunctionCallee exitFunc = module->getOrInsertFunction("exit", exitType);
+
+            Value *one = ConstantInt::get(Type::getInt32Ty(context), 1);
+            std::vector<Value *> argsVexit({one});
+            builder.CreateCall(exitFunc, argsVexit);
         }
 
         void insertIfBlock(GetElementPtrInst *GEP, Value *v1, Value *v2, Function &F)
