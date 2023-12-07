@@ -22,7 +22,7 @@ int B[SIZE] = {1};
 float C[SIZE] = {3.2};
 float D[SIZE] = {0.1};
 
-for(int i=0;i<SIZE;i++){
+for(int i=0;i<SIZE;++i){
 if (i < SIZE*0.8){
 D[i] = fAdd(C[i], D[i]);
 }

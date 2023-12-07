@@ -4,6 +4,8 @@
 
 #include "llvm/IR/Value.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Analysis/LoopInfo.h"
+#include "llvm/Analysis/ScalarEvolution.h"
 #include <vector>
 // #include <iostream>
 
@@ -22,10 +24,13 @@ namespace MAS {
 
         std::vector<MASNode *> getChildren();
 
-        size_t getLoopIndVarEnd();
-        size_t getLoopIndVarStart(); 
+        size_t getLoopIndVarEnd() const;
+        size_t getLoopIndVarStart() const; 
 
-        MASNode *visitNodes(size_t depth);
+        void setLoopIndVarEnd(size_t n);
+        void setLoopIndVarStart(size_t n);
+
+        MASNode *visitNodes(size_t depth = 0);
 
     private:
         llvm::Value *value;
@@ -40,7 +45,7 @@ namespace MAS {
     class MAS {
     public:
         std::vector<MASNode *> getRoots();
-        void addRoot(MASNode *r);
+        void addRoot(MASNode *r, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE);
         std::vector<MASNode *> getLeaves(MASNode *r);
     private: 
         std::vector<MASNode *> root_nodes;
