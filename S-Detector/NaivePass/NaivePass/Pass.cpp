@@ -51,6 +51,26 @@ namespace
             builder.CreateBr(mergeBlock);
         }
 
+        Type * getNextType(Type * curType){
+            if (isa<ArrayType>(curType)){
+                ArrayType *ty = cast<ArrayType>(curType);
+                return ty->getElementType();
+            }
+            else if (isa<PointerType>(curType)){
+                PointerType *ty = cast<PointerType>(curType);
+                return ty->getArrayElementType();
+            }
+            else if (isa<VectorType>(curType)) {
+                VectorType *ty = cast<VectorType>(curType);
+                return ty->getElementType();
+            }
+            else if (isa<StructType>(curType)) {
+                StructType *ty = cast<StructType>(curType);
+                return ty->getElementType(0);
+            }
+            return nullptr;
+        }
+
         PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM)
         {
             std::vector<GetElementPtrInst *> arrays;
@@ -67,12 +87,12 @@ namespace
 
             for (auto &GEP : arrays)
             {
-                Type *eleType = GEP->getSourceElementType();
-                if (isa<ArrayType>(eleType))
-                {
-                    for (auto &Index : GEP->indices())
+                Type *curType = GEP->getSourceElementType();
+                for (auto &Index : GEP->indices())
                     {
-                        ArrayType *arrTy = cast<ArrayType>(eleType);
+                    if (isa<ArrayType>(curType))
+                    {
+                        ArrayType *arrTy = cast<ArrayType>(curType);
                         int numElements = arrTy->getNumElements();
                         Value *actual = Index.get();
                         if (!dyn_cast<ConstantInt>(actual))
@@ -85,6 +105,7 @@ namespace
                             insertIfBlock(GEP, upper, actual, F);
                         }
                     }
+                    // curType = getNextType(curType);
                 }
             }
 
