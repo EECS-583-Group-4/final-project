@@ -90,47 +90,77 @@ namespace
             return nullptr;
         }
 
+        struct checkDetails
+        {
+            GetElementPtrInst *GEP;
+            Value *index;
+            int numElements;
+        };
+
+        // TODO: use the mas to determine whether a bounds check is loop induction variable based
+        bool indexIsLoopInductionBased()
+        {
+            return false;
+        }
+
+        // TODO: insert an outside of loop check for start and end values using MAS
+        void insertStaticArrayCheck()
+        {
+        }
+
+        void insertDynamicArrayCheck(checkDetails &c, Function &F)
+        {
+            Value *upper = ConstantInt::get(c.index->getType(), c.numElements - 1);
+            Value *lower = ConstantInt::get(c.index->getType(), 0);
+            // error if index < 0
+            insertIfBlock(c.GEP, c.index, lower, F);
+            // error if numElements - 1 < index
+            insertIfBlock(c.GEP, upper, c.index, F);
+        }
+
         PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM)
         {
-            std::vector<GetElementPtrInst *> arrays;
+            std::vector<checkDetails> checks;
             for (auto &BB : F)
             {
                 for (auto &I : BB)
                 {
                     if (auto *GEP = dyn_cast<GetElementPtrInst>(&I))
                     {
-                        arrays.push_back(GEP);
+                        Type *curType = GEP->getSourceElementType();
+                        for (auto it = GEP->idx_begin() + 1; it != GEP->idx_end(); ++it)
+                        {
+                            if (!curType)
+                            {
+                                break;
+                            }
+                            Value *index = it->get();
+
+                            if (isa<ArrayType>(curType))
+                            {
+                                ArrayType *arrTy = cast<ArrayType>(curType);
+                                int numElements = arrTy->getNumElements();
+
+                                if (!dyn_cast<ConstantInt>(index))
+                                {
+                                    checks.push_back({GEP, index, numElements});
+                                }
+                            }
+                            curType = getNextType(curType, index);
+                        }
                     }
                 }
             }
 
-            for (auto &GEP : arrays)
+            for (auto &check : checks)
             {
-                Type *curType = GEP->getSourceElementType();
-                for (auto it = GEP->idx_begin() + 1; it != GEP->idx_end(); ++it)
+                if (indexIsLoopInductionBased())
                 {
-                    if (!curType)
-                    {
-                        break;
-                    }
-                    Value *actual = it->get();
-
-                    if (isa<ArrayType>(curType))
-                    {
-                        ArrayType *arrTy = cast<ArrayType>(curType);
-                        int numElements = arrTy->getNumElements();
-
-                        if (!dyn_cast<ConstantInt>(actual))
-                        {
-                            Value *upper = ConstantInt::get(actual->getType(), numElements - 1);
-                            Value *lower = ConstantInt::get(actual->getType(), 0);
-                            // error if actual < 0
-                            insertIfBlock(GEP, actual, lower, F);
-                            // error if numElements - 1 < actual
-                            insertIfBlock(GEP, upper, actual, F);
-                        }
-                    }
-                    curType = getNextType(curType, actual);
+                    insertStaticArrayCheck();
+                }
+                else
+                {
+                    insertDynamicArrayCheck(check, F);
                 }
             }
 
