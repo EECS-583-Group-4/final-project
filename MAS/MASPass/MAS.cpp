@@ -1,6 +1,7 @@
 #include "MAS.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/IR/Instruction.h"
+#include "llvm/IR/InstrTypes.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/Value.h"
 #include "llvm/IR/InstVisitor.h"
@@ -273,7 +274,7 @@ namespace MAS
 
     LEAF_TYPE categorizeNode(MASNode *node, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE)
     {
-        if (llvm::isa<llvm::Constant>(node->getValue()))
+        if (llvm::isa<llvm::ConstantInt>(node->getValue()))
         {
             // llvm::errs() << "TYPE OF LEAF IS = CONST \n";
             node->setLabel(CONST);
@@ -390,7 +391,6 @@ namespace MAS
 
     bool MASNode::isLoopInductionBased()
     {
-        bool loopInductionBased = true;
         for (MASNode *l : this->getChildren())
         {
             if (!searchOnlyStaticNodes(l))
@@ -409,36 +409,102 @@ namespace MAS
         return false;
     }
 
-    size_t MASNode::getTrueLoopStart()
+    int performBinaryOp(int v1, int v2, llvm::Instruction::BinaryOps b)
     {
-
-        for (MASNode *l : this->getChildren())
+        if (b == llvm::Instruction::BinaryOps::Add)
         {
+            return v1 + v2;
         }
-        return 0;
+        else if (b == llvm::Instruction::BinaryOps::Sub)
+        {
+            return v1 - v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Mul)
+        {
+            return v1 * v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::UDiv || b == llvm::Instruction::BinaryOps::SDiv)
+        {
+            return v1 / v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::URem || b == llvm::Instruction::BinaryOps::SRem)
+        {
+            return v1 % v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Shl)
+        {
+            return v1 << v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::LShr || b == llvm::Instruction::BinaryOps::AShr)
+        {
+            return v1 >> v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::And)
+        {
+            return v1 & v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Or)
+        {
+            return v1 | v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Xor)
+        {
+            return v1 ^ v2;
+        }
+        else
+        {
+            // unsupported operation type
+            assert(false);
+        }
     }
 
-    size_t MASNode::getTrueLoopEnd()
+    int computeChildren(MASNode *node, bool start)
     {
-
-        for (MASNode *l : this->getChildren())
+        if (node->getLabel() == CONST)
         {
-            // Check if this is an arithmetic operation
-            if (l->getLabel() == OPERATION)
+            assert(llvm::isa<llvm::ConstantInt>(node->getValue()));
+            llvm::ConstantInt *tmp = llvm::cast<llvm::ConstantInt>(node->getValue());
+            return tmp->getSExtValue();
+        }
+        else if (node->getLabel() == LOOP_IND_VAR)
+        {
+            if (start)
             {
-                //
-                // Get the type of operation
-                llvm::Value *v = l->getValue();
-
-                if (llvm::Instruction *I = llvm::dyn_cast<llvm::Instruction>(v))
-                {
-                    if (I->getOpcode() == llvm::Instruction::Add)
-                    {
-                        //
-                    }
-                }
+                return node->getLoopIndVarStart();
+            }
+            else
+            {
+                return node->getLoopIndVarEnd();
             }
         }
-        return 0;
+        else if (node->getChildren().size() == 1)
+        {
+            // sign extension case
+            // TODO modify to support more unary operators
+            return computeChildren(node->getChildren()[0], start);
+        }
+        else if (node->getChildren().size() == 2)
+        {
+            assert(llvm::isa<llvm::BinaryOperator>(node->getValue()));
+            llvm::BinaryOperator *tmp = llvm::cast<llvm::BinaryOperator>(node->getValue());
+            int v1 = computeChildren(node->getChildren()[0], start);
+            int v2 = computeChildren(node->getChildren()[1], start);
+            return performBinaryOp(v1, v2, tmp->getOpcode());
+        }
+        else
+        {
+            // this case should be impossible
+            assert(false);
+        }
+    }
+
+    int MASNode::getTrueLoopStart()
+    {
+        return computeChildren(this, true);
+    }
+
+    int MASNode::getTrueLoopEnd()
+    {
+        return computeChildren(this, false);
     }
 }

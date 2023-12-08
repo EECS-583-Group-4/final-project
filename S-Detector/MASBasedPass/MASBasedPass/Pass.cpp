@@ -122,6 +122,7 @@ namespace
                 }
             }
             errs() << "S-DETECTOR FOUND ERROR: Array index will go out of bounds \n";
+            errs() << "S-DETECTOR: Lowest Index: " << lowest_index << ", Highest Index: " << highest_index << ", Number of Elements: " << c.numElements << "\n";
             exit(1);
         }
 
@@ -139,7 +140,7 @@ namespace
         {
             MAS::MAS curr_mas = MAS::MAS(&F, &FAM);
             curr_mas.calculate();
-            curr_mas.print();
+            // curr_mas.print();
 
             std::vector<checkDetails>
                 checks;
@@ -179,7 +180,7 @@ namespace
                 MAS::MASNode *cur_node = curr_mas.getNode(check.index);
                 if (cur_node && cur_node->isLoopInductionBased())
                 {
-                    errs() << "FOUND LOOP INDUCTION BASED " << *cur_node << "\n";
+                    // errs() << "FOUND LOOP INDUCTION BASED " << *cur_node << "\n";
                     performStaticArrayCheck(check, cur_node);
                 }
                 else

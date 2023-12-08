@@ -30,8 +30,8 @@ namespace MAS
         MASNode(llvm::Value *v);
 
         bool isLoopInductionBased();
-        size_t getTrueLoopStart();
-        size_t getTrueLoopEnd();
+        int getTrueLoopStart();
+        int getTrueLoopEnd();
         llvm::Value *getValue() const;
         LEAF_TYPE getLabel() const;
 
