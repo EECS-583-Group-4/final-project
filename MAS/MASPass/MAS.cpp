@@ -5,6 +5,7 @@
 #include "llvm/IR/Value.h"
 #include "llvm/IR/InstVisitor.h"
 #include "llvm/Transforms/Utils/Mem2Reg.h"
+#include "llvm/Transforms/Utils/LoopSimplify.h"
 
 namespace MAS
 {
@@ -162,6 +163,8 @@ namespace MAS
 
     void MAS::calculate()
     {
+        llvm::LoopSimplifyPass loopsim = llvm::LoopSimplifyPass();
+        loopsim.run(*F, *FAM);
         llvm::PromotePass mem2reg = llvm::PromotePass();
         mem2reg.run(*F, *FAM);
         struct LoadVisitor : public llvm::InstVisitor<LoadVisitor>
@@ -408,8 +411,6 @@ namespace MAS
 
     size_t MASNode::getTrueLoopStart()
     {
-        llvm::errs() << "CHECKING LOOP START\n"
-                     << *this;
 
         for (MASNode *l : this->getChildren())
         {

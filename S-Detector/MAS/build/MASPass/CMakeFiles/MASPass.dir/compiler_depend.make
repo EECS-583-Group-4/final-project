@@ -396,7 +396,8 @@
   /usr/local/include/llvm/IR/FMF.h \
   /usr/local/include/llvm/IR/Intrinsics.h \
   /usr/local/include/llvm/IR/IntrinsicEnums.inc \
-  /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h
+  /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h \
+  /usr/local/include/llvm/Transforms/Utils/LoopSimplify.h
 
 /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/MASPass.cpp.o: /home/leshlu/final-project/MAS/MASPass/MASPass.cpp \
   /usr/include/stdc-predef.h \
@@ -896,8 +897,6 @@
 
 /usr/local/include/llvm/ADT/EquivalenceClasses.h:
 
-/usr/local/include/llvm/Transforms/Utils/LoopSimplify.h:
-
 /usr/local/include/llvm/Analysis/LoopAnalysisManager.h:
 
 /usr/local/include/llvm/ADT/PriorityWorklist.h:
@@ -977,6 +976,8 @@
 /usr/local/include/llvm/ADT/Triple.h:
 
 /home/leshlu/final-project/MAS/MASPass/MASPass.cpp:
+
+/usr/local/include/llvm/Transforms/Utils/LoopSimplify.h:
 
 /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h:
 
