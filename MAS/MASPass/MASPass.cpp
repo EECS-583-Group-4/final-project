@@ -46,9 +46,19 @@ namespace {
             // dependencies, which will end up in leaf nodes
             // and categorized by type.
 
+			std::vector<MAS::MASNode *> leaves;
+
 			llvm::errs() << "\n========== MAS FOR FUNCTION = " << F.getName() << " ===========\n";
 			for (MAS::MASNode *r : curr_mas->getRoots()) {
 				r->visitNodes();
+			}
+
+			for (MAS::MASNode *r : curr_mas->getRoots()) {
+				leaves = *(curr_mas->getLeaves(r));
+				llvm::errs() << "PRINTING LEAF NODES OF ROOT = " << *r << "\n"; 
+				for (MAS::MASNode *l : leaves) {
+					llvm::errs() << *l << "\n";
+				}
 			}
 
 			free(curr_mas);

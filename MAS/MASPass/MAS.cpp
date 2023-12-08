@@ -71,6 +71,21 @@ namespace MAS {
         return nullptr;
     }
 
+    void vNodes(MASNode *node, std::vector<MASNode *> *leaves) {
+        if (node != nullptr) {
+            if (node->getChildren().size() > 0) {
+                for (MASNode *c : node->getChildren()) {
+                    vNodes(c, leaves);
+                }
+            }
+            else {
+                leaves->push_back(node);
+                return;
+            }
+        }
+        return;
+    }
+
     llvm::raw_ostream& operator<< (llvm::raw_ostream& os, const MASNode& obj) {
         
         if (llvm::isa<llvm::Instruction>(obj.getValue())) {
@@ -133,9 +148,12 @@ namespace MAS {
         getUD(r, li, SE);
     }
 
-    std::vector<MASNode *> MAS::getLeaves(MASNode *r) {
-        std::vector<MASNode *> leaves;
+    std::vector<MASNode *> *MAS::getLeaves(MASNode *r) {
+        std::vector<MASNode *> *leaves = new std::vector<MASNode *>;
 
+        vNodes(r, leaves);
+
+        return leaves;
     }
 
     // This essentially implements the WorkList Algorithm outlined in the Spindle Paper

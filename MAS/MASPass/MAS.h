@@ -47,7 +47,7 @@ namespace MAS {
         MAS(llvm::Function *F, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE);
         std::vector<MASNode *> getRoots();
         void addRoot(MASNode *r, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE);
-        std::vector<MASNode *> getLeaves(MASNode *r);
+        std::vector<MASNode *> *getLeaves(MASNode *r);
         void calculate();
     private: 
         std::vector<MASNode *> root_nodes;
