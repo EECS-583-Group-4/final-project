@@ -3,6 +3,7 @@
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/Value.h"
+#include "llvm/IR/InstVisitor.h"
 
 namespace MAS {
 
@@ -80,8 +81,8 @@ namespace MAS {
                 os << " = Return Val of " << c->getCalledFunction()->getName();
             }
             else if (obj.getLabel() == LOOP_IND_VAR) {
-                os << *(obj.getValue()) << "(Start = " << obj.getLoopIndVarStart() << ", ";
-                os << "End = " << obj.getLoopIndVarEnd() << ")";
+                os << *(obj.getValue()) << " (Start = " << obj.getLoopIndVarStart() << ", ";
+                os << "End = " << obj.getLoopIndVarEnd() << ") ";
             }
             else {
                 os << *(obj.getValue());
@@ -95,6 +96,33 @@ namespace MAS {
         os << " (" << READ_LEAF_TYPE[obj.getLabel()] << ")";
 
         return os;
+    }
+
+    MAS::MAS(llvm::Function *F, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE) {
+        this->F = F;
+        this->li = li;
+        this->SE = SE;
+    }
+
+    void MAS::calculate() {
+        struct LoadVisitor : public llvm::InstVisitor<LoadVisitor> {
+            llvm::LoopAnalysis::Result *li;
+            llvm::ScalarEvolutionAnalysis::Result *SE;
+            MAS *curr_mas;
+
+            inline void visitLoadInst(llvm::LoadInst &I) {
+                MASNode *node = new MASNode(&I);
+
+                curr_mas->addRoot(node, li, SE);
+            }
+        };
+
+        LoadVisitor loadDepMaker;
+        loadDepMaker.curr_mas = this;
+        loadDepMaker.li = li;
+        loadDepMaker.SE = SE;
+
+        loadDepMaker.visit(F);
     }
 
     std::vector<MASNode *> MAS::getRoots() { return root_nodes; }

@@ -12,7 +12,7 @@ clang -emit-llvm -c ${BENCH} -Xclang -disable-O0-optnone -o ${1}.bc
 # These are instrument profiler passes, probably don't need all
 # opt -passes='lcssa' ${1}.bc -o ${1}.ls.bc
 # opt -passes='indvars' ${1}.bc -o ${1}.ls.bc
-opt -passes='function(mem2reg)' ${1}.bc -o ${1}.ls.bc
+opt -passes='function(mem2reg,loop-simplify)' ${1}.bc -o ${1}.ls.bc
 # opt -passes='pgo-instr-gen,instrprof' ${1}.ls.bc -o ${1}.ls.prof.bc
 
 # clang -fprofile-instr-generate ${1}.ls.prof.bc -o ${1}_prof

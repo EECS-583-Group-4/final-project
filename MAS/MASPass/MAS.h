@@ -44,11 +44,16 @@ namespace MAS {
 
     class MAS {
     public:
+        MAS(llvm::Function *F, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE);
         std::vector<MASNode *> getRoots();
         void addRoot(MASNode *r, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE);
         std::vector<MASNode *> getLeaves(MASNode *r);
+        void calculate();
     private: 
         std::vector<MASNode *> root_nodes;
+        llvm::Function *F; 
+        llvm::LoopAnalysis::Result *li; 
+        llvm::ScalarEvolutionAnalysis::Result *SE;
     };
 
     llvm::raw_ostream& operator<< (llvm::raw_ostream& os, const MAS& obj);

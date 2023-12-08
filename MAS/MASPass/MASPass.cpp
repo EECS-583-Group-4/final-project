@@ -22,15 +22,16 @@ namespace {
 
     struct MASPass : public llvm::PassInfoMixin<MASPass> {
 
-		MAS::MAS *curr_mas = new MAS::MAS();
-
         llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &FAM) {
 
 			llvm::LoopAnalysis::Result &li = FAM.getResult<llvm::LoopAnalysis>(F);
 			auto &SE = FAM.getResult<llvm::ScalarEvolutionAnalysis>(F);
 
+			MAS::MAS *curr_mas = new MAS::MAS(&F, &li, &SE);
+			curr_mas->calculate();
+
 			// Below is some debug you can uncomment to make sure no loads are getting missed
-			
+
 			// llvm::errs() << "\n========== IR FOR FUNCTION = " << F.getName() << " ===========\n";
 			// for (llvm::BasicBlock &B : F) {
 			// 	for (llvm::Instruction &I : B) {
@@ -43,32 +44,14 @@ namespace {
             // This is a backwards dataflow analysis where we start at stores to 
             // addresses and then traverse the U-D chain backwards to get the 
             // dependencies, which will end up in leaf nodes
-            // and categorized by type. 
-
-            struct LoadVisitor : public llvm::InstVisitor<LoadVisitor> {
-				MAS::MAS *curr_mas;
-				llvm::LoopAnalysis::Result *li;
-				llvm::ScalarEvolutionAnalysis::Result *SE;
-
-                inline void visitLoadInst(llvm::LoadInst &I) {
-					MAS::MASNode *node = new MAS::MASNode(&I);
-
-					curr_mas->addRoot(node, li, SE);
-                }
-            };
-
-            LoadVisitor loadDepMaker;
-			loadDepMaker.curr_mas = curr_mas;
-			loadDepMaker.li = &li;
-			loadDepMaker.SE = &SE;
-
-            loadDepMaker.visit(F);
+            // and categorized by type.
 
 			llvm::errs() << "\n========== MAS FOR FUNCTION = " << F.getName() << " ===========\n";
 			for (MAS::MASNode *r : curr_mas->getRoots()) {
 				r->visitNodes();
 			}
 
+			free(curr_mas);
 
             return llvm::PreservedAnalyses::all();
         }
