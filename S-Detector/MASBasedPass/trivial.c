@@ -22,10 +22,10 @@ int B[SIZE] = {1};
 float C[SIZE] = {3.2};
 float D[SIZE] = {0.1};
 
-for(int i=0;i<SIZE * 2;++i){
-D[i] = fAdd(C[i], D[i + 5]);
+for(int i=0;i<SIZE;++i){
+D[i] = fAdd(C[i], D[i+5]);
 
-B[i] = iAdd(A[i], B[i]);
+B[i] = iAdd(A[i*2], B[i]);
 }
 
 return 0;
