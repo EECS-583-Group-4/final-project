@@ -54,7 +54,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xMASBasedPassx" OR NOT CMAKE_INSTALL
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASBasedPass.so")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASBasedPass.so"
-         OLD_RPATH "\$ORIGIN/../lib:"
+         OLD_RPATH "\$ORIGIN/../lib:/home/leshlu/final-project/S-Detector/MAS/build:"
          NEW_RPATH "\$ORIGIN/../lib")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASBasedPass.so")

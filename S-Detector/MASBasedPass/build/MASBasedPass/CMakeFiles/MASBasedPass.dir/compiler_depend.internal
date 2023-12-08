@@ -471,11 +471,16 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o
  /usr/local/include/llvm/Transforms/Utils/ValueMapper.h
  /usr/local/include/llvm/Passes/PassPlugin.h
  /usr/local/include/llvm/Support/DynamicLibrary.h
- /usr/local/include/llvm/Transforms/Scalar/EarlyCSE.h
- /usr/local/include/llvm/Transforms/Scalar/DCE.h
- /usr/local/include/llvm/Transforms/InstCombine/InstCombine.h
- /usr/local/include/llvm/Transforms/Utils/InstructionWorklist.h
- /usr/local/include/llvm/Transforms/Scalar/NewGVN.h
+ /usr/local/include/llvm/IR/InstVisitor.h
+ /usr/local/include/llvm/Analysis/LoopIterator.h
+ /usr/local/include/llvm/ADT/PostOrderIterator.h
+ /usr/local/include/llvm/Analysis/LoopPass.h
+ /usr/local/include/llvm/IR/LegacyPassManagers.h
+ /usr/local/include/llvm/Support/PrettyStackTrace.h
+ /usr/include/c++/11/deque
+ /usr/include/c++/11/bits/stl_deque.h
+ /usr/include/c++/11/bits/deque.tcc
+ /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h
  /usr/include/c++/11/iostream
  /usr/include/c++/11/ostream
  /usr/include/c++/11/ios
@@ -491,4 +496,5 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o
  /usr/include/c++/11/bits/ostream.tcc
  /usr/include/c++/11/istream
  /usr/include/c++/11/bits/istream.tcc
+ /home/leshlu/final-project/MAS/MASPass/MAS.h
 

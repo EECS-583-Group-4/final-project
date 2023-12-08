@@ -4,9 +4,23 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/DerivedTypes.h"
+#include "llvm/IR/InstVisitor.h"
+#include "llvm/IR/Instruction.h"
+#include "llvm/IR/Attributes.h"
+#include "llvm/Analysis/LoopInfo.h"
+#include "llvm/Analysis/LoopIterator.h"
+#include "llvm/Analysis/LoopPass.h"
+#include "llvm/Transforms/Utils/LoopUtils.h"
+#include "llvm/Transforms/Scalar/LoopPassManager.h"
+#include "llvm/IR/CFG.h"
+#include "llvm/Analysis/ScalarEvolution.h"
+#include "llvm/Analysis/LoopAnalysisManager.h"
+#include "llvm/Transforms/Utils/Mem2Reg.h"
 
 #include <iostream>
 #include <string>
+
+#include "../../../MAS/MASPass/MAS.h"
 
 using namespace llvm;
 
@@ -97,15 +111,19 @@ namespace
             int numElements;
         };
 
-        // TODO: use the mas to determine whether a bounds check is loop induction variable based
-        bool indexIsLoopInductionBased()
+        void performStaticArrayCheck(checkDetails &c, MAS::MASNode *cur_node)
         {
-            return false;
-        }
-
-        // TODO: insert an outside of loop check for start and end values using MAS
-        void insertStaticArrayCheck()
-        {
+            size_t lowest_index = cur_node->getTrueLoopStart();
+            size_t highest_index = cur_node->getTrueLoopEnd();
+            if (lowest_index >= 0 && lowest_index < c.numElements)
+            {
+                if (highest_index >= 0 && highest_index < c.numElements)
+                {
+                    return;
+                }
+            }
+            errs() << "S-DETECTOR FOUND ERROR: Array index will go out of bounds \n";
+            exit(1);
         }
 
         void insertDynamicArrayCheck(checkDetails &c, Function &F)
@@ -120,7 +138,39 @@ namespace
 
         PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM)
         {
-            std::vector<checkDetails> checks;
+            // Construct the MAS
+            llvm::LoopAnalysis::Result &li = FAM.getResult<llvm::LoopAnalysis>(F);
+            auto &SE = FAM.getResult<llvm::ScalarEvolutionAnalysis>(F);
+
+            llvm::PromotePass mem2reg = llvm::PromotePass();
+            mem2reg.run(F, FAM);
+
+            MAS::MAS *curr_mas = new MAS::MAS(&F, &li, &SE);
+            curr_mas->calculate();
+
+            // Test out printing the MAS
+            std::vector<MAS::MASNode *> leaves;
+
+            llvm::errs() << "\n========== MAS FOR FUNCTION = " << F.getName() << " ===========\n";
+            for (MAS::MASNode *r : curr_mas->getRoots())
+            {
+                r->visitNodes();
+            }
+
+            for (MAS::MASNode *r : curr_mas->getRoots())
+            {
+                leaves = *(curr_mas->getLeaves(r));
+                llvm::errs() << "PRINTING LEAF NODES OF ROOT = " << *r << "\n";
+                for (MAS::MASNode *l : leaves)
+                {
+                    llvm::errs() << *l << "\n";
+                }
+            }
+
+            // - END Testing out printing the MAS
+
+            std::vector<checkDetails>
+                checks;
             for (auto &BB : F)
             {
                 for (auto &I : BB)
@@ -154,15 +204,20 @@ namespace
 
             for (auto &check : checks)
             {
-                if (indexIsLoopInductionBased())
+                MAS::MASNode *cur_node = curr_mas->getNode(check.index);
+                if (cur_node && cur_node->isLoopInductionBased())
                 {
-                    insertStaticArrayCheck();
+                    errs() << "FOUND LOOP INDUCTION BASED " << *cur_node << "\n";
+                    performStaticArrayCheck(check, cur_node);
                 }
                 else
                 {
                     insertDynamicArrayCheck(check, F);
                 }
             }
+
+            // Once we're done using the MAS, delete it
+            free(curr_mas);
 
             return PreservedAnalyses::all();
         }

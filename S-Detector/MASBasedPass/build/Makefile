@@ -87,7 +87,7 @@ rebuild_cache/fast: rebuild_cache
 
 # Special rule for the target list_install_components
 list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"MASBasedPass\""
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"MASBasedPass\" \"MASPass\""
 .PHONY : list_install_components
 
 # Special rule for the target list_install_components
@@ -252,6 +252,58 @@ install-MASBasedPass-stripped/fast:
 	$(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/build.make MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/build
 .PHONY : install-MASBasedPass-stripped/fast
 
+#=============================================================================
+# Target rules for targets named MAS
+
+# Build rule for target.
+MAS: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS
+.PHONY : MAS
+
+# fast build rule for target.
+MAS/fast:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build
+.PHONY : MAS/fast
+
+#=============================================================================
+# Target rules for targets named MASPass
+
+# Build rule for target.
+MASPass: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASPass
+.PHONY : MASPass
+
+# fast build rule for target.
+MASPass/fast:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build
+.PHONY : MASPass/fast
+
+#=============================================================================
+# Target rules for targets named install-MASPass
+
+# Build rule for target.
+install-MASPass: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 install-MASPass
+.PHONY : install-MASPass
+
+# fast build rule for target.
+install-MASPass/fast:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build
+.PHONY : install-MASPass/fast
+
+#=============================================================================
+# Target rules for targets named install-MASPass-stripped
+
+# Build rule for target.
+install-MASPass-stripped: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 install-MASPass-stripped
+.PHONY : install-MASPass-stripped
+
+# fast build rule for target.
+install-MASPass-stripped/fast:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build
+.PHONY : install-MASPass-stripped/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -268,9 +320,13 @@ help:
 	@echo "... acc_gen"
 	@echo "... install-MASBasedPass"
 	@echo "... install-MASBasedPass-stripped"
+	@echo "... install-MASPass"
+	@echo "... install-MASPass-stripped"
 	@echo "... intrinsics_gen"
 	@echo "... omp_gen"
+	@echo "... MAS"
 	@echo "... MASBasedPass"
+	@echo "... MASPass"
 .PHONY : help
 
 

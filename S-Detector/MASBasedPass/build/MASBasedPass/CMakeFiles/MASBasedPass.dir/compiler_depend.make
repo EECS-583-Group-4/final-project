@@ -470,11 +470,16 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
   /usr/local/include/llvm/Transforms/Utils/ValueMapper.h \
   /usr/local/include/llvm/Passes/PassPlugin.h \
   /usr/local/include/llvm/Support/DynamicLibrary.h \
-  /usr/local/include/llvm/Transforms/Scalar/EarlyCSE.h \
-  /usr/local/include/llvm/Transforms/Scalar/DCE.h \
-  /usr/local/include/llvm/Transforms/InstCombine/InstCombine.h \
-  /usr/local/include/llvm/Transforms/Utils/InstructionWorklist.h \
-  /usr/local/include/llvm/Transforms/Scalar/NewGVN.h \
+  /usr/local/include/llvm/IR/InstVisitor.h \
+  /usr/local/include/llvm/Analysis/LoopIterator.h \
+  /usr/local/include/llvm/ADT/PostOrderIterator.h \
+  /usr/local/include/llvm/Analysis/LoopPass.h \
+  /usr/local/include/llvm/IR/LegacyPassManagers.h \
+  /usr/local/include/llvm/Support/PrettyStackTrace.h \
+  /usr/include/c++/11/deque \
+  /usr/include/c++/11/bits/stl_deque.h \
+  /usr/include/c++/11/bits/deque.tcc \
+  /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h \
   /usr/include/c++/11/iostream \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/ios \
@@ -489,7 +494,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
   /usr/include/c++/11/bits/basic_ios.tcc \
   /usr/include/c++/11/bits/ostream.tcc \
   /usr/include/c++/11/istream \
-  /usr/include/c++/11/bits/istream.tcc
+  /usr/include/c++/11/bits/istream.tcc \
+  /home/leshlu/final-project/MAS/MASPass/MAS.h
 
 
 /usr/include/c++/11/istream:
@@ -504,7 +510,15 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 
 /usr/include/c++/11/ostream:
 
-/usr/local/include/llvm/Transforms/InstCombine/InstCombine.h:
+/usr/local/include/llvm/Transforms/Utils/Mem2Reg.h:
+
+/usr/include/c++/11/bits/deque.tcc:
+
+/usr/local/include/llvm/Support/PrettyStackTrace.h:
+
+/usr/local/include/llvm/Analysis/LoopPass.h:
+
+/usr/local/include/llvm/Analysis/LoopIterator.h:
 
 /usr/local/include/llvm/Support/DynamicLibrary.h:
 
@@ -526,6 +540,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 
 /usr/local/include/llvm/ADT/PriorityWorklist.h:
 
+/usr/include/c++/11/deque:
+
 /usr/local/include/llvm/Transforms/Utils/LoopUtils.h:
 
 /usr/local/include/llvm/Transforms/Scalar/LoopPassManager.h:
@@ -539,8 +555,6 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/local/include/llvm/IR/Operator.h:
 
 /usr/local/include/llvm/IR/IRBuilderFolder.h:
-
-/usr/local/include/llvm/Transforms/Scalar/DCE.h:
 
 /usr/local/include/llvm/Support/Discriminator.h:
 
@@ -623,6 +637,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/local/include/llvm/PassAnalysisSupport.h:
 
 /usr/local/include/llvm/Pass.h:
+
+/home/leshlu/final-project/MAS/MASPass/MAS.h:
 
 /usr/local/include/llvm/IR/InstrTypes.h:
 
@@ -825,6 +841,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/c++/11/bits/stl_deque.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs.h:
 
@@ -1058,8 +1076,6 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
-/usr/local/include/llvm/Transforms/Utils/InstructionWorklist.h:
-
 /usr/include/c++/11/ext/type_traits.h:
 
 /usr/include/c++/11/pstl/glue_memory_defs.h:
@@ -1072,13 +1088,13 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
+/usr/local/include/llvm/ADT/PostOrderIterator.h:
+
 /usr/lib/gcc/x86_64-linux-gnu/11/include/syslimits.h:
 
 /usr/include/c++/11/debug/debug.h:
 
 /usr/include/features-time64.h:
-
-/usr/local/include/llvm/Transforms/Scalar/EarlyCSE.h:
 
 /usr/local/include/llvm/Support/TrailingObjects.h:
 
@@ -1278,6 +1294,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 
 /usr/include/c++/11/system_error:
 
+/usr/local/include/llvm/IR/LegacyPassManagers.h:
+
 /usr/include/c++/11/bits/vector.tcc:
 
 /usr/include/c++/11/optional:
@@ -1293,6 +1311,8 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/include/c++/11/initializer_list:
 
 /usr/include/c++/11/iosfwd:
+
+/usr/local/include/llvm/IR/InstVisitor.h:
 
 /usr/include/c++/11/debug/assertions.h:
 
@@ -1459,8 +1479,6 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/local/include/llvm/ADT/identity.h:
 
 /usr/local/include/llvm/Support/SwapByteOrder.h:
-
-/usr/local/include/llvm/Transforms/Scalar/NewGVN.h:
 
 /usr/include/c++/11/bits/stl_map.h:
 

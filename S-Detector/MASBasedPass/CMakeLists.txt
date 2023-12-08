@@ -8,3 +8,10 @@ add_definitions(${LLVM_DEFINITIONS_LIST})
 include_directories(${LLVM_INCLUDE_DIRS})
 
 add_subdirectory(MASBasedPass)
+
+add_subdirectory(../../MAS ../../MAS/build)
+# add_library(MASPass MODULE ../../MAS/MASPass/MASPass.cpp ../../MAS/MASPass/MAS.cpp)
+# include_directories(../../MAS)
+# add_subdirectory(../../MAS ../../MAS/build)
+
+target_link_libraries(MASBasedPass MAS)

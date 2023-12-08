@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -Wl,-rpath-link,  -Wl,--gc-sections -shared  -o MASPass.so CMakeFiles/MASPass.dir/MASPass.cpp.o CMakeFiles/MASPass.dir/MAS.cpp.o  -Wl,-rpath,"\$ORIGIN/../lib:" 

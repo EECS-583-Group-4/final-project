@@ -92,6 +92,7 @@ MASBasedPass_EXTERNAL_OBJECTS =
 
 MASBasedPass/MASBasedPass.so: MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o
 MASBasedPass/MASBasedPass.so: MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make
+MASBasedPass/MASBasedPass.so: /home/leshlu/final-project/S-Detector/MAS/build/libMAS.so
 MASBasedPass/MASBasedPass.so: MASBasedPass/CMakeFiles/MASBasedPass.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module MASBasedPass.so"
 	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MASBasedPass.dir/link.txt --verbose=$(VERBOSE)

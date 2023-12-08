@@ -60,14 +60,50 @@ CMAKE_SOURCE_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass
 CMAKE_BINARY_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass/build
 
 #=============================================================================
+# Directory level rules for directory /home/leshlu/final-project/S-Detector/MAS/build
+
+# Recursive "all" directory target.
+/home/leshlu/final-project/S-Detector/MAS/build/all: /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/all
+/home/leshlu/final-project/S-Detector/MAS/build/all: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/all
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/all
+
+# Recursive "preinstall" directory target.
+/home/leshlu/final-project/S-Detector/MAS/build/preinstall: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/preinstall
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/preinstall
+
+# Recursive "clean" directory target.
+/home/leshlu/final-project/S-Detector/MAS/build/clean: /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/clean
+/home/leshlu/final-project/S-Detector/MAS/build/clean: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/clean
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/clean
+
+#=============================================================================
+# Directory level rules for directory /home/leshlu/final-project/S-Detector/MAS/build/MASPass
+
+# Recursive "all" directory target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/all: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/all
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/all
+
+# Recursive "preinstall" directory target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/preinstall:
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/preinstall
+
+# Recursive "clean" directory target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/clean: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/clean
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/clean: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/clean
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/clean: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/clean
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/clean
+
+#=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
 all: MASBasedPass/all
+all: /home/leshlu/final-project/S-Detector/MAS/build/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: MASBasedPass/preinstall
+preinstall: /home/leshlu/final-project/S-Detector/MAS/build/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
@@ -76,6 +112,7 @@ clean: CMakeFiles/omp_gen.dir/clean
 clean: CMakeFiles/acc_gen.dir/clean
 clean: CMakeFiles/RISCVTargetParserTableGen.dir/clean
 clean: MASBasedPass/clean
+clean: /home/leshlu/final-project/S-Detector/MAS/build/clean
 .PHONY : clean
 
 #=============================================================================
@@ -203,15 +240,15 @@ CMakeFiles/RISCVTargetParserTableGen.dir/clean:
 # Target rules for target MASBasedPass/CMakeFiles/MASBasedPass.dir
 
 # All Build rule for target.
-MASBasedPass/CMakeFiles/MASBasedPass.dir/all:
+MASBasedPass/CMakeFiles/MASBasedPass.dir/all: /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/all
 	$(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/depend
 	$(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num=1,2 "Built target MASBasedPass"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num=3,4 "Built target MASBasedPass"
 .PHONY : MASBasedPass/CMakeFiles/MASBasedPass.dir/all
 
 # Build rule for subdir invocation for target.
 MASBasedPass/CMakeFiles/MASBasedPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/CMakeFiles/MASBasedPass.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
 .PHONY : MASBasedPass/CMakeFiles/MASBasedPass.dir/rule
@@ -237,7 +274,7 @@ MASBasedPass/CMakeFiles/install-MASBasedPass.dir/all: MASBasedPass/CMakeFiles/MA
 
 # Build rule for subdir invocation for target.
 MASBasedPass/CMakeFiles/install-MASBasedPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/CMakeFiles/install-MASBasedPass.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
 .PHONY : MASBasedPass/CMakeFiles/install-MASBasedPass.dir/rule
@@ -263,7 +300,7 @@ MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/all: MASBasedPass/CMak
 
 # Build rule for subdir invocation for target.
 MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
 .PHONY : MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/rule
@@ -276,6 +313,110 @@ install-MASBasedPass-stripped: MASBasedPass/CMakeFiles/install-MASBasedPass-stri
 MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/clean:
 	$(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/build.make MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/clean
 .PHONY : MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/clean
+
+#=============================================================================
+# Target rules for target /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir
+
+# All Build rule for target.
+/home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/all:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/depend
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num=1,2 "Built target MAS"
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/all
+
+# Build rule for subdir invocation for target.
+/home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/rule
+
+# Convenience name for target.
+MAS: /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/rule
+.PHONY : MAS
+
+# clean rule for target.
+/home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/clean:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/clean
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/clean
+
+#=============================================================================
+# Target rules for target /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir
+
+# All Build rule for target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/all:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/depend
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num=5,6,7 "Built target MASPass"
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/all
+
+# Build rule for subdir invocation for target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/rule
+
+# Convenience name for target.
+MASPass: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/rule
+.PHONY : MASPass
+
+# clean rule for target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/clean:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/clean
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/clean
+
+#=============================================================================
+# Target rules for target /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir
+
+# All Build rule for target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/all: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/all
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/depend
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num= "Built target install-MASPass"
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/all
+
+# Build rule for subdir invocation for target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/rule
+
+# Convenience name for target.
+install-MASPass: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/rule
+.PHONY : install-MASPass
+
+# clean rule for target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/clean:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/clean
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/clean
+
+#=============================================================================
+# Target rules for target /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir
+
+# All Build rule for target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/all: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/all
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/depend
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num= "Built target install-MASPass-stripped"
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/all
+
+# Build rule for subdir invocation for target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 3
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/rule
+
+# Convenience name for target.
+install-MASPass-stripped: /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/rule
+.PHONY : install-MASPass-stripped
+
+# clean rule for target.
+/home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/clean:
+	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/clean
+.PHONY : /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
