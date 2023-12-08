@@ -4,6 +4,7 @@
 #include "llvm/IR/Instructions.h"
 #include "llvm/IR/Value.h"
 #include "llvm/IR/InstVisitor.h"
+#include "llvm/Transforms/Utils/Mem2Reg.h"
 
 namespace MAS
 {
@@ -11,7 +12,7 @@ namespace MAS
     LEAF_TYPE categorizeNode(MASNode *node, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE);
     MASNode *getUD(MASNode *node, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE);
 
-    const char *READ_LEAF_TYPE[] = {"CONST", "BASE_MEM_ADDR", "FUNC_PARAM", "DATA_DEP_VAR", "FUNC_RET_VAL", "LOOP_IND_VAR", "UNSET", "OPERATION"};
+    const char *READ_LEAF_TYPE[] = {"CONST", "BASE_MEM_ADDR", "FUNC_PARAM", "DATA_DEP_VAR", "FUNC_RET_VAL", "LOOP_IND_VAR", "OPERATION", "UNSET"};
 
     MASNode::MASNode(llvm::Value *v)
     {
@@ -140,15 +141,29 @@ namespace MAS
         return os;
     }
 
-    MAS::MAS(llvm::Function *F, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE)
+    MAS::MAS(llvm::Function *F, llvm::FunctionAnalysisManager *FAM)
     {
         this->F = F;
-        this->li = li;
-        this->SE = SE;
+        this->FAM = FAM;
+        this->li = &(FAM->getResult<llvm::LoopAnalysis>(*F));
+        this->SE = &(FAM->getResult<llvm::ScalarEvolutionAnalysis>(*F));
+    }
+
+    void MAS::print()
+    {
+        std::vector<MASNode *> leaves;
+
+        llvm::errs() << "\n========== MAS FOR FUNCTION = " << F->getName() << " ===========\n";
+        for (MASNode *r : this->getRoots())
+        {
+            r->visitNodes();
+        }
     }
 
     void MAS::calculate()
     {
+        llvm::PromotePass mem2reg = llvm::PromotePass();
+        mem2reg.run(*F, *FAM);
         struct LoadVisitor : public llvm::InstVisitor<LoadVisitor>
         {
             llvm::LoopAnalysis::Result *li;
@@ -224,8 +239,8 @@ namespace MAS
 
                 MASNode *child = new MASNode(U.get());
                 node->addChild(child);
-
-                if (categorizeNode(child, li, SE) == UNSET)
+                LEAF_TYPE ty = categorizeNode(child, li, SE);
+                if (ty == UNSET || ty == OPERATION)
                 {
                     getUD(child, li, SE);
                     // opcnt+=1;
@@ -286,18 +301,19 @@ namespace MAS
                 }
             }
         }
+        else if (llvm::isa<llvm::BinaryOperator>(node->getValue()))
+        {
+            // llvm::errs() << "TYPE FO LEAF IS = OPERATION \n";
+            node->setLabel(OPERATION);
+        }
+        else if (llvm::isa<llvm::SExtInst>(node->getValue()))
+        {
+            // llvm::errs() << "TYPE FO LEAF IS = OPERATION \n";
+            node->setLabel(OPERATION);
+        }
         else
         {
-            // Check for arithmetic operation
-            llvm::Instruction *inst = llvm::dyn_cast<llvm::Instruction>(node->getValue());
-            if (inst->isBinaryOp())
-            {
-                node->setLabel(OPERATION);
-            }
-            else
-            {
-                node->setLabel(UNSET);
-            }
+            node->setLabel(UNSET);
         }
 
         return node->getLabel();
@@ -333,7 +349,7 @@ namespace MAS
         return nullptr;
     }
 
-    bool searchLoopInductionBased(MASNode *node)
+    bool searchOnlyStaticNodes(MASNode *node)
     {
         LEAF_TYPE lt = node->getLabel();
         if (lt != CONST && lt != LOOP_IND_VAR && lt != OPERATION)
@@ -342,34 +358,59 @@ namespace MAS
         }
         for (MASNode *child : node->getChildren())
         {
-            if (!searchLoopInductionBased(child))
+            if (!searchOnlyStaticNodes(child))
             {
                 return false;
             }
         }
 
         return true;
+    }
+
+    bool searchHasLoopInduction(MASNode *node)
+    {
+        LEAF_TYPE lt = node->getLabel();
+        if (lt == LOOP_IND_VAR)
+        {
+            return true;
+        }
+        for (MASNode *child : node->getChildren())
+        {
+            if (searchHasLoopInduction(child))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     bool MASNode::isLoopInductionBased()
     {
+        bool loopInductionBased = true;
         for (MASNode *l : this->getChildren())
         {
-            if (!searchLoopInductionBased(l))
+            if (!searchOnlyStaticNodes(l))
             {
                 return false;
             }
         }
+        for (MASNode *l : this->getChildren())
+        {
+            if (searchHasLoopInduction(l))
+            {
+                return true;
+            }
+        }
 
-        return true;
-    }
-
-    size_t searchForLowIndex(MASNode *node)
-    {
+        return false;
     }
 
     size_t MASNode::getTrueLoopStart()
     {
+        llvm::errs() << "CHECKING LOOP START\n"
+                     << *this;
+
         for (MASNode *l : this->getChildren())
         {
         }

@@ -327,4 +327,5 @@
  /usr/local/include/llvm/IR/DebugInfoFlags.def \
  /usr/local/include/llvm/IR/FPEnv.h /usr/local/include/llvm/IR/FMF.h \
  /usr/local/include/llvm/IR/Intrinsics.h \
- /usr/local/include/llvm/IR/IntrinsicEnums.inc
+ /usr/local/include/llvm/IR/IntrinsicEnums.inc \
+ /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h

@@ -17,7 +17,7 @@ opt -passes='function(loop-simplify)' ${1}.bc -o ${1}.ls.bc
 
 # clang -fprofile-instr-generate ${1}.ls.prof.bc -o ${1}_prof
 
-./${1}_prof > /dev/null
+#./${1}_prof > /dev/null
 
 # llvm-profdata merge -o ${1}.profdata default.profraw
 

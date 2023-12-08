@@ -27,14 +27,9 @@ namespace
 
     llvm::PreservedAnalyses run(llvm::Function &F, llvm::FunctionAnalysisManager &FAM)
     {
-      llvm::PromotePass mem2reg = llvm::PromotePass();
-      mem2reg.run(F, FAM);
+      MAS::MAS curr_mas = MAS::MAS(&F, &FAM);
 
-      llvm::LoopAnalysis::Result &li = FAM.getResult<llvm::LoopAnalysis>(F);
-      auto &SE = FAM.getResult<llvm::ScalarEvolutionAnalysis>(F);
-
-      MAS::MAS *curr_mas = new MAS::MAS(&F, &li, &SE);
-      curr_mas->calculate();
+      curr_mas.calculate();
 
       // Below is some debug you can uncomment to make sure no loads are getting missed
 
@@ -51,26 +46,7 @@ namespace
       // addresses and then traverse the U-D chain backwards to get the
       // dependencies, which will end up in leaf nodes
       // and categorized by type.
-
-      std::vector<MAS::MASNode *> leaves;
-
-      llvm::errs() << "\n========== MAS FOR FUNCTION = " << F.getName() << " ===========\n";
-      for (MAS::MASNode *r : curr_mas->getRoots())
-      {
-        r->visitNodes();
-      }
-
-      for (MAS::MASNode *r : curr_mas->getRoots())
-      {
-        leaves = *(curr_mas->getLeaves(r));
-        llvm::errs() << "PRINTING LEAF NODES OF ROOT = " << *r << "\n";
-        for (MAS::MASNode *l : leaves)
-        {
-          llvm::errs() << *l << "\n";
-        }
-      }
-
-      free(curr_mas);
+      curr_mas.print();
 
       return llvm::PreservedAnalyses::all();
     }

@@ -395,7 +395,8 @@
   /usr/local/include/llvm/IR/FPEnv.h \
   /usr/local/include/llvm/IR/FMF.h \
   /usr/local/include/llvm/IR/Intrinsics.h \
-  /usr/local/include/llvm/IR/IntrinsicEnums.inc
+  /usr/local/include/llvm/IR/IntrinsicEnums.inc \
+  /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h
 
 /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/MASPass.cpp.o: /home/leshlu/final-project/MAS/MASPass/MASPass.cpp \
   /usr/include/stdc-predef.h \
@@ -879,8 +880,6 @@
   /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h
 
 
-/usr/local/include/llvm/Transforms/Utils/Mem2Reg.h:
-
 /usr/include/c++/11/bits/deque.tcc:
 
 /usr/local/include/llvm/Support/PrettyStackTrace.h:
@@ -978,6 +977,8 @@
 /usr/local/include/llvm/ADT/Triple.h:
 
 /home/leshlu/final-project/MAS/MASPass/MASPass.cpp:
+
+/usr/local/include/llvm/Transforms/Utils/Mem2Reg.h:
 
 /usr/local/include/llvm/IR/Intrinsics.h:
 

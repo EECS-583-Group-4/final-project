@@ -15,7 +15,6 @@
 #include "llvm/IR/CFG.h"
 #include "llvm/Analysis/ScalarEvolution.h"
 #include "llvm/Analysis/LoopAnalysisManager.h"
-#include "llvm/Transforms/Utils/Mem2Reg.h"
 
 #include <iostream>
 #include <string>
@@ -138,36 +137,9 @@ namespace
 
         PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM)
         {
-            // Construct the MAS
-            llvm::LoopAnalysis::Result &li = FAM.getResult<llvm::LoopAnalysis>(F);
-            auto &SE = FAM.getResult<llvm::ScalarEvolutionAnalysis>(F);
-
-            llvm::PromotePass mem2reg = llvm::PromotePass();
-            mem2reg.run(F, FAM);
-
-            MAS::MAS *curr_mas = new MAS::MAS(&F, &li, &SE);
-            curr_mas->calculate();
-
-            // Test out printing the MAS
-            std::vector<MAS::MASNode *> leaves;
-
-            llvm::errs() << "\n========== MAS FOR FUNCTION = " << F.getName() << " ===========\n";
-            for (MAS::MASNode *r : curr_mas->getRoots())
-            {
-                r->visitNodes();
-            }
-
-            for (MAS::MASNode *r : curr_mas->getRoots())
-            {
-                leaves = *(curr_mas->getLeaves(r));
-                llvm::errs() << "PRINTING LEAF NODES OF ROOT = " << *r << "\n";
-                for (MAS::MASNode *l : leaves)
-                {
-                    llvm::errs() << *l << "\n";
-                }
-            }
-
-            // - END Testing out printing the MAS
+            MAS::MAS curr_mas = MAS::MAS(&F, &FAM);
+            curr_mas.calculate();
+            curr_mas.print();
 
             std::vector<checkDetails>
                 checks;
@@ -204,7 +176,7 @@ namespace
 
             for (auto &check : checks)
             {
-                MAS::MASNode *cur_node = curr_mas->getNode(check.index);
+                MAS::MASNode *cur_node = curr_mas.getNode(check.index);
                 if (cur_node && cur_node->isLoopInductionBased())
                 {
                     errs() << "FOUND LOOP INDUCTION BASED " << *cur_node << "\n";
@@ -215,9 +187,6 @@ namespace
                     insertDynamicArrayCheck(check, F);
                 }
             }
-
-            // Once we're done using the MAS, delete it
-            free(curr_mas);
 
             return PreservedAnalyses::all();
         }

@@ -479,7 +479,6 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
   /usr/include/c++/11/deque \
   /usr/include/c++/11/bits/stl_deque.h \
   /usr/include/c++/11/bits/deque.tcc \
-  /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h \
   /usr/include/c++/11/iostream \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/ios \
@@ -509,8 +508,6 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /usr/include/c++/11/ostream:
-
-/usr/local/include/llvm/Transforms/Utils/Mem2Reg.h:
 
 /usr/include/c++/11/bits/deque.tcc:
 
