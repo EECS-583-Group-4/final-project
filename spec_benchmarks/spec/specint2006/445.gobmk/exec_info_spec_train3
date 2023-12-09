@@ -1,0 +1,20 @@
+ # IMPACT Public Release (www.crhc.uiuc.edu/IMPACT)            Version 2.33  #
+ # IMPACT Trimaran Release (www.trimaran.org)                  July 12, 1999 #
+###############################################################################
+#  Run 'read_exec_info --help | more' for documentation.
+#
+#  Source of this file's information:
+#     SPEC (http://www.spec.org/)
+#
+#  Revision history for this file:
+###############################################################################
+
+DESCRIPTION="SPEC training input 3: arion"
+SETUP="ln -sf ${BENCH_DIR}/spec_train3/in/arion.tst .; ln -sf ${BENCH_DIR}/input/games .; ln -sf ${BENCH_DIR}/input/golois .";
+PREFIX="";
+ARGS="< arion.tst --quiet --mode gtp > exec_spec_train3.out";
+CHECK="diff exec_spec_train3.out ${BENCH_DIR}/spec_train3/out/arion.out";
+CLEANUP="rm -f exec_spec_train3.out; rm -f arion.tst; rm -rf games; rm -rf golois";
+
+# Around 44,000,000 instructions in .O_im_p, simulate approx. 
+SKIP="500000";

@@ -1,0 +1,20 @@
+ # IMPACT Public Release (www.crhc.uiuc.edu/IMPACT)            Version 2.33  #
+ # IMPACT Trimaran Release (www.trimaran.org)                  July 12, 1999 #
+###############################################################################
+#  Run 'read_exec_info --help | more' for documentation.
+#
+#  Source of this file's information:
+#     SPEC (http://www.spec.org/)
+#
+#  Revision history for this file:
+###############################################################################
+
+DESCRIPTION="SPEC2006/benchspec/input.ref"
+SETUP="ln -s ${BENCH_DIR}/spec_ref1/in/chicken.jpg .";
+PREFIX="";
+ARGS="chicken.jpg 30 > chicken.jpg.out";
+CHECK="diff chicken.jpg.out ${BENCH_DIR}/spec_ref1/out/chicken.jpg.out";
+CLEANUP="rm -f chicken.jpg.out; rm -f chicken.jpg";
+
+# Around 44,000,000 instructions in .O_im_p, simulate approx. 
+SKIP="500000";

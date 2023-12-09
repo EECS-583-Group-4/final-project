@@ -1,0 +1,20 @@
+ # IMPACT Public Release (www.crhc.uiuc.edu/IMPACT)            Version 2.33  #
+ # IMPACT Trimaran Release (www.trimaran.org)                  July 12, 1999 #
+###############################################################################
+#  Run 'read_exec_info --help | more' for documentation.
+#
+#  Source of this file's information:
+#     SPEC (http://www.spec.org/)
+#
+#  Revision history for this file:
+###############################################################################
+
+DESCRIPTION="SPEC training input 5: blunder"
+SETUP="ln -sf ${BENCH_DIR}/spec_train5/in/blunder.tst .; ln -sf ${BENCH_DIR}/input/games .; ln -sf ${BENCH_DIR}/input/golois .";
+PREFIX="";
+ARGS="< blunder.tst --quiet --mode gtp > exec_spec_train5.out";
+CHECK="diff exec_spec_train5.out ${BENCH_DIR}/spec_train5/out/blunder.out";
+CLEANUP="rm -f exec_spec_train5.out; rm -f blunder.tst; rm -rf games; rm -rf golois";
+
+# Around 44,000,000 instructions in .O_im_p, simulate approx. 
+SKIP="500000";

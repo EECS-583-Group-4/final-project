@@ -164,10 +164,12 @@ namespace MAS
 
     void MAS::calculate()
     {
-        llvm::LoopSimplifyPass loopsim = llvm::LoopSimplifyPass();
-        loopsim.run(*F, *FAM);
         llvm::PromotePass mem2reg = llvm::PromotePass();
         mem2reg.run(*F, *FAM);
+        llvm::LoopSimplifyPass loopsim = llvm::LoopSimplifyPass();
+        loopsim.run(*F, *FAM);
+        this->li = &(FAM->getResult<llvm::LoopAnalysis>(*F));
+        this->SE = &(FAM->getResult<llvm::ScalarEvolutionAnalysis>(*F));
         struct LoadVisitor : public llvm::InstVisitor<LoadVisitor>
         {
             llvm::LoopAnalysis::Result *li;
@@ -244,32 +246,93 @@ namespace MAS
                 MASNode *child = new MASNode(U.get());
                 node->addChild(child);
                 LEAF_TYPE ty = categorizeNode(child, li, SE);
-                if (ty == UNSET || ty == OPERATION)
+                if (ty == OPERATION || ty == UNSET)
                 {
                     getUD(child, li, SE);
                     // opcnt+=1;
                 }
-                else
-                {
-                    // If we wanted to add a property to nodes to specificly mark them
-                    // as leaf nodes when they are, this is where we would set that
-                }
             }
         }
-        // Not sure we need this anymore
         else if (v != nullptr)
         {
-            // llvm::errs() << "END OF UD WITH: " << *v << "\n";
-
-            // Categorize leaf node
-            // if (llvm::isa<llvm::Constant>(v)) {
-            // 	node->setLabel(MAS::CONST);
-            // }
             categorizeNode(node, li, SE);
             return node;
         }
         // Definitely still want this though
         return nullptr;
+    }
+
+    int performBinaryOp(int v1, int v2, llvm::Instruction::BinaryOps b)
+    {
+        if (b == llvm::Instruction::BinaryOps::Add)
+        {
+            return v1 + v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Sub)
+        {
+            return v1 - v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Mul)
+        {
+            return v1 * v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::UDiv || b == llvm::Instruction::BinaryOps::SDiv)
+        {
+            return v1 / v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::URem || b == llvm::Instruction::BinaryOps::SRem)
+        {
+            return v1 % v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Shl)
+        {
+            return v1 << v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::LShr || b == llvm::Instruction::BinaryOps::AShr)
+        {
+            return v1 >> v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::And)
+        {
+            return v1 & v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Or)
+        {
+            return v1 | v2;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Xor)
+        {
+            return v1 ^ v2;
+        }
+        else
+        {
+            // unsupported operation type
+            assert(false);
+        }
+    }
+
+    bool isValueInsideLoop(llvm::Value *V, llvm::Loop *L)
+    {
+        for (llvm::BasicBlock *BB : L->blocks())
+        {
+            for (llvm::Instruction &I : *BB)
+            {
+                if (&I == V)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    int simulateLoop(int start, int count, int inc, llvm::Instruction::BinaryOps b)
+    {
+        for (int i = 0; i < count; ++i)
+        {
+            start = performBinaryOp(start, inc, b);
+        }
+        return start;
     }
 
     LEAF_TYPE categorizeNode(MASNode *node, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE)
@@ -293,16 +356,54 @@ namespace MAS
         // b/c of the subset of passes being run
         else if (llvm::isa<llvm::PHINode>(node->getValue()))
         {
+            bool found = false;
             for (llvm::Loop *lo : li->getLoopsInPreorder())
             {
                 if (node->getValue() == lo->getCanonicalInductionVariable())
                 {
+                    found = true;
                     node->setLabel(LOOP_IND_VAR);
                     node->setLoopIndVarStart(0); // Def of CanonicalIndVar
-                    auto cnt = SE->getBackedgeTakenCount(lo);
                     auto ocnt = SE->getSmallConstantTripCount(lo);
                     node->setLoopIndVarEnd(ocnt - 2); // For some reason this is 2 higher than it should be?
                 }
+                else if (isValueInsideLoop(node->getValue(), lo))
+                {
+                    llvm::PHINode *ph = llvm::cast<llvm::PHINode>(node->getValue());
+                    llvm::Value *st = ph->getIncomingValue(0);
+                    if (!llvm::isa<llvm::ConstantInt>(st))
+                    {
+                        continue;
+                    }
+                    int start = llvm::cast<llvm::ConstantInt>(st)->getSExtValue();
+                    llvm::Value *inc = ph->getIncomingValue(1);
+                    if (!llvm::isa<llvm::BinaryOperator>(inc))
+                    {
+                        continue;
+                    }
+                    auto ocnt = SE->getSmallConstantTripCount(lo);
+                    if (ocnt == 0)
+                    {
+                        continue;
+                    }
+                    llvm::Instruction::BinaryOps b = llvm::cast<llvm::BinaryOperator>(inc)->getOpcode();
+                    for (llvm::Use &U : llvm::cast<llvm::BinaryOperator>(inc)->operands())
+                    {
+                        if (llvm::isa<llvm::ConstantInt>(U.get()))
+                        {
+                            int increment = llvm::cast<llvm::ConstantInt>(U.get())->getSExtValue();
+                            node->setLabel(LOOP_IND_VAR);
+                            node->setLoopIndVarStart(start);
+                            node->setLoopIndVarEnd(simulateLoop(start, ocnt - 2, increment, b)); // For some reason this is 2 higher than it should be?
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (!found)
+            {
+                node->setLabel(DATA_DEP_VAR);
             }
         }
         else if (llvm::isa<llvm::BinaryOperator>(node->getValue()))
@@ -407,55 +508,6 @@ namespace MAS
         }
 
         return false;
-    }
-
-    int performBinaryOp(int v1, int v2, llvm::Instruction::BinaryOps b)
-    {
-        if (b == llvm::Instruction::BinaryOps::Add)
-        {
-            return v1 + v2;
-        }
-        else if (b == llvm::Instruction::BinaryOps::Sub)
-        {
-            return v1 - v2;
-        }
-        else if (b == llvm::Instruction::BinaryOps::Mul)
-        {
-            return v1 * v2;
-        }
-        else if (b == llvm::Instruction::BinaryOps::UDiv || b == llvm::Instruction::BinaryOps::SDiv)
-        {
-            return v1 / v2;
-        }
-        else if (b == llvm::Instruction::BinaryOps::URem || b == llvm::Instruction::BinaryOps::SRem)
-        {
-            return v1 % v2;
-        }
-        else if (b == llvm::Instruction::BinaryOps::Shl)
-        {
-            return v1 << v2;
-        }
-        else if (b == llvm::Instruction::BinaryOps::LShr || b == llvm::Instruction::BinaryOps::AShr)
-        {
-            return v1 >> v2;
-        }
-        else if (b == llvm::Instruction::BinaryOps::And)
-        {
-            return v1 & v2;
-        }
-        else if (b == llvm::Instruction::BinaryOps::Or)
-        {
-            return v1 | v2;
-        }
-        else if (b == llvm::Instruction::BinaryOps::Xor)
-        {
-            return v1 ^ v2;
-        }
-        else
-        {
-            // unsupported operation type
-            assert(false);
-        }
     }
 
     int computeChildren(MASNode *node, bool start)

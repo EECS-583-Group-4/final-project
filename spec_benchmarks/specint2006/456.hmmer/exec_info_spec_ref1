@@ -1,0 +1,21 @@
+ # IMPACT Public Release (www.crhc.uiuc.edu/IMPACT)            Version 2.33  #
+ # IMPACT Trimaran Release (www.trimaran.org)                  July 12, 1999 #
+###############################################################################
+#  Run 'read_exec_info --help | more' for documentation.
+#
+#  Source of this file's information:
+#   Made up as an example
+#
+#  Revision history for this file:
+#     2/99  Created by John C. Gyllenhaal (www.crhc.uiuc.edu/IMPACT)
+###############################################################################
+
+DESCRIPTION="SPEC2006/benchspec/input.ref";
+SETUP="ln -s ${BENCH_DIR}/spec_ref1/input/nph3.hmm .; ln -s ${BENCH_DIR}/spec_ref1/input/swiss41 .";
+PREFIX="";
+ARGS="nph3.hmm swiss41 > nph.out";
+CHECK="diff nph.out ${BENCH_DIR}/spec_ref1/output/nph.out"
+CLEANUP="rm -f nph3.hmm; rm -f swiss41; rm -f nph3.out; rm -f nph3.hmm.new";
+
+# Simulate everything
+SKIP="0";

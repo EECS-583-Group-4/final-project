@@ -1,0 +1,23 @@
+ # IMPACT Public Release (www.crhc.uiuc.edu/IMPACT)            Version 2.33  #
+ # IMPACT Trimaran Release (www.trimaran.org)                  July 12, 1999 #
+###############################################################################
+#  Run 'read_exec_info --help | more' for documentation.
+#
+#  Source of this file's information:
+#   Made up as an example
+#
+#  Revision history for this file:
+#     2/99  Created by John C. Gyllenhaal (www.crhc.uiuc.edu/IMPACT)
+###############################################################################
+
+DESCRIPTION="SPEC2006/benchspec/input.train";
+# Assumes a little-endian system...if big-endian change the "le" at the end
+# of SETUP commands to "be"
+SETUP="ln -s ${BENCH_DIR}/spec_train1/input/args.an4 .; ln -s ${BENCH_DIR}/spec_train1/input/ctlfile .; ln -s ${BENCH_DIR}/spec_train1/input/beams.dat .; ln -s ${BENCH_DIR}/model .; ${BENCH_DIR}/get_input_files.sh ${BENCH_DIR}/spec_train1/input le";
+PREFIX="";
+ARGS="ctlfile . args.an4";
+CHECK="spiff -q -r .000001 total_considered.out ${BENCH_DIR}/spec_train1/output/total_considered.out; spiff -q -r .0004 considered.out ${BENCH_DIR}/spec_train1/output/considered.out; spiff -q -r .001 ${RESULT_FILE} ${BENCH_DIR}/spec_train1/output/an4.log";
+CLEANUP="rm -f *.raw; rm -f total_considered.out; rm -f considered.out; rm -f beams.dat rm -f args.an4; rm -f ctlfile; rm -f model";
+
+# Simulate everything
+SKIP="0";

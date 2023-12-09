@@ -1,0 +1,22 @@
+ # IMPACT Public Release (www.crhc.uiuc.edu/IMPACT)            Version 2.33  #
+ # IMPACT Trimaran Release (www.trimaran.org)                  July 12, 1999 #
+###############################################################################
+#  Run 'read_exec_info --help | more' for documentation.
+#
+#  Source of this file's information:
+#   Made up as an example
+#
+#  Revision history for this file:
+#     2/99  Created by John C. Gyllenhaal (www.crhc.uiuc.edu/IMPACT)
+###############################################################################
+
+DESCRIPTION="SPEC2006/benchspec/input.ref";
+# The input file must be copied.
+SETUP="cp ${BENCH_DIR}/spec_ref1/in/gromacs.tpr .";
+PREFIX="";
+ARGS="-nice 0 -deffnm gromacs -silent";
+CHECK="spiff -q -r .0125 gromacs.out ${BENCH_DIR}/spec_ref1/out/gromacs.out"
+CLEANUP="rm -f gromacs.tpr; rm -f gromacs.out";
+
+# Simulate everything
+SKIP="0";

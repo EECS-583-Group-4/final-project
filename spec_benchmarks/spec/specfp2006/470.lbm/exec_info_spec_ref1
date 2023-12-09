@@ -1,0 +1,21 @@
+ # IMPACT Public Release (www.crhc.uiuc.edu/IMPACT)            Version 2.33  #
+ # IMPACT Trimaran Release (www.trimaran.org)                  July 12, 1999 #
+###############################################################################
+#  Run 'read_exec_info --help | more' for documentation.
+#
+#  Source of this file's information:
+#   Made up as an example
+#
+#  Revision history for this file:
+#     2/99  Created by John C. Gyllenhaal (www.crhc.uiuc.edu/IMPACT)
+###############################################################################
+
+DESCRIPTION="SPEC2006/benchspec/input.ref";
+SETUP="ln -s ${BENCH_DIR}/spec_ref1/input/100_100_130_ldc.of";
+PREFIX="";
+ARGS="3000 reference.dat 0 0 100_100_130_ldc.of";
+CHECK="diff ${RESULT_FILE} ${BENCH_DIR}/spec_ref1/output/lbm.out";
+CLEANUP="rm -f 100_100_130_ldc.of";
+
+# Simulate everything
+SKIP="0";

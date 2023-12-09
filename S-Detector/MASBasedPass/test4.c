@@ -16,7 +16,7 @@ struct test_struct {
 void test_func() {
     // Allocate memory for new array
     struct test_struct new[100];
-    int pos = 1;
+    int pos = 100;
     int red_cost = 0;
     int* tail = new[pos-1].tail;
     
