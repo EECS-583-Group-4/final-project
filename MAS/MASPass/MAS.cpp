@@ -502,6 +502,8 @@ namespace MAS
                 }
                 else if (isValueInsideLoop(node->getValue(), lo))
                 {
+                    // aggressively try to find the bounds of non canonical loop
+                    // if the loop is irregular, default to calling it a DATA_DEP_VAR
                     llvm::PHINode *ph = llvm::cast<llvm::PHINode>(node->getValue());
                     llvm::Value *st = ph->getIncomingValue(0);
                     if (!llvm::isa<llvm::ConstantInt>(st))
