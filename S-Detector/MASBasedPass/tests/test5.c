@@ -4,7 +4,7 @@
 
 int main() {
     int a[10] = {0};
-    for (int i = 7; i < 16; i*=2) {
+    for (int i = 400; i > 10; i/=2) {
         printf("%d \n", a[i]);
     }
     return 0;

@@ -1,4 +1,5 @@
 #include "MAS.h"
+#include <cmath>
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/IR/Instruction.h"
 #include "llvm/IR/InstrTypes.h"
@@ -190,7 +191,6 @@ namespace MAS
         loadDepMaker.SE = SE;
 
         loadDepMaker.visit(F);
-
         // Add stores to the MAS
         struct StoreVisitor : public llvm::InstVisitor<StoreVisitor>
         {
@@ -386,13 +386,62 @@ namespace MAS
         return false;
     }
 
-    int simulateLoop(int start, int count, int inc, llvm::Instruction::BinaryOps b)
+    int executeAndSimulateLoop(int start, int count, int inc, llvm::Instruction::BinaryOps b)
     {
         for (int i = 0; i < count; ++i)
         {
             start = performBinaryOp(start, inc, b);
         }
         return start;
+    }
+
+    int simulateLoop(int start, int count, int inc, llvm::Instruction::BinaryOps b)
+    {
+        if (b == llvm::Instruction::BinaryOps::Add)
+        {
+            return start + count * inc;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Sub)
+        {
+            return start - count * inc;
+        }
+        else if (b == llvm::Instruction::BinaryOps::Mul)
+        {
+            return (double)start * pow(inc, count);
+        }
+        else if (b == llvm::Instruction::BinaryOps::UDiv || b == llvm::Instruction::BinaryOps::SDiv)
+        {
+            return (double)start * pow(1.0 / (double)inc, count);
+        }
+        else if (b == llvm::Instruction::BinaryOps::URem || b == llvm::Instruction::BinaryOps::SRem)
+        {
+            return executeAndSimulateLoop(start, count, inc, b);
+        }
+        else if (b == llvm::Instruction::BinaryOps::Shl)
+        {
+            return start << (count * inc);
+        }
+        else if (b == llvm::Instruction::BinaryOps::LShr || b == llvm::Instruction::BinaryOps::AShr)
+        {
+            return start >> (count * inc);
+        }
+        else if (b == llvm::Instruction::BinaryOps::And)
+        {
+            return executeAndSimulateLoop(start, count, inc, b);
+        }
+        else if (b == llvm::Instruction::BinaryOps::Or)
+        {
+            return executeAndSimulateLoop(start, count, inc, b);
+        }
+        else if (b == llvm::Instruction::BinaryOps::Xor)
+        {
+            return executeAndSimulateLoop(start, count, inc, b);
+        }
+        else
+        {
+            // unsupported operation type
+            assert(false);
+        }
     }
 
     LEAF_TYPE categorizeNode(MASNode *node, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE)
@@ -430,7 +479,9 @@ namespace MAS
                 {
                     node->setLabel(FUNC_RET_VAL);
                 }
-            } else {
+            }
+            else
+            {
                 node->setLabel(FUNC_RET_VAL);
             }
         }

@@ -10,7 +10,7 @@ PASS=masbased-pass
 clang -emit-llvm -S ${test_name}.c -Xclang -disable-O0-optnone -o ${test_name}.ll
 
 # Run the pass
-opt -load-pass-plugin=./build/MASBasedPass/MASBasedPass.so -passes="${PASS}" ${test_name}.ll -o ${test_name}.ll
+opt -load-pass-plugin=./../build/MASBasedPass/MASBasedPass.so -passes="${PASS}" ${test_name}.ll -o ${test_name}.ll
 
 # Generate binary executable
 clang ${test_name}.ll -o ${test_name}_MASBasedPass

@@ -494,8 +494,14 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp \
   /usr/include/c++/11/bits/ostream.tcc \
   /usr/include/c++/11/istream \
   /usr/include/c++/11/bits/istream.tcc \
+  /usr/include/c++/11/stack \
+  /usr/include/c++/11/bits/stl_stack.h \
   /home/leshlu/final-project/MAS/MASPass/MAS.h
 
+
+/usr/include/c++/11/bits/stl_stack.h:
+
+/usr/include/c++/11/stack:
 
 /usr/include/c++/11/istream:
 

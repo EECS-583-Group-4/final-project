@@ -26,7 +26,7 @@ namespace
             FunctionCallee printfFunc = module->getOrInsertFunction("printf", printfType);
 
             // The format string for the printf function, declared as a global literal
-            Value *str = builder.CreateGlobalStringPtr("Out of bounds access detected\n", "str");
+            Value *str = builder.CreateGlobalStringPtr("S-DETECTOR FOUND ERROR: Out of bounds array access detected\n", "str");
             std::vector<Value *> argsVprintf({str});
             builder.CreateCall(printfFunc, argsVprintf);
 

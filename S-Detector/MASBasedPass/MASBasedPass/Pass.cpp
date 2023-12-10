@@ -40,7 +40,7 @@ namespace
             FunctionCallee printfFunc = module->getOrInsertFunction("printf", printfType);
 
             // The format string for the printf function, declared as a global literal
-            Value *str = builder.CreateGlobalStringPtr("Out of bounds access detected\n", "str");
+            Value *str = builder.CreateGlobalStringPtr("S-DETECTOR FOUND ERROR: Out of bounds array access detected\n", "str");
             std::vector<Value *> argsVprintf({str});
             builder.CreateCall(printfFunc, argsVprintf);
 
@@ -178,7 +178,8 @@ namespace
                         llvm::Function *calledFunc = CI->getCalledFunction();
                         if (calledFunc && CI->getOperand(0) == pointer)
                         {
-                            if (calledFunc->getName() == "free" || calledFunc->getName() == "delete" || calledFunc->getName() == "delete[]") {
+                            if (calledFunc->getName() == "free" || calledFunc->getName() == "delete" || calledFunc->getName() == "delete[]")
+                            {
                                 // Same pointer has been freed before the current instruction
                                 errs() << "S-DETECTOR FOUND ERROR: Use after free \n";
                                 exit(1);
@@ -187,7 +188,6 @@ namespace
                     }
                 }
             }
-            
         }
 
         void staticFreeUnallocatedCheck(Function &F, MAS::MASNode *cur_node)
@@ -224,7 +224,7 @@ namespace
         void staticUnfreedMemoryCheck(Function &F, MAS::MASNode *cur_node, std::vector<MAS::MASNode *> &roots)
         {
             // Statically check whether there is unfreed memory from this instruction
-            
+
             llvm::Value *val = cur_node->getValue();
 
             // Get the allocated pointer, we know val is a malloc instruction
@@ -278,7 +278,7 @@ namespace
         {
             MAS::MAS curr_mas = MAS::MAS(&F, &FAM);
             curr_mas.calculate();
-            curr_mas.print();
+            // curr_mas.print();
 
             std::vector<checkDetails>
                 checks;
