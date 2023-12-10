@@ -14,7 +14,7 @@ namespace MAS
     LEAF_TYPE categorizeNode(MASNode *node, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE);
     MASNode *getUD(MASNode *node, llvm::LoopAnalysis::Result *li, llvm::ScalarEvolutionAnalysis::Result *SE);
 
-    const char *READ_LEAF_TYPE[] = {"CONST", "BASE_MEM_ADDR", "FUNC_PARAM", "DATA_DEP_VAR", "FUNC_RET_VAL", "LOOP_IND_VAR", "OPERATION", "UNSET"};
+    const char *READ_LEAF_TYPE[] = {"CONST", "BASE_MEM_ADDR", "FUNC_PARAM", "DATA_DEP_VAR", "FUNC_RET_VAL", "LOOP_IND_VAR", "OPERATION", "UNSET", "MEM_ALLOC", "MEM_DEALLOC"};
 
     MASNode::MASNode(llvm::Value *v)
     {
@@ -213,6 +213,66 @@ namespace MAS
         storeDepMaker.SE = SE;
 
         storeDepMaker.visit(F);
+
+        // Add malloc instructions to the MAS
+        struct MallocVisitor : public llvm::InstVisitor<MallocVisitor>
+        {
+            llvm::LoopAnalysis::Result *li;
+            llvm::ScalarEvolutionAnalysis::Result *SE;
+            MAS *curr_mas;
+
+            inline void visitCallInst(llvm::CallInst &I)
+            {
+                llvm::Function *calledFunc = I.getCalledFunction();
+                if (calledFunc)
+                {
+                    std::string funcName = calledFunc->getName().str();
+                    if (funcName == "malloc" || funcName == "calloc" || funcName == "realloc")
+                    {
+                        MASNode *node = new MASNode(&I);
+                        node->setLabel(MEM_ALLOC);
+                        curr_mas->addRoot(node, li, SE);
+                    }
+                }
+            }
+        };
+
+        MallocVisitor mallocDepMaker;
+        mallocDepMaker.curr_mas = this;
+        mallocDepMaker.li = li;
+        mallocDepMaker.SE = SE;
+
+        mallocDepMaker.visit(F);
+
+        // Add free instructions to the MAS
+        struct FreeVisitor : public llvm::InstVisitor<FreeVisitor>
+        {
+            llvm::LoopAnalysis::Result *li;
+            llvm::ScalarEvolutionAnalysis::Result *SE;
+            MAS *curr_mas;
+
+            inline void visitCallInst(llvm::CallInst &I)
+            {
+                llvm::Function *calledFunc = I.getCalledFunction();
+                if (calledFunc)
+                {
+                    std::string funcName = calledFunc->getName().str();
+                    if (funcName == "free" || funcName == "delete" || funcName == "delete[]")
+                    {
+                        MASNode *node = new MASNode(&I);
+                        node->setLabel(MEM_DEALLOC);
+                        curr_mas->addRoot(node, li, SE);
+                    }
+                }
+            }
+        };
+
+        FreeVisitor freeDepMaker;
+        freeDepMaker.curr_mas = this;
+        freeDepMaker.li = li;
+        freeDepMaker.SE = SE;
+
+        freeDepMaker.visit(F);
     }
 
     std::vector<MASNode *> MAS::getRoots() { return root_nodes; }
@@ -350,7 +410,29 @@ namespace MAS
         else if (llvm::isa<llvm::CallInst>(node->getValue()))
         {
             // llvm::errs() << "TYPE FO LEAF IS = FUNC_RET_VAL \n";
-            node->setLabel(FUNC_RET_VAL);
+
+            // Check whether this is a call to a memory allocation or deallocation
+            llvm::CallInst *callInst = llvm::cast<llvm::CallInst>(node->getValue());
+            llvm::Function *calledFunction = callInst->getCalledFunction();
+            if (calledFunction)
+            {
+                // Check function name
+                std::string funcName = calledFunction->getName().str();
+                if (funcName == "malloc" || funcName == "calloc" || funcName == "realloc")
+                {
+                    node->setLabel(MEM_ALLOC);
+                }
+                else if (funcName == "free" || funcName == "delete" || funcName == "delete[]")
+                {
+                    node->setLabel(MEM_DEALLOC);
+                }
+                else
+                {
+                    node->setLabel(FUNC_RET_VAL);
+                }
+            } else {
+                node->setLabel(FUNC_RET_VAL);
+            }
         }
         // This currently assumes phi node -> loopindvar, which is only true
         // b/c of the subset of passes being run

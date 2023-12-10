@@ -21,7 +21,9 @@ namespace MAS
         FUNC_RET_VAL,
         LOOP_IND_VAR,
         OPERATION,
-        UNSET
+        UNSET,
+        MEM_ALLOC,
+        MEM_DEALLOC
     };
 
     class MASNode

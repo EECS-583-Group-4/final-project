@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include <string>
+#include <stack>
 
 #include "../../../MAS/MASPass/MAS.h"
 
@@ -136,11 +137,148 @@ namespace
             insertIfBlock(c.GEP, upper, c.index, F);
         }
 
+        void staticUseAfterFreeCheck(Function &F, MAS::MASNode *cur_node)
+        {
+            // Statically check whether there is a use after free from this instruction
+
+            llvm::Value *pointer = nullptr;
+
+            llvm::Instruction *inst = llvm::dyn_cast<llvm::Instruction>(cur_node->getValue());
+            // Get the pointer from the load/store instruction in cur_node
+            if (inst)
+            {
+                if (llvm::LoadInst *loadInst = llvm::dyn_cast<llvm::LoadInst>(inst))
+                {
+                    pointer = loadInst->getPointerOperand();
+                }
+                else if (llvm::StoreInst *storeInst = llvm::dyn_cast<llvm::StoreInst>(inst))
+                {
+                    pointer = storeInst->getPointerOperand();
+                }
+            }
+
+            if (!pointer)
+            {
+                // Unable to retrieve the pointer from the load/store instruction
+                return;
+            }
+
+            // Iterate through the instructions in the function F
+            for (llvm::BasicBlock &BB : F)
+            {
+                for (llvm::Instruction &I : BB)
+                {
+                    if (&I == inst)
+                    {
+                        return; // Stop iterating when reaching the current instruction
+                    }
+
+                    if (llvm::CallInst *CI = llvm::dyn_cast<llvm::CallInst>(&I))
+                    {
+                        llvm::Function *calledFunc = CI->getCalledFunction();
+                        if (calledFunc && CI->getOperand(0) == pointer)
+                        {
+                            if (calledFunc->getName() == "free" || calledFunc->getName() == "delete" || calledFunc->getName() == "delete[]") {
+                                // Same pointer has been freed before the current instruction
+                                errs() << "S-DETECTOR FOUND ERROR: Use after free \n";
+                                exit(1);
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+
+        void staticFreeUnallocatedCheck(Function &F, MAS::MASNode *cur_node)
+        {
+            // Statically check whether there is a free of unallocated memory from this instruction
+            // Iterate through all the children of the root node
+            // If there is no node that is of type MEM_ALLOC, then we have a free of unallocated memory
+
+            std::stack<MAS::MASNode *> node_stack;
+            node_stack.push(cur_node);
+
+            while (!node_stack.empty())
+            {
+                MAS::MASNode *current = node_stack.top();
+                node_stack.pop();
+
+                // Check if the current node is of type MEM_ALLOC
+                if (current->getLabel() == MAS::LEAF_TYPE::MEM_ALLOC)
+                {
+                    return;
+                }
+
+                // Push the children of the current node onto the stack
+                for (auto &child : current->getChildren())
+                {
+                    node_stack.push(child);
+                }
+            }
+
+            errs() << "S-DETECTOR FOUND ERROR: Free of unallocated memory \n";
+            exit(1);
+        }
+
+        void staticUnfreedMemoryCheck(Function &F, MAS::MASNode *cur_node, std::vector<MAS::MASNode *> &roots)
+        {
+            // Statically check whether there is unfreed memory from this instruction
+            
+            llvm::Value *val = cur_node->getValue();
+
+            // Get the allocated pointer, we know val is a malloc instruction
+            llvm::Value *allocatedPointer = nullptr;
+            if (llvm::Instruction *inst = llvm::dyn_cast<llvm::Instruction>(val))
+            {
+                if (llvm::CallInst *callInst = llvm::dyn_cast<llvm::CallInst>(inst))
+                {
+                    allocatedPointer = callInst;
+                }
+            }
+
+            if (!allocatedPointer)
+            {
+                // Unable to retrieve the allocated pointer from the malloc instruction
+                return;
+            }
+
+            // Iterate through all root nodes in roots
+            for (auto &root : roots)
+            {
+                // Check if the root node is a MEM_DEALLOC
+                if (root->getLabel() == MAS::LEAF_TYPE::MEM_DEALLOC)
+                {
+                    // Check if the root node deallocates the allocated pointer
+                    // Get the operand of this free instruction
+                    llvm::Value *deallocPointer = nullptr;
+                    if (llvm::Instruction *inst = llvm::dyn_cast<llvm::Instruction>(root->getValue()))
+                    {
+                        if (llvm::CallInst *callInst = llvm::dyn_cast<llvm::CallInst>(inst))
+                        {
+                            deallocPointer = callInst->getOperand(0);
+                        }
+                    }
+                    llvm::errs() << "deallocPointer: " << *deallocPointer << "\n";
+                    llvm::errs() << "allocatedPointer: " << *allocatedPointer << "\n";
+                    if (deallocPointer == allocatedPointer)
+                    {
+                        // The allocated pointer is freed, so there is no unfreed memory
+                        return;
+                    }
+                }
+            }
+
+            // No free instruction found that frees the allocated pointer
+            errs() << "S-DETECTOR FOUND ERROR: Unfreed memory \n";
+            exit(1);
+        }
+
         PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM)
         {
             MAS::MAS curr_mas = MAS::MAS(&F, &FAM);
             curr_mas.calculate();
-            // curr_mas.print();
+            curr_mas.print();
 
             std::vector<checkDetails>
                 checks;
@@ -186,6 +324,32 @@ namespace
                 else
                 {
                     insertDynamicArrayCheck(check, F);
+                }
+            }
+
+            std::vector<MAS::MASNode *> roots = curr_mas.getRoots();
+
+            for (auto &root : roots)
+            {
+                // Check if the root is NOT a MEM_ALLOC or MEM_DEALLOC (ie it is a store or a load)
+                if (root->getLabel() != MAS::LEAF_TYPE::MEM_ALLOC && root->getLabel() != MAS::LEAF_TYPE::MEM_DEALLOC)
+                {
+                    // Check for use after free
+                    staticUseAfterFreeCheck(F, root);
+                }
+
+                // Check that the root is a MEM_DEALLOC
+                if (root->getLabel() == MAS::LEAF_TYPE::MEM_DEALLOC)
+                {
+                    // Check for free of unallocated memory
+                    staticFreeUnallocatedCheck(F, root);
+                }
+
+                // Check that the root is a MEM_ALLOC
+                if (root->getLabel() == MAS::LEAF_TYPE::MEM_ALLOC)
+                {
+                    // Check for unfreed memory
+                    staticUnfreedMemoryCheck(F, root, roots);
                 }
             }
 
