@@ -46,19 +46,38 @@ namespace
       auto printfFunc = module->getOrInsertFunction("printf", printfType);
 
       // The format string for the printf function, declared as a global literal
-      llvm::Value *str = builder.CreateGlobalStringPtr("test\n", "str", 0U, module);
 
-      std::vector<llvm::Value *> argsV({str});
+      std::vector<llvm::Value *> argsV;
 
       for (MAS::MASNode *root : roots) {
-        // Declaring some variables 
-        if (llvm::Instruction *ins = llvm::dyn_cast<llvm::Instruction>(root->getValue())) {
-          builder.SetInsertPoint(ins);
+
+        for (MAS::MASNode *child : root->getChildren()) {
+          if (child->getLabel() == MAS::UNSET) {
+            if (llvm::GetElementPtrInst *inst = llvm::dyn_cast<llvm::GetElementPtrInst>(child->getValue())) {
+
+              std::vector<llvm::Value *> inputs;
+              llvm::Value *format = builder.CreateGlobalStringPtr("%x\n", "str", 0U, module);
+              inputs.push_back(format);
+              inputs.push_back(inst->getPointerOperand());
+
+              // llvm::OperandBundleDef op_bun = llvm::OperandBundleDef("str", inputs);
+
+              llvm::Value *str = builder.CreateGlobalStringPtr("Test\n", "str", 0U, module);
+
+              // llvm::errs() << "This is str: " << *str << "\n";
+
+              std::vector<llvm::Value *> args({str});
+
+              argsV = inputs;
+
+              builder.SetInsertPoint(inst->getParent()->getTerminator());
+              builder.CreateCall(printfFunc, argsV, "calltmp");
         }
+          }
+        }
+        // Declaring some variables 
 
       }
-
-      builder.CreateCall(printfFunc, argsV, "calltmp");
 
       // Below is some debug you can uncomment to make sure no loads are getting missed
 
