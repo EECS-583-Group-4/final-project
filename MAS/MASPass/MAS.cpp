@@ -44,7 +44,7 @@ namespace MAS
         {
             return this->loop_ind_var_start;
         }
-        return ULONG_MAX;
+        return 0;
     }
 
     size_t MASNode::getLoopIndVarEnd() const
@@ -53,7 +53,7 @@ namespace MAS
         {
             return this->loop_ind_var_end;
         }
-        return ULONG_MAX;
+        return 0;
     }
 
     void MASNode::setLoopIndVarStart(size_t n)
@@ -494,10 +494,14 @@ namespace MAS
             {
                 if (node->getValue() == lo->getCanonicalInductionVariable())
                 {
+                    auto ocnt = SE->getSmallConstantTripCount(lo);
+                    if (ocnt <= 2)
+                    {
+                        continue;
+                    }
                     found = true;
                     node->setLabel(LOOP_IND_VAR);
-                    node->setLoopIndVarStart(0); // Def of CanonicalIndVar
-                    auto ocnt = SE->getSmallConstantTripCount(lo);
+                    node->setLoopIndVarStart(0);      // Def of CanonicalIndVar
                     node->setLoopIndVarEnd(ocnt - 2); // For some reason this is 2 higher than it should be?
                     break;
                 }
