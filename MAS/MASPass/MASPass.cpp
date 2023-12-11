@@ -51,14 +51,14 @@ namespace
 
       for (MAS::MASNode *root : roots) {
 
-        for (MAS::MASNode *child : root->getChildren()) {
-          if (child->getLabel() == MAS::UNSET) {
-            if (llvm::GetElementPtrInst *inst = llvm::dyn_cast<llvm::GetElementPtrInst>(child->getValue())) {
-
+        for (MAS::MASNode *child : *(curr_mas.getLeaves(root))) {
+          if (child->getLabel() == MAS::BASE_MEM_ADDR) {
+            if (llvm::Instruction *inst = llvm::dyn_cast<llvm::Instruction>(child->getValue())) {
+              llvm::errs() << "IN LOOP\n";
               std::vector<llvm::Value *> inputs;
-              llvm::Value *format = builder.CreateGlobalStringPtr("%x\n", "str", 0U, module);
+              llvm::Value *format = builder.CreateGlobalStringPtr("Pointer = %x\n", "str", 0U, module);
               inputs.push_back(format);
-              inputs.push_back(inst->getPointerOperand());
+              inputs.push_back(inst);
 
               // llvm::OperandBundleDef op_bun = llvm::OperandBundleDef("str", inputs);
 
