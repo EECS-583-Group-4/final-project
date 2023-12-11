@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-#define SIZE 1000
-#define OFFSET 0
-#define INCREMENT 1
+#define SIZE 5000
+#define OFFSET 6
+#define INCREMENT 7
 
 int main() {
     int a[SIZE] = {0};

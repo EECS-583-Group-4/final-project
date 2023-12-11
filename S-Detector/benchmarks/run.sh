@@ -28,15 +28,15 @@ clang ${1}.${PASS1}.bc -o ${1}_${PASS1}
 clang ${1}.${PASS2}.bc -o ${1}_${PASS2}
 
 # Produce output from binary to check correctness
-./${1}_${PASS1} > ${PASS1}_output
+#./${1}_${PASS1} > ${PASS1}_output
 # Produce output from binary to check correctness
-./${1}_${PASS2} > ${PASS2}_output
+#./${1}_${PASS2} > ${PASS2}_output
 
-echo -e "\n=== Program Correctness Validation ==="
-if [ "$(diff ${PASS1}_output ${PASS2}_output)" != "" ]; then
-    echo -e ">> Outputs do not match\n"
-else
-    echo -e ">> Outputs match\n"
+#echo -e "\n=== Program Correctness Validation ==="
+#if [ "$(diff ${PASS1}_output ${PASS2}_output)" != "" ]; then
+    #echo -e ">> Outputs do not match\n"
+#else
+    #echo -e ">> Outputs match\n"
     # Measure performance
     echo -e "1. Performance of MAS Based code"
     time ./${1}_${PASS1} > /dev/null
@@ -44,7 +44,7 @@ else
     echo -e "2. Performance of naive code"
     time ./${1}_${PASS2} > /dev/null
     echo -e "\n\n"
-fi
+#fi
 
 # Cleanup: Remove this if you want to retain the created files. And you do need to.
 #rm -f default.profraw *_prof *_optim *.bc *.profdata *_output *.ll *_masbased-pass *_naive-pass

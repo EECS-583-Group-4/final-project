@@ -405,6 +405,7 @@ NaivePass/CMakeFiles/NaivePass.dir/Pass.cpp.o: \
  /usr/local/include/llvm/Transforms/Utils/ValueMapper.h \
  /usr/local/include/llvm/Passes/PassPlugin.h \
  /usr/local/include/llvm/Support/DynamicLibrary.h \
+ /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h \
  /usr/include/c++/11/iostream /usr/include/c++/11/ostream \
  /usr/include/c++/11/ios /usr/include/c++/11/bits/basic_ios.h \
  /usr/include/c++/11/bits/locale_facets.h /usr/include/c++/11/cwctype \

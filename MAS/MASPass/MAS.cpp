@@ -499,6 +499,7 @@ namespace MAS
                     node->setLoopIndVarStart(0); // Def of CanonicalIndVar
                     auto ocnt = SE->getSmallConstantTripCount(lo);
                     node->setLoopIndVarEnd(ocnt - 2); // For some reason this is 2 higher than it should be?
+                    break;
                 }
                 else if (isValueInsideLoop(node->getValue(), lo))
                 {
@@ -534,6 +535,7 @@ namespace MAS
                             break;
                         }
                     }
+                    break;
                 }
             }
             if (!found)

@@ -4,6 +4,8 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/IR/Type.h"
 #include "llvm/IR/DerivedTypes.h"
+#include "llvm/Transforms/Utils/Mem2Reg.h"
+#include "llvm/Transforms/Utils/LoopSimplify.h"
 
 #include <iostream>
 #include <string>
@@ -92,6 +94,11 @@ namespace
 
         PreservedAnalyses run(Function &F, FunctionAnalysisManager &FAM)
         {
+
+            llvm::PromotePass mem2reg = llvm::PromotePass();
+            mem2reg.run(F, FAM);
+            llvm::LoopSimplifyPass loopsim = llvm::LoopSimplifyPass();
+            loopsim.run(F, FAM);
             std::vector<GetElementPtrInst *> arrays;
             for (auto &BB : F)
             {
