@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leshlu/final-project/MAS
+CMAKE_SOURCE_DIR = /home/ivris/583-project/final-project/MAS
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leshlu/final-project/MAS/build
+CMAKE_BINARY_DIR = /home/ivris/583-project/final-project/MAS/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/MAS/build/CMakeFiles /home/leshlu/final-project/MAS/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ivris/583-project/final-project/MAS/build/CMakeFiles /home/ivris/583-project/final-project/MAS/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/MAS/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ivris/583-project/final-project/MAS/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -199,19 +199,6 @@ acc_gen: cmake_check_build_system
 acc_gen/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/acc_gen.dir/build.make CMakeFiles/acc_gen.dir/build
 .PHONY : acc_gen/fast
-
-#=============================================================================
-# Target rules for targets named RISCVTargetParserTableGen
-
-# Build rule for target.
-RISCVTargetParserTableGen: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RISCVTargetParserTableGen
-.PHONY : RISCVTargetParserTableGen
-
-# fast build rule for target.
-RISCVTargetParserTableGen/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISCVTargetParserTableGen.dir/build.make CMakeFiles/RISCVTargetParserTableGen.dir/build
-.PHONY : RISCVTargetParserTableGen/fast
 
 #=============================================================================
 # Target rules for targets named MAS
@@ -289,6 +276,30 @@ MASPass/MAS.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MAS.cpp.s
 .PHONY : MASPass/MAS.cpp.s
 
+MASPass/MASPass.o: MASPass/MASPass.cpp.o
+.PHONY : MASPass/MASPass.o
+
+# target to build an object file
+MASPass/MASPass.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MASPass.cpp.o
+.PHONY : MASPass/MASPass.cpp.o
+
+MASPass/MASPass.i: MASPass/MASPass.cpp.i
+.PHONY : MASPass/MASPass.i
+
+# target to preprocess a source file
+MASPass/MASPass.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MASPass.cpp.i
+.PHONY : MASPass/MASPass.cpp.i
+
+MASPass/MASPass.s: MASPass/MASPass.cpp.s
+.PHONY : MASPass/MASPass.s
+
+# target to generate assembly for a file
+MASPass/MASPass.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MASPass.cpp.s
+.PHONY : MASPass/MASPass.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -301,7 +312,6 @@ help:
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... RISCVTargetParserTableGen"
 	@echo "... acc_gen"
 	@echo "... install-MASPass"
 	@echo "... install-MASPass-stripped"
@@ -312,6 +322,9 @@ help:
 	@echo "... MASPass/MAS.o"
 	@echo "... MASPass/MAS.i"
 	@echo "... MASPass/MAS.s"
+	@echo "... MASPass/MASPass.o"
+	@echo "... MASPass/MASPass.i"
+	@echo "... MASPass/MASPass.s"
 .PHONY : help
 
 

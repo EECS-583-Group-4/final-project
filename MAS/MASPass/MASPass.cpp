@@ -18,6 +18,7 @@
 #include "llvm/Analysis/ScalarEvolution.h"
 #include "llvm/Analysis/LoopAnalysisManager.h"
 #include "llvm/Transforms/Utils/Mem2Reg.h"
+#include "llvm/IR/IRBuilder.h"
 
 namespace
 {
@@ -30,6 +31,34 @@ namespace
       MAS::MAS curr_mas = MAS::MAS(&F, &FAM);
 
       curr_mas.calculate();
+
+      std::vector<MAS::MASNode *> roots = curr_mas.getRoots();
+
+      for (MAS::MASNode *root : roots) {
+        // Declaring some variables 
+        llvm::Instruction *call_inst;
+        llvm::Module* module = F.getParent();
+        llvm::LLVMContext &context = module->getContext();
+        llvm::IRBuilder<> builder(context);      
+        llvm::Type *intType = llvm::Type::getInt32Ty(context);
+
+
+        // Declare C standard library printf 
+        std::vector<llvm::Type *> printfArgsTypes({llvm::Type::getInt8PtrTy(context)});
+        llvm::FunctionType *printfType = llvm::FunctionType::get(intType, printfArgsTypes, true);
+        auto printfFunc = module->getOrInsertFunction("printf", printfType);
+
+        // The format string for the printf function, declared as a global literal
+        llvm::Value *str = builder.CreateGlobalStringPtr("test\n", "str", 0U, module);
+  
+
+        std::vector<llvm::Value *> argsV({str});
+        if (llvm::Instruction *ins = llvm::dyn_cast<llvm::Instruction>(root->getValue())) {
+          builder.SetInsertPoint(ins);
+          builder.CreateCall(printfFunc, argsV, "calltmp");
+        }
+
+      }
 
       // Below is some debug you can uncomment to make sure no loads are getting missed
 

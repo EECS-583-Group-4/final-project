@@ -25,6 +25,10 @@ opt -passes='function(loop-simplify)' ${1}.bc -o ${1}.ls.bc
 
 opt -load-pass-plugin="${PATH2LIB}" -passes="${PASS}" ${1}.ls.bc -o ${1}.mas.bc
 
+clang ${1}.mas.bc -o ${1}.out
+
+./${1}.out
+
 # Here we could generate an executable
 
 rm -f *.in *.in.Z default.profraw *_prof *_fplicm *.ll *.bc *.profdata *_output words

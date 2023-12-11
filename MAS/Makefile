@@ -201,6 +201,19 @@ acc_gen/fast:
 .PHONY : acc_gen/fast
 
 #=============================================================================
+# Target rules for targets named MAS
+
+# Build rule for target.
+MAS: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS
+.PHONY : MAS
+
+# fast build rule for target.
+MAS/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/build
+.PHONY : MAS/fast
+
+#=============================================================================
 # Target rules for targets named MASPass
 
 # Build rule for target.
@@ -239,6 +252,54 @@ install-MASPass-stripped/fast:
 	$(MAKE) $(MAKESILENT) -f MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make MASPass/CMakeFiles/install-MASPass-stripped.dir/build
 .PHONY : install-MASPass-stripped/fast
 
+MASPass/MAS.o: MASPass/MAS.cpp.o
+.PHONY : MASPass/MAS.o
+
+# target to build an object file
+MASPass/MAS.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MAS.cpp.o
+.PHONY : MASPass/MAS.cpp.o
+
+MASPass/MAS.i: MASPass/MAS.cpp.i
+.PHONY : MASPass/MAS.i
+
+# target to preprocess a source file
+MASPass/MAS.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MAS.cpp.i
+.PHONY : MASPass/MAS.cpp.i
+
+MASPass/MAS.s: MASPass/MAS.cpp.s
+.PHONY : MASPass/MAS.s
+
+# target to generate assembly for a file
+MASPass/MAS.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MAS.cpp.s
+.PHONY : MASPass/MAS.cpp.s
+
+MASPass/MASPass.o: MASPass/MASPass.cpp.o
+.PHONY : MASPass/MASPass.o
+
+# target to build an object file
+MASPass/MASPass.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MASPass.cpp.o
+.PHONY : MASPass/MASPass.cpp.o
+
+MASPass/MASPass.i: MASPass/MASPass.cpp.i
+.PHONY : MASPass/MASPass.i
+
+# target to preprocess a source file
+MASPass/MASPass.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MASPass.cpp.i
+.PHONY : MASPass/MASPass.cpp.i
+
+MASPass/MASPass.s: MASPass/MASPass.cpp.s
+.PHONY : MASPass/MASPass.s
+
+# target to generate assembly for a file
+MASPass/MASPass.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAS.dir/build.make CMakeFiles/MAS.dir/MASPass/MASPass.cpp.s
+.PHONY : MASPass/MASPass.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -256,7 +317,14 @@ help:
 	@echo "... install-MASPass-stripped"
 	@echo "... intrinsics_gen"
 	@echo "... omp_gen"
+	@echo "... MAS"
 	@echo "... MASPass"
+	@echo "... MASPass/MAS.o"
+	@echo "... MASPass/MAS.i"
+	@echo "... MASPass/MAS.s"
+	@echo "... MASPass/MASPass.o"
+	@echo "... MASPass/MASPass.i"
+	@echo "... MASPass/MASPass.s"
 .PHONY : help
 
 

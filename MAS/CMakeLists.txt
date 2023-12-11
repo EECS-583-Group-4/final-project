@@ -9,5 +9,5 @@ include_directories(${LLVM_INCLUDE_DIRS})
 
 add_subdirectory(MASPass)
 
-# add_library(MAS MODULE MASPass/MAS.cpp MASPass/MASPass.cpp)
-add_library(MAS SHARED MASPass/MAS.cpp)
+add_library(MAS MODULE MASPass/MAS.cpp MASPass/MASPass.cpp)
+# add_library(MAS SHARED MASPass/MAS.cpp)
