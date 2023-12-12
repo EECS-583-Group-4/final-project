@@ -18,7 +18,7 @@ plt.bar(X_axis + W, (v_n /v_u), W, color='red', edgecolor='black', label="Naive 
 plt.xticks(X_axis + W/2, nodes, rotation=40) 
 plt.xlabel("Benchmark")
 plt.ylim([0,3.5])
-plt.ylabel("Performance Overhead")
+plt.ylabel("Program Size Overhead")
 plt.legend()
 plt.tight_layout()
 plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(xmax=1.0))
