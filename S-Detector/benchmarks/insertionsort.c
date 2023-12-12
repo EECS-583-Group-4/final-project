@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define SIZE 1000
+#define SIZE 130000
 
 void printArray(int arr[])
 {
