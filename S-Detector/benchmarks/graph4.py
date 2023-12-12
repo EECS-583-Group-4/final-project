@@ -1,9 +1,9 @@
 import numpy as np
 
 #just copied from results spreadsheet
-v_u = np.array([27.3,29.35,27.45,29.51,24.02,26.87,33.9,26.4])
-v_m = np.array([27.49,52.26,28.09,29.23,24.27,26.93,58.08,30])
-v_n = np.array([64.51,62.24,41.62,54.64,77.14,76.86,58.32,33.6])
+v_u = np.array([16104,16112,16120,16016,15896,16016,20968,15992])
+v_m = np.array([16104,16160,16168,16016,15896,16016,25112,16168])
+v_n = np.array([16152,16160,20264,16120,20160,16120,25112,16168])
 
 nodes = ["bubblesort.c", "insertionsort.c", "kmeans.c", "offsets.c", "patterns.c", "summation.c", "alexnet.c", "backtrack.c"]
 X_axis = np.arange(len(nodes)) 
@@ -17,11 +17,11 @@ plt.bar(X_axis + 2*W, v_n, W, color='black', edgecolor='black', label="Naive Pas
 
 plt.xticks(X_axis + W, nodes, rotation=40) 
 plt.xlabel("Benchmark")
-plt.ylim([0, 80])
-plt.ylabel("Runtime (seconds)")
+plt.ylim([0, 26000])
+plt.ylabel("Program Size (Bytes)")
 plt.legend()
 plt.tight_layout()
 plt.show()
 
 # Save the plot
-plt.savefig('graph1.png', dpi=300, bbox_inches='tight')
+plt.savefig('graph4.png', dpi=300, bbox_inches='tight')
