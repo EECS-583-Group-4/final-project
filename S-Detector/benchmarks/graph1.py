@@ -9,14 +9,16 @@ nodes = ["bubblesort.c", "insertionsort.c", "kmeans.c", "offsets.c", "patterns.c
 X_axis = np.arange(len(nodes)) 
 
 import matplotlib.pyplot as plt
-plt.bar(X_axis, v_u, color=(1, 0, 0, 1), edgecolor='black', label="Unmodified")   
-plt.bar(X_axis, v_m, color=(0, 1, 0, 1),  edgecolor='black', label="MAS Based Pass")
-plt.bar(X_axis, v_n, color=(0, 0, 1, 1), edgecolor='black', label="Naive Pass")
+W = 0.25
+plt.bar(X_axis, v_u, W, color='white', hatch="//", edgecolor='black', label="Unmodified")   
+plt.bar(X_axis + W, v_m, W, color='gray',  edgecolor='black', label="MAS Based Pass")
+plt.bar(X_axis + 2*W, v_n, W, color='black', edgecolor='black', label="Naive Pass")
  
 
-plt.xticks(X_axis, nodes) 
+plt.xticks(X_axis + W, nodes, rotation=40) 
 plt.xlabel("Benchmark")
-plt.ylim([0, 32])
+plt.ylim([0, 80])
 plt.ylabel("Runtime (seconds)")
 plt.legend()
+plt.tight_layout()
 plt.show()
