@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define DATA_POINTS 30000
-#define FEATURES 5
-#define CLUSTERS 5
-#define MAX_ITERATIONS 1000
+#define DATA_POINTS 20000
+#define FEATURES 7
+#define CLUSTERS 7
+#define MAX_ITERATIONS 6000
 
 int main()
 {

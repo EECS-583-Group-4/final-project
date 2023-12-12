@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define SIZE 1000
+#define SIZE 7000
 #define OFFSET 6
 #define INCREMENT 7
 

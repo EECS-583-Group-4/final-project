@@ -470,6 +470,7 @@ NaivePass/CMakeFiles/NaivePass.dir/Pass.cpp.o: ../NaivePass/Pass.cpp \
   /usr/local/include/llvm/Transforms/Utils/ValueMapper.h \
   /usr/local/include/llvm/Passes/PassPlugin.h \
   /usr/local/include/llvm/Support/DynamicLibrary.h \
+  /usr/local/include/llvm/Transforms/Utils/Mem2Reg.h \
   /usr/include/c++/11/iostream \
   /usr/include/c++/11/ostream \
   /usr/include/c++/11/ios \
@@ -498,6 +499,8 @@ NaivePass/CMakeFiles/NaivePass.dir/Pass.cpp.o: ../NaivePass/Pass.cpp \
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /usr/include/c++/11/ostream:
+
+/usr/local/include/llvm/Transforms/Utils/Mem2Reg.h:
 
 /usr/local/include/llvm/Support/DynamicLibrary.h:
 

@@ -14,6 +14,8 @@ rm -f default.profraw *_prof *_optim *.bc *.profdata *_output *.ll *_masbased-pa
 # Convert source code to bitcode (IR).
 clang -emit-llvm -c ${1}.c -Xclang -disable-O0-optnone -o ${1}.bc
 
+opt -passes='function(mem2reg,loop-simplify)' ${1}.bc -o ${1}.ls.bc
+
 # We now use the profile augmented bc file as input to your pass.
 opt -load-pass-plugin="${PATH2MASBASED}" -passes="${PASS1}" ${1}.bc -o ${1}.${PASS1}.bc > /dev/null
 
@@ -21,7 +23,7 @@ opt -load-pass-plugin="${PATH2MASBASED}" -passes="${PASS1}" ${1}.bc -o ${1}.${PA
 opt -load-pass-plugin="${PATH2NAIVE}" -passes="${PASS2}" ${1}.bc -o ${1}.${PASS2}.bc > /dev/null
 
 # Generate binary excutable before optim: Unoptimzed code
-clang ${1}.bc -o ${1}_no_optim 
+clang ${1}.ls.bc -o ${1}_no_optim 
 # Generate binary executable after optim: Optimized code
 clang ${1}.${PASS1}.bc -o ${1}_${PASS1}
 # Generate binary executable after optim: Optimized code
@@ -38,6 +40,9 @@ clang ${1}.${PASS2}.bc -o ${1}_${PASS2}
 #else
     #echo -e ">> Outputs match\n"
     # Measure performance
+    echo -e "2. Performance of unoptim"
+    time ./${1}_no_optim > /dev/null
+    echo -e "\n\n"
     echo -e "1. Performance of MAS Based code"
     time ./${1}_${PASS1} > /dev/null
     echo -e "\n\n"

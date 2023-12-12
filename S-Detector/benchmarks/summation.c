@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define SIZE 1000
+#define SIZE 70000
 
 int main()
 {
