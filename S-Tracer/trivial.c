@@ -33,7 +33,7 @@ B[i] = iAdd(A[i], B[i]);
 }
 
 
-for(int i=0;i<100;++i){
+for(int i=0;i<100;i=i+2){
 if (i < SIZE*0.8){
 D[i] = fAdd(C[i], D[i]);
 }

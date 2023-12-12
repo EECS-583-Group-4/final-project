@@ -1,4 +1,4 @@
-# Install script for directory: /home/leshlu/final-project/MAS/MASPass
+# Install script for directory: /home/ngawad/final-project/MAS/MASPass
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -49,7 +49,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xMASPassx" OR NOT CMAKE_INSTALL_COMP
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASPass.so"
          RPATH "\$ORIGIN/../lib")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE MODULE FILES "/home/leshlu/final-project/S-Detector/MAS/build/MASPass/MASPass.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE MODULE FILES "/home/ngawad/final-project/S-Detector/MAS/build/MASPass/MASPass.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASPass.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASPass.so")
     file(RPATH_CHANGE

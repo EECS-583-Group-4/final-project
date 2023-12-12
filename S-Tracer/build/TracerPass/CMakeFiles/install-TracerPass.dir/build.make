@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer_old
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer_old/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer/build
 
 # Utility rule file for install-TracerPass.
 
@@ -67,7 +67,7 @@ include TracerPass/CMakeFiles/install-TracerPass.dir/compiler_depend.make
 include TracerPass/CMakeFiles/install-TracerPass.dir/progress.make
 
 TracerPass/CMakeFiles/install-TracerPass:
-	cd /home/ngawad/final-project/S-Tracer_old/build/TracerPass && /usr/bin/cmake -DCMAKE_INSTALL_COMPONENT="TracerPass" -P /home/ngawad/final-project/S-Tracer_old/build/cmake_install.cmake
+	cd /home/ngawad/final-project/S-Tracer/build/TracerPass && /usr/bin/cmake -DCMAKE_INSTALL_COMPONENT="TracerPass" -P /home/ngawad/final-project/S-Tracer/build/cmake_install.cmake
 
 install-TracerPass: TracerPass/CMakeFiles/install-TracerPass
 install-TracerPass: TracerPass/CMakeFiles/install-TracerPass.dir/build.make
@@ -78,10 +78,10 @@ TracerPass/CMakeFiles/install-TracerPass.dir/build: install-TracerPass
 .PHONY : TracerPass/CMakeFiles/install-TracerPass.dir/build
 
 TracerPass/CMakeFiles/install-TracerPass.dir/clean:
-	cd /home/ngawad/final-project/S-Tracer_old/build/TracerPass && $(CMAKE_COMMAND) -P CMakeFiles/install-TracerPass.dir/cmake_clean.cmake
+	cd /home/ngawad/final-project/S-Tracer/build/TracerPass && $(CMAKE_COMMAND) -P CMakeFiles/install-TracerPass.dir/cmake_clean.cmake
 .PHONY : TracerPass/CMakeFiles/install-TracerPass.dir/clean
 
 TracerPass/CMakeFiles/install-TracerPass.dir/depend:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ngawad/final-project/S-Tracer_old /home/ngawad/final-project/S-Tracer_old/TracerPass /home/ngawad/final-project/S-Tracer_old/build /home/ngawad/final-project/S-Tracer_old/build/TracerPass /home/ngawad/final-project/S-Tracer_old/build/TracerPass/CMakeFiles/install-TracerPass.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ngawad/final-project/S-Tracer/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ngawad/final-project/S-Tracer /home/ngawad/final-project/S-Tracer/TracerPass /home/ngawad/final-project/S-Tracer/build /home/ngawad/final-project/S-Tracer/build/TracerPass /home/ngawad/final-project/S-Tracer/build/TracerPass/CMakeFiles/install-TracerPass.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : TracerPass/CMakeFiles/install-TracerPass.dir/depend
 

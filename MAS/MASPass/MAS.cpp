@@ -74,6 +74,15 @@ namespace MAS
         return;
     }
 
+    void MASNode::setStep(size_t n)
+    {
+        if (this->label == LOOP_IND_VAR)
+        {
+            this->step = n;
+        }
+        return;
+    }
+
     MASNode *MASNode::visitNodes(size_t depth)
     {
         if (this != nullptr)
@@ -501,6 +510,7 @@ namespace MAS
                     }
                     found = true;
                     node->setLabel(LOOP_IND_VAR);
+                    node->setStep(1);
                     node->setLoopIndVarStart(0);      // Def of CanonicalIndVar
                     node->setLoopIndVarEnd(ocnt - 2); // For some reason this is 2 higher than it should be?
                 }
@@ -532,6 +542,7 @@ namespace MAS
                         {
                             int increment = llvm::cast<llvm::ConstantInt>(U.get())->getSExtValue();
                             node->setLabel(LOOP_IND_VAR);
+                            node->setStep(increment);
                             node->setLoopIndVarStart(start);
                             node->setLoopIndVarEnd(simulateLoop(start, ocnt - 2, increment, b)); // For some reason this is 2 higher than it should be?
                             found = true;
@@ -697,5 +708,10 @@ namespace MAS
     int MASNode::getTrueLoopEnd()
     {
         return computeChildren(this, false);
+    }
+
+    int MASNode::getStep()
+    {
+        return step;
     }
 }

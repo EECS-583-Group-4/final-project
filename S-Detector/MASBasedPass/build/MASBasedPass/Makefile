@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,14 +132,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass//CMakeFiles/progress.marks
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Detector/MASBasedPass/build/CMakeFiles /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass//CMakeFiles/progress.marks
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/clean
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/clean
 .PHONY : clean
 
 # The main clean target
@@ -148,22 +148,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/preinstall
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/preinstall
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 MASBasedPass/CMakeFiles/MASBasedPass.dir/rule:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/CMakeFiles/MASBasedPass.dir/rule
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/CMakeFiles/MASBasedPass.dir/rule
 .PHONY : MASBasedPass/CMakeFiles/MASBasedPass.dir/rule
 
 # Convenience name for target.
@@ -172,12 +172,12 @@ MASBasedPass: MASBasedPass/CMakeFiles/MASBasedPass.dir/rule
 
 # fast build rule for target.
 MASBasedPass/fast:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/build
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/build
 .PHONY : MASBasedPass/fast
 
 # Convenience name for target.
 MASBasedPass/CMakeFiles/install-MASBasedPass.dir/rule:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/CMakeFiles/install-MASBasedPass.dir/rule
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/CMakeFiles/install-MASBasedPass.dir/rule
 .PHONY : MASBasedPass/CMakeFiles/install-MASBasedPass.dir/rule
 
 # Convenience name for target.
@@ -186,12 +186,12 @@ install-MASBasedPass: MASBasedPass/CMakeFiles/install-MASBasedPass.dir/rule
 
 # fast build rule for target.
 install-MASBasedPass/fast:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/install-MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/install-MASBasedPass.dir/build
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/install-MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/install-MASBasedPass.dir/build
 .PHONY : install-MASBasedPass/fast
 
 # Convenience name for target.
 MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/rule:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/rule
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/rule
 .PHONY : MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/rule
 
 # Convenience name for target.
@@ -200,7 +200,7 @@ install-MASBasedPass-stripped: MASBasedPass/CMakeFiles/install-MASBasedPass-stri
 
 # fast build rule for target.
 install-MASBasedPass-stripped/fast:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/build.make MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/build
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/build.make MASBasedPass/CMakeFiles/install-MASBasedPass-stripped.dir/build
 .PHONY : install-MASBasedPass-stripped/fast
 
 Pass.o: Pass.cpp.o
@@ -208,7 +208,7 @@ Pass.o: Pass.cpp.o
 
 # target to build an object file
 Pass.cpp.o:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o
 .PHONY : Pass.cpp.o
 
 Pass.i: Pass.cpp.i
@@ -216,7 +216,7 @@ Pass.i: Pass.cpp.i
 
 # target to preprocess a source file
 Pass.cpp.i:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.i
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.i
 .PHONY : Pass.cpp.i
 
 Pass.s: Pass.cpp.s
@@ -224,7 +224,7 @@ Pass.s: Pass.cpp.s
 
 # target to generate assembly for a file
 Pass.cpp.s:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.s
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(MAKE) $(MAKESILENT) -f MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.s
 .PHONY : Pass.cpp.s
 
 # Help Target
@@ -256,6 +256,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

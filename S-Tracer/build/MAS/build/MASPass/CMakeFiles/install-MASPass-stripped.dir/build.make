@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer_old
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer_old/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer/build
 
 # Utility rule file for install-MASPass-stripped.
 
@@ -67,7 +67,7 @@ include MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/compiler_depen
 include MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/progress.make
 
 MAS/build/MASPass/CMakeFiles/install-MASPass-stripped:
-	cd /home/ngawad/final-project/S-Tracer_old/build/MAS/build/MASPass && /usr/bin/cmake -DCMAKE_INSTALL_COMPONENT="MASPass" -DCMAKE_INSTALL_DO_STRIP=1 -P /home/ngawad/final-project/S-Tracer_old/build/cmake_install.cmake
+	cd /home/ngawad/final-project/S-Tracer/build/MAS/build/MASPass && /usr/bin/cmake -DCMAKE_INSTALL_COMPONENT="MASPass" -DCMAKE_INSTALL_DO_STRIP=1 -P /home/ngawad/final-project/S-Tracer/build/cmake_install.cmake
 
 install-MASPass-stripped: MAS/build/MASPass/CMakeFiles/install-MASPass-stripped
 install-MASPass-stripped: MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make
@@ -78,10 +78,10 @@ MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build: install-MASPass
 .PHONY : MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build
 
 MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/clean:
-	cd /home/ngawad/final-project/S-Tracer_old/build/MAS/build/MASPass && $(CMAKE_COMMAND) -P CMakeFiles/install-MASPass-stripped.dir/cmake_clean.cmake
+	cd /home/ngawad/final-project/S-Tracer/build/MAS/build/MASPass && $(CMAKE_COMMAND) -P CMakeFiles/install-MASPass-stripped.dir/cmake_clean.cmake
 .PHONY : MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/clean
 
 MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/depend:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ngawad/final-project/S-Tracer_old /home/ngawad/final-project/MAS/MASPass /home/ngawad/final-project/S-Tracer_old/build /home/ngawad/final-project/S-Tracer_old/build/MAS/build/MASPass /home/ngawad/final-project/S-Tracer_old/build/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ngawad/final-project/S-Tracer/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ngawad/final-project/S-Tracer /home/ngawad/final-project/MAS/MASPass /home/ngawad/final-project/S-Tracer/build /home/ngawad/final-project/S-Tracer/build/MAS/build/MASPass /home/ngawad/final-project/S-Tracer/build/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/depend
 

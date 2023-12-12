@@ -1,1 +1,1 @@
-/usr/bin/c++ -fPIC  -Wl,-rpath-link,  -Wl,--gc-sections -shared  -o MASBasedPass.so CMakeFiles/MASBasedPass.dir/Pass.cpp.o  -Wl,-rpath,"\$ORIGIN/../lib:/home/leshlu/final-project/S-Detector/MAS/build:" /home/leshlu/final-project/S-Detector/MAS/build/libMAS.so 
+/usr/bin/c++ -fPIC  -Wl,-rpath-link,  -Wl,--gc-sections -shared  -o MASBasedPass.so CMakeFiles/MASBasedPass.dir/Pass.cpp.o  -Wl,-rpath,"\$ORIGIN/../lib:/home/ngawad/final-project/S-Detector/MAS/build:" /home/ngawad/final-project/S-Detector/MAS/build/libMAS.so 

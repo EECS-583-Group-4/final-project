@@ -1,7 +1,7 @@
 TracerPass/CMakeFiles/TracerPass.dir/TracerPass.cpp.o: \
- /home/ngawad/final-project/S-Tracer_old/TracerPass/TracerPass.cpp \
+ /home/ngawad/final-project/S-Tracer/TracerPass/TracerPass.cpp \
  /usr/include/stdc-predef.h \
- /home/ngawad/final-project/S-Tracer_old/TracerPass/../../MAS/MASPass/MAS.h \
+ /home/ngawad/final-project/S-Tracer/TracerPass/../../MAS/MASPass/MAS.h \
  /usr/local/include/llvm/IR/Value.h /usr/local/include/llvm-c/Types.h \
  /usr/local/include/llvm-c/DataTypes.h /usr/include/inttypes.h \
  /usr/include/features.h /usr/include/features-time64.h \

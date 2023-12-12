@@ -174,8 +174,10 @@ namespace
             llvm::errs() << *(leaf->getValue()) << "\n";
             int start = leaf->getTrueLoopStart();
             int end = leaf->getTrueLoopEnd();
-            int trip_count = leaf->getTripCount();
-            int offset = ((end-start)/trip_count) + 1;
+            //int trip_count = leaf->getTripCount();
+            //int offset = ((end-start)/trip_count) + 1;
+            int offset = leaf->getStep();
+            llvm::errs() << leaf->getStep() << "\n";
             fout << "START " << llvm::format_decimal(start, 1) << 
                     " END " << llvm::format_decimal(end, 1) << 
                     " OFFSET " << llvm::format_decimal(offset, 1);

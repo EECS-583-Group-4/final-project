@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer_old
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer_old/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -139,14 +139,14 @@ TracerPass/clean: TracerPass/CMakeFiles/install-TracerPass-stripped.dir/clean
 CMakeFiles/intrinsics_gen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num= "Built target intrinsics_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num= "Built target intrinsics_gen"
 .PHONY : CMakeFiles/intrinsics_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/intrinsics_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/intrinsics_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : CMakeFiles/intrinsics_gen.dir/rule
 
 # Convenience name for target.
@@ -165,14 +165,14 @@ CMakeFiles/intrinsics_gen.dir/clean:
 CMakeFiles/omp_gen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/omp_gen.dir/build.make CMakeFiles/omp_gen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/omp_gen.dir/build.make CMakeFiles/omp_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num= "Built target omp_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num= "Built target omp_gen"
 .PHONY : CMakeFiles/omp_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/omp_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/omp_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : CMakeFiles/omp_gen.dir/rule
 
 # Convenience name for target.
@@ -191,14 +191,14 @@ CMakeFiles/omp_gen.dir/clean:
 CMakeFiles/acc_gen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/acc_gen.dir/build.make CMakeFiles/acc_gen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/acc_gen.dir/build.make CMakeFiles/acc_gen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num= "Built target acc_gen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num= "Built target acc_gen"
 .PHONY : CMakeFiles/acc_gen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/acc_gen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/acc_gen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : CMakeFiles/acc_gen.dir/rule
 
 # Convenience name for target.
@@ -217,14 +217,14 @@ CMakeFiles/acc_gen.dir/clean:
 CMakeFiles/RISCVTargetParserTableGen.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISCVTargetParserTableGen.dir/build.make CMakeFiles/RISCVTargetParserTableGen.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RISCVTargetParserTableGen.dir/build.make CMakeFiles/RISCVTargetParserTableGen.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num= "Built target RISCVTargetParserTableGen"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num= "Built target RISCVTargetParserTableGen"
 .PHONY : CMakeFiles/RISCVTargetParserTableGen.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RISCVTargetParserTableGen.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/RISCVTargetParserTableGen.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : CMakeFiles/RISCVTargetParserTableGen.dir/rule
 
 # Convenience name for target.
@@ -243,14 +243,14 @@ CMakeFiles/RISCVTargetParserTableGen.dir/clean:
 TracerPass/CMakeFiles/TracerPass.dir/all: MAS/build/CMakeFiles/MAS.dir/all
 	$(MAKE) $(MAKESILENT) -f TracerPass/CMakeFiles/TracerPass.dir/build.make TracerPass/CMakeFiles/TracerPass.dir/depend
 	$(MAKE) $(MAKESILENT) -f TracerPass/CMakeFiles/TracerPass.dir/build.make TracerPass/CMakeFiles/TracerPass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num=6,7 "Built target TracerPass"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num=6,7 "Built target TracerPass"
 .PHONY : TracerPass/CMakeFiles/TracerPass.dir/all
 
 # Build rule for subdir invocation for target.
 TracerPass/CMakeFiles/TracerPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TracerPass/CMakeFiles/TracerPass.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : TracerPass/CMakeFiles/TracerPass.dir/rule
 
 # Convenience name for target.
@@ -269,14 +269,14 @@ TracerPass/CMakeFiles/TracerPass.dir/clean:
 TracerPass/CMakeFiles/install-TracerPass.dir/all: TracerPass/CMakeFiles/TracerPass.dir/all
 	$(MAKE) $(MAKESILENT) -f TracerPass/CMakeFiles/install-TracerPass.dir/build.make TracerPass/CMakeFiles/install-TracerPass.dir/depend
 	$(MAKE) $(MAKESILENT) -f TracerPass/CMakeFiles/install-TracerPass.dir/build.make TracerPass/CMakeFiles/install-TracerPass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num= "Built target install-TracerPass"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num= "Built target install-TracerPass"
 .PHONY : TracerPass/CMakeFiles/install-TracerPass.dir/all
 
 # Build rule for subdir invocation for target.
 TracerPass/CMakeFiles/install-TracerPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TracerPass/CMakeFiles/install-TracerPass.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : TracerPass/CMakeFiles/install-TracerPass.dir/rule
 
 # Convenience name for target.
@@ -295,14 +295,14 @@ TracerPass/CMakeFiles/install-TracerPass.dir/clean:
 TracerPass/CMakeFiles/install-TracerPass-stripped.dir/all: TracerPass/CMakeFiles/TracerPass.dir/all
 	$(MAKE) $(MAKESILENT) -f TracerPass/CMakeFiles/install-TracerPass-stripped.dir/build.make TracerPass/CMakeFiles/install-TracerPass-stripped.dir/depend
 	$(MAKE) $(MAKESILENT) -f TracerPass/CMakeFiles/install-TracerPass-stripped.dir/build.make TracerPass/CMakeFiles/install-TracerPass-stripped.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num= "Built target install-TracerPass-stripped"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num= "Built target install-TracerPass-stripped"
 .PHONY : TracerPass/CMakeFiles/install-TracerPass-stripped.dir/all
 
 # Build rule for subdir invocation for target.
 TracerPass/CMakeFiles/install-TracerPass-stripped.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TracerPass/CMakeFiles/install-TracerPass-stripped.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : TracerPass/CMakeFiles/install-TracerPass-stripped.dir/rule
 
 # Convenience name for target.
@@ -321,14 +321,14 @@ TracerPass/CMakeFiles/install-TracerPass-stripped.dir/clean:
 MAS/build/CMakeFiles/MAS.dir/all:
 	$(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/depend
 	$(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num=1,2 "Built target MAS"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num=1,2 "Built target MAS"
 .PHONY : MAS/build/CMakeFiles/MAS.dir/all
 
 # Build rule for subdir invocation for target.
 MAS/build/CMakeFiles/MAS.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/CMakeFiles/MAS.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : MAS/build/CMakeFiles/MAS.dir/rule
 
 # Convenience name for target.
@@ -347,14 +347,14 @@ MAS/build/CMakeFiles/MAS.dir/clean:
 MAS/build/MASPass/CMakeFiles/MASPass.dir/all:
 	$(MAKE) $(MAKESILENT) -f MAS/build/MASPass/CMakeFiles/MASPass.dir/build.make MAS/build/MASPass/CMakeFiles/MASPass.dir/depend
 	$(MAKE) $(MAKESILENT) -f MAS/build/MASPass/CMakeFiles/MASPass.dir/build.make MAS/build/MASPass/CMakeFiles/MASPass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num=3,4,5 "Built target MASPass"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num=3,4,5 "Built target MASPass"
 .PHONY : MAS/build/MASPass/CMakeFiles/MASPass.dir/all
 
 # Build rule for subdir invocation for target.
 MAS/build/MASPass/CMakeFiles/MASPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/MASPass/CMakeFiles/MASPass.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : MAS/build/MASPass/CMakeFiles/MASPass.dir/rule
 
 # Convenience name for target.
@@ -373,14 +373,14 @@ MAS/build/MASPass/CMakeFiles/MASPass.dir/clean:
 MAS/build/MASPass/CMakeFiles/install-MASPass.dir/all: MAS/build/MASPass/CMakeFiles/MASPass.dir/all
 	$(MAKE) $(MAKESILENT) -f MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build.make MAS/build/MASPass/CMakeFiles/install-MASPass.dir/depend
 	$(MAKE) $(MAKESILENT) -f MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build.make MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num= "Built target install-MASPass"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num= "Built target install-MASPass"
 .PHONY : MAS/build/MASPass/CMakeFiles/install-MASPass.dir/all
 
 # Build rule for subdir invocation for target.
 MAS/build/MASPass/CMakeFiles/install-MASPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/MASPass/CMakeFiles/install-MASPass.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : MAS/build/MASPass/CMakeFiles/install-MASPass.dir/rule
 
 # Convenience name for target.
@@ -399,14 +399,14 @@ MAS/build/MASPass/CMakeFiles/install-MASPass.dir/clean:
 MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/all: MAS/build/MASPass/CMakeFiles/MASPass.dir/all
 	$(MAKE) $(MAKESILENT) -f MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/depend
 	$(MAKE) $(MAKESILENT) -f MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer_old/build/CMakeFiles --progress-num= "Built target install-MASPass-stripped"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ngawad/final-project/S-Tracer/build/CMakeFiles --progress-num= "Built target install-MASPass-stripped"
 .PHONY : MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/all
 
 # Build rule for subdir invocation for target.
 MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/rule
 
 # Convenience name for target.

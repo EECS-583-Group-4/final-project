@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass/build
 
 # Utility rule file for omp_gen.
 
@@ -78,6 +78,6 @@ CMakeFiles/omp_gen.dir/clean:
 .PHONY : CMakeFiles/omp_gen.dir/clean
 
 CMakeFiles/omp_gen.dir/depend:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leshlu/final-project/S-Detector/MASBasedPass /home/leshlu/final-project/S-Detector/MASBasedPass /home/leshlu/final-project/S-Detector/MASBasedPass/build /home/leshlu/final-project/S-Detector/MASBasedPass/build /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles/omp_gen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ngawad/final-project/S-Detector/MASBasedPass /home/ngawad/final-project/S-Detector/MASBasedPass /home/ngawad/final-project/S-Detector/MASBasedPass/build /home/ngawad/final-project/S-Detector/MASBasedPass/build /home/ngawad/final-project/S-Detector/MASBasedPass/build/CMakeFiles/omp_gen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/omp_gen.dir/depend
 

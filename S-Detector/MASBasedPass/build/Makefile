@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles /home/leshlu/final-project/S-Detector/MASBasedPass/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Detector/MASBasedPass/build/CMakeFiles /home/ngawad/final-project/S-Detector/MASBasedPass/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Detector/MASBasedPass/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -262,7 +262,7 @@ MAS: cmake_check_build_system
 
 # fast build rule for target.
 MAS/fast:
-	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build
+	$(MAKE) $(MAKESILENT) -f /home/ngawad/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build.make /home/ngawad/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/build
 .PHONY : MAS/fast
 
 #=============================================================================
@@ -275,7 +275,7 @@ MASPass: cmake_check_build_system
 
 # fast build rule for target.
 MASPass/fast:
-	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build
+	$(MAKE) $(MAKESILENT) -f /home/ngawad/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build.make /home/ngawad/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/MASPass.dir/build
 .PHONY : MASPass/fast
 
 #=============================================================================
@@ -288,7 +288,7 @@ install-MASPass: cmake_check_build_system
 
 # fast build rule for target.
 install-MASPass/fast:
-	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build
+	$(MAKE) $(MAKESILENT) -f /home/ngawad/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build.make /home/ngawad/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass.dir/build
 .PHONY : install-MASPass/fast
 
 #=============================================================================
@@ -301,7 +301,7 @@ install-MASPass-stripped: cmake_check_build_system
 
 # fast build rule for target.
 install-MASPass-stripped/fast:
-	$(MAKE) $(MAKESILENT) -f /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make /home/leshlu/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build
+	$(MAKE) $(MAKESILENT) -f /home/ngawad/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build.make /home/ngawad/final-project/S-Detector/MAS/build/MASPass/CMakeFiles/install-MASPass-stripped.dir/build
 .PHONY : install-MASPass-stripped/fast
 
 # Help Target

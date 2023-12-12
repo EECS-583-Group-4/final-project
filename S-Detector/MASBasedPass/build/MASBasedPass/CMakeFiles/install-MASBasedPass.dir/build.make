@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass/build
 
 # Utility rule file for install-MASBasedPass.
 
@@ -67,7 +67,7 @@ include MASBasedPass/CMakeFiles/install-MASBasedPass.dir/compiler_depend.make
 include MASBasedPass/CMakeFiles/install-MASBasedPass.dir/progress.make
 
 MASBasedPass/CMakeFiles/install-MASBasedPass:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass && /usr/bin/cmake -DCMAKE_INSTALL_COMPONENT="MASBasedPass" -P /home/leshlu/final-project/S-Detector/MASBasedPass/build/cmake_install.cmake
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass && /usr/bin/cmake -DCMAKE_INSTALL_COMPONENT="MASBasedPass" -P /home/ngawad/final-project/S-Detector/MASBasedPass/build/cmake_install.cmake
 
 install-MASBasedPass: MASBasedPass/CMakeFiles/install-MASBasedPass
 install-MASBasedPass: MASBasedPass/CMakeFiles/install-MASBasedPass.dir/build.make
@@ -78,10 +78,10 @@ MASBasedPass/CMakeFiles/install-MASBasedPass.dir/build: install-MASBasedPass
 .PHONY : MASBasedPass/CMakeFiles/install-MASBasedPass.dir/build
 
 MASBasedPass/CMakeFiles/install-MASBasedPass.dir/clean:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass && $(CMAKE_COMMAND) -P CMakeFiles/install-MASBasedPass.dir/cmake_clean.cmake
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass && $(CMAKE_COMMAND) -P CMakeFiles/install-MASBasedPass.dir/cmake_clean.cmake
 .PHONY : MASBasedPass/CMakeFiles/install-MASBasedPass.dir/clean
 
 MASBasedPass/CMakeFiles/install-MASBasedPass.dir/depend:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leshlu/final-project/S-Detector/MASBasedPass /home/leshlu/final-project/S-Detector/MASBasedPass/MASBasedPass /home/leshlu/final-project/S-Detector/MASBasedPass/build /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass/CMakeFiles/install-MASBasedPass.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ngawad/final-project/S-Detector/MASBasedPass /home/ngawad/final-project/S-Detector/MASBasedPass/MASBasedPass /home/ngawad/final-project/S-Detector/MASBasedPass/build /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass/CMakeFiles/install-MASBasedPass.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : MASBasedPass/CMakeFiles/install-MASBasedPass.dir/depend
 

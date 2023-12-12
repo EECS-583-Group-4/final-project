@@ -1,4 +1,4 @@
-# Install script for directory: /home/leshlu/final-project/MAS
+# Install script for directory: /home/ngawad/final-project/MAS
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,6 +44,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/leshlu/final-project/S-Detector/MAS/build/MASPass/cmake_install.cmake")
+  include("/home/ngawad/final-project/S-Detector/MAS/build/MASPass/cmake_install.cmake")
 endif()
 

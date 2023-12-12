@@ -1,5 +1,5 @@
 MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: \
- /home/leshlu/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp \
+ /home/ngawad/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp \
  /usr/include/stdc-predef.h /usr/local/include/llvm/IR/PassManager.h \
  /usr/local/include/llvm/ADT/DenseMap.h \
  /usr/local/include/llvm/ADT/DenseMapInfo.h /usr/include/c++/11/cassert \
@@ -424,4 +424,4 @@ MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc /usr/include/c++/11/stack \
  /usr/include/c++/11/bits/stl_stack.h \
- /home/leshlu/final-project/S-Detector/MASBasedPass/MASBasedPass/../../../MAS/MASPass/MAS.h
+ /home/ngawad/final-project/S-Detector/MASBasedPass/MASBasedPass/../../../MAS/MASPass/MAS.h

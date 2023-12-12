@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC -shared  -o libMASPass.so CMakeFiles/MASPass.dir/home/leshlu/final-project/MAS/MASPass/MASPass.cpp.o CMakeFiles/MASPass.dir/home/leshlu/final-project/MAS/MASPass/MAS.cpp.o 

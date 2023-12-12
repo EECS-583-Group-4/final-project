@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer_old
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer_old/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer/build
 
 # Utility rule file for omp_gen.
 
@@ -78,6 +78,6 @@ CMakeFiles/omp_gen.dir/clean:
 .PHONY : CMakeFiles/omp_gen.dir/clean
 
 CMakeFiles/omp_gen.dir/depend:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ngawad/final-project/S-Tracer_old /home/ngawad/final-project/S-Tracer_old /home/ngawad/final-project/S-Tracer_old/build /home/ngawad/final-project/S-Tracer_old/build /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles/omp_gen.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ngawad/final-project/S-Tracer/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ngawad/final-project/S-Tracer /home/ngawad/final-project/S-Tracer /home/ngawad/final-project/S-Tracer/build /home/ngawad/final-project/S-Tracer/build /home/ngawad/final-project/S-Tracer/build/CMakeFiles/omp_gen.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/omp_gen.dir/depend
 

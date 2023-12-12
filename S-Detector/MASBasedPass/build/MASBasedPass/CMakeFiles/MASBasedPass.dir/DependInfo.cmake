@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/leshlu/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp" "MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o" "gcc" "MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o.d"
+  "/home/ngawad/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp" "MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o" "gcc" "MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o.d"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/DependInfo.cmake"
+  "/home/ngawad/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

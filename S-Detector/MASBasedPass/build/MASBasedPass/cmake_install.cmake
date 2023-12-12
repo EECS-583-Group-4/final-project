@@ -1,4 +1,4 @@
-# Install script for directory: /home/leshlu/final-project/S-Detector/MASBasedPass/MASBasedPass
+# Install script for directory: /home/ngawad/final-project/S-Detector/MASBasedPass/MASBasedPass
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -49,12 +49,12 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xMASBasedPassx" OR NOT CMAKE_INSTALL
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASBasedPass.so"
          RPATH "\$ORIGIN/../lib")
   endif()
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE MODULE FILES "/home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass/MASBasedPass.so")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE MODULE FILES "/home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass/MASBasedPass.so")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASBasedPass.so" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASBasedPass.so")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASBasedPass.so"
-         OLD_RPATH "\$ORIGIN/../lib:/home/leshlu/final-project/S-Detector/MAS/build:"
+         OLD_RPATH "\$ORIGIN/../lib:/home/ngawad/final-project/S-Detector/MAS/build:"
          NEW_RPATH "\$ORIGIN/../lib")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/MASBasedPass.so")

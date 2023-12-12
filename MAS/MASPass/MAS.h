@@ -34,6 +34,7 @@ namespace MAS
         bool isLoopInductionBased();
         int getTrueLoopStart();
         int getTrueLoopEnd();
+        int getStep();
         llvm::Value *getValue() const;
         LEAF_TYPE getLabel() const;
 
@@ -46,6 +47,7 @@ namespace MAS
         void setLabel(LEAF_TYPE t);
         void setLoopIndVarEnd(size_t n);
         void setLoopIndVarStart(size_t n);
+        void setStep(size_t n);
         MASNode *visitNodes(size_t depth = 0);
 
     private:
@@ -54,6 +56,7 @@ namespace MAS
         LEAF_TYPE label = UNSET;
         size_t loop_ind_var_end;
         size_t loop_ind_var_start;
+        size_t step;
     };
 
     llvm::raw_ostream &operator<<(llvm::raw_ostream &os, const MASNode &obj);

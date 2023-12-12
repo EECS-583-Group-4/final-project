@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/leshlu/final-project/S-Detector/MASBasedPass/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Detector/MASBasedPass/build
 
 # Include any dependencies generated for this target.
 include MASBasedPass/CMakeFiles/MASBasedPass.dir/depend.make
@@ -72,16 +72,16 @@ include MASBasedPass/CMakeFiles/MASBasedPass.dir/flags.make
 MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: MASBasedPass/CMakeFiles/MASBasedPass.dir/flags.make
 MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: ../MASBasedPass/Pass.cpp
 MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o: MASBasedPass/CMakeFiles/MASBasedPass.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o"
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o -MF CMakeFiles/MASBasedPass.dir/Pass.cpp.o.d -o CMakeFiles/MASBasedPass.dir/Pass.cpp.o -c /home/leshlu/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ngawad/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o"
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o -MF CMakeFiles/MASBasedPass.dir/Pass.cpp.o.d -o CMakeFiles/MASBasedPass.dir/Pass.cpp.o -c /home/ngawad/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp
 
 MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/MASBasedPass.dir/Pass.cpp.i"
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/leshlu/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp > CMakeFiles/MASBasedPass.dir/Pass.cpp.i
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ngawad/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp > CMakeFiles/MASBasedPass.dir/Pass.cpp.i
 
 MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/MASBasedPass.dir/Pass.cpp.s"
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/leshlu/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp -o CMakeFiles/MASBasedPass.dir/Pass.cpp.s
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ngawad/final-project/S-Detector/MASBasedPass/MASBasedPass/Pass.cpp -o CMakeFiles/MASBasedPass.dir/Pass.cpp.s
 
 # Object files for target MASBasedPass
 MASBasedPass_OBJECTS = \
@@ -92,20 +92,20 @@ MASBasedPass_EXTERNAL_OBJECTS =
 
 MASBasedPass/MASBasedPass.so: MASBasedPass/CMakeFiles/MASBasedPass.dir/Pass.cpp.o
 MASBasedPass/MASBasedPass.so: MASBasedPass/CMakeFiles/MASBasedPass.dir/build.make
-MASBasedPass/MASBasedPass.so: /home/leshlu/final-project/S-Detector/MAS/build/libMAS.so
+MASBasedPass/MASBasedPass.so: /home/ngawad/final-project/S-Detector/MAS/build/libMAS.so
 MASBasedPass/MASBasedPass.so: MASBasedPass/CMakeFiles/MASBasedPass.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/leshlu/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module MASBasedPass.so"
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MASBasedPass.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ngawad/final-project/S-Detector/MASBasedPass/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module MASBasedPass.so"
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MASBasedPass.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 MASBasedPass/CMakeFiles/MASBasedPass.dir/build: MASBasedPass/MASBasedPass.so
 .PHONY : MASBasedPass/CMakeFiles/MASBasedPass.dir/build
 
 MASBasedPass/CMakeFiles/MASBasedPass.dir/clean:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass && $(CMAKE_COMMAND) -P CMakeFiles/MASBasedPass.dir/cmake_clean.cmake
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass && $(CMAKE_COMMAND) -P CMakeFiles/MASBasedPass.dir/cmake_clean.cmake
 .PHONY : MASBasedPass/CMakeFiles/MASBasedPass.dir/clean
 
 MASBasedPass/CMakeFiles/MASBasedPass.dir/depend:
-	cd /home/leshlu/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/leshlu/final-project/S-Detector/MASBasedPass /home/leshlu/final-project/S-Detector/MASBasedPass/MASBasedPass /home/leshlu/final-project/S-Detector/MASBasedPass/build /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass /home/leshlu/final-project/S-Detector/MASBasedPass/build/MASBasedPass/CMakeFiles/MASBasedPass.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ngawad/final-project/S-Detector/MASBasedPass/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ngawad/final-project/S-Detector/MASBasedPass /home/ngawad/final-project/S-Detector/MASBasedPass/MASBasedPass /home/ngawad/final-project/S-Detector/MASBasedPass/build /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass /home/ngawad/final-project/S-Detector/MASBasedPass/build/MASBasedPass/CMakeFiles/MASBasedPass.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : MASBasedPass/CMakeFiles/MASBasedPass.dir/depend
 

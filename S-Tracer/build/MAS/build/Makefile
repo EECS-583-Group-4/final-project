@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer_old
+CMAKE_SOURCE_DIR = /home/ngawad/final-project/S-Tracer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer_old/build
+CMAKE_BINARY_DIR = /home/ngawad/final-project/S-Tracer/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,14 +132,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles /home/ngawad/final-project/S-Tracer_old/build/MAS/build//CMakeFiles/progress.marks
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer_old/build/CMakeFiles 0
+	cd /home/ngawad/final-project/S-Tracer/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles /home/ngawad/final-project/S-Tracer/build/MAS/build//CMakeFiles/progress.marks
+	cd /home/ngawad/final-project/S-Tracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ngawad/final-project/S-Tracer/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/clean
+	cd /home/ngawad/final-project/S-Tracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/clean
 .PHONY : clean
 
 # The main clean target
@@ -148,22 +148,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/preinstall
+	cd /home/ngawad/final-project/S-Tracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/preinstall
+	cd /home/ngawad/final-project/S-Tracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/ngawad/final-project/S-Tracer/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 MAS/build/CMakeFiles/MAS.dir/rule:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/CMakeFiles/MAS.dir/rule
+	cd /home/ngawad/final-project/S-Tracer/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAS/build/CMakeFiles/MAS.dir/rule
 .PHONY : MAS/build/CMakeFiles/MAS.dir/rule
 
 # Convenience name for target.
@@ -172,7 +172,7 @@ MAS: MAS/build/CMakeFiles/MAS.dir/rule
 
 # fast build rule for target.
 MAS/fast:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/build
+	cd /home/ngawad/final-project/S-Tracer/build && $(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/build
 .PHONY : MAS/fast
 
 MASPass/MAS.o: MASPass/MAS.cpp.o
@@ -180,7 +180,7 @@ MASPass/MAS.o: MASPass/MAS.cpp.o
 
 # target to build an object file
 MASPass/MAS.cpp.o:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.o
+	cd /home/ngawad/final-project/S-Tracer/build && $(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.o
 .PHONY : MASPass/MAS.cpp.o
 
 MASPass/MAS.i: MASPass/MAS.cpp.i
@@ -188,7 +188,7 @@ MASPass/MAS.i: MASPass/MAS.cpp.i
 
 # target to preprocess a source file
 MASPass/MAS.cpp.i:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.i
+	cd /home/ngawad/final-project/S-Tracer/build && $(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.i
 .PHONY : MASPass/MAS.cpp.i
 
 MASPass/MAS.s: MASPass/MAS.cpp.s
@@ -196,7 +196,7 @@ MASPass/MAS.s: MASPass/MAS.cpp.s
 
 # target to generate assembly for a file
 MASPass/MAS.cpp.s:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.s
+	cd /home/ngawad/final-project/S-Tracer/build && $(MAKE) $(MAKESILENT) -f MAS/build/CMakeFiles/MAS.dir/build.make MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.s
 .PHONY : MASPass/MAS.cpp.s
 
 # Help Target
@@ -226,6 +226,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/ngawad/final-project/S-Tracer_old/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/ngawad/final-project/S-Tracer/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
