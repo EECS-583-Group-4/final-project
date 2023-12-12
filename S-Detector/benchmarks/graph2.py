@@ -1,11 +1,11 @@
 import numpy as np
 
 #just copied from results spreadsheet
-v_u = np.array([27.3,29.35,27.45,29.51,24.02,26.87,33.9,26.4])
-v_m = np.array([27.49,52.26,28.09,29.23,24.27,26.93,58.08,30])
-v_n = np.array([64.51,62.24,41.62,54.64,77.14,76.86,58.32,33.6])
+v_u = np.array([29.27,27.69,27.3,29.35,27.45,29.51,24.02,26.87])
+v_m = np.array([46.49,31.23,27.49,52.26,28.09,29.23,24.27,26.93])
+v_n = np.array([44.42,32.11,64.51,62.24,41.62,54.64,77.14,76.86])
 
-nodes = ["bubblesort.c", "insertionsort.c", "kmeans.c", "offsets.c", "patterns.c", "summation.c", "alexnet.c", "backtrack.c"]
+nodes = ["alexnet.c", "backtrack.c", "bubblesort.c", "insertionsort.c", "kmeans.c", "offsets.c", "patterns.c", "summation.c"]
 X_axis = np.arange(len(nodes)) 
 
 import matplotlib.pyplot as plt
@@ -26,4 +26,4 @@ plt.subplots_adjust(left=0.135)
 plt.show()
 
 # Save plot
-plt.savefig('graph2.png', dpi=300, bbox_inches='tight')
+#plt.savefig('graph2.png', dpi=300, bbox_inches='tight')
