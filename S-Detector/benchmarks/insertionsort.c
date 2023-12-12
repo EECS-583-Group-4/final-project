@@ -1,5 +1,5 @@
 #include <stdio.h>
-#define SIZE 100000
+#define SIZE 10000
 
 void printArray(int arr[]) {
     int i;
@@ -14,11 +14,10 @@ int main() {
         arr[SIZE - 1 - i] = i;
     } 
     printArray(arr);
-    int i, key, j;
 
-    for (i = 1; i < SIZE; i++) {
-        key = arr[i];
-        j = i - 1;
+    for (int i = 1; i < SIZE; i++) {
+        int j = i - 1;
+        int key = arr[i];
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
             j = j - 1;

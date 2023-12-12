@@ -492,7 +492,7 @@ namespace MAS
             bool found = false;
             for (llvm::Loop *lo : li->getLoopsInPreorder())
             {
-                if (node->getValue() == lo->getCanonicalInductionVariable())
+                if (lo && node->getValue() == lo->getCanonicalInductionVariable())
                 {
                     auto ocnt = SE->getSmallConstantTripCount(lo);
                     if (ocnt <= 2)
@@ -503,7 +503,6 @@ namespace MAS
                     node->setLabel(LOOP_IND_VAR);
                     node->setLoopIndVarStart(0);      // Def of CanonicalIndVar
                     node->setLoopIndVarEnd(ocnt - 2); // For some reason this is 2 higher than it should be?
-                    break;
                 }
                 else if (isValueInsideLoop(node->getValue(), lo))
                 {
@@ -536,12 +535,11 @@ namespace MAS
                             node->setLoopIndVarStart(start);
                             node->setLoopIndVarEnd(simulateLoop(start, ocnt - 2, increment, b)); // For some reason this is 2 higher than it should be?
                             found = true;
-                            break;
                         }
                     }
-                    break;
                 }
             }
+
             if (!found)
             {
                 node->setLabel(DATA_DEP_VAR);
