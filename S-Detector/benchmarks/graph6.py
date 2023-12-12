@@ -9,18 +9,21 @@ nodes = ["alexnet.c", "backtrack.c", "bubblesort.c", "insertionsort.c", "kmeans.
 X_axis = np.arange(len(nodes)) 
 
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 W = 0.4
-plt.bar(X_axis, v_m, W, color='blue',  edgecolor='black', label="MAS Based Pass")
-plt.bar(X_axis + W, v_n, W, color='red', edgecolor='black', label="Naive Pass")
+plt.bar(X_axis, ((v_m) /v_u), W, color='blue', edgecolor='black', label="MAS Based Pass")
+plt.bar(X_axis + W, ((v_n) /v_u), W, color='red', edgecolor='black', label="Naive Pass")
  
 
-plt.xticks(X_axis + W, nodes, rotation=40) 
+plt.xticks(X_axis + W/2, nodes, rotation=40) 
 plt.xlabel("Benchmark")
-plt.ylim([0, 26000])
-plt.ylabel("Program Size (Bytes)")
+plt.ylim([0,1.3])
+plt.ylabel("Program Size Overhead")
 plt.legend()
 plt.tight_layout()
+plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(xmax=1.0))
+plt.subplots_adjust(left=0.135)
 plt.show()
 
-# Save the plot
-plt.savefig('graph6.png', dpi=300, bbox_inches='tight')
+# Save plot
+#plt.savefig('graph5.png', dpi=300, bbox_inches='tight')
