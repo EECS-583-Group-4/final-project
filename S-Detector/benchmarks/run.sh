@@ -40,15 +40,30 @@ clang ${1}.${PASS2}.bc -o ${1}_${PASS2}
 #else
     #echo -e ">> Outputs match\n"
     # Measure performance
-    echo -e "2. Performance of unoptim"
+    echo "=== Program Performance ==="
+    echo -e "1. Performance of unoptim"
     time ./${1}_no_optim > /dev/null
     echo -e "\n\n"
-    echo -e "1. Performance of MAS Based code"
+    echo -e "2. Performance of MAS Based code"
     time ./${1}_${PASS1} > /dev/null
     echo -e "\n\n"
-    echo -e "2. Performance of naive code"
+    echo -e "3. Performance of naive code"
     time ./${1}_${PASS2} > /dev/null
     echo -e "\n\n"
+    echo "=== Program Size ==="
+    echo -e "1. Size of unoptim"
+    unoptim_size=$(stat -c %s ${1}_no_optim)
+    echo -e "${unoptim_size} bytes"
+    echo -e "\n\n"
+    echo -e "2. Size of MAS Based code"
+    masbased_size=$(stat -c %s ${1}_${PASS1})
+    echo -e "${masbased_size} bytes"
+    echo -e "\n\n"
+    echo -e "3. Size of naive code"
+    naive_size=$(stat -c %s ${1}_${PASS2})
+    echo -e "${naive_size} bytes"
+    echo -e "\n\n"
+
 #fi
 
 # Cleanup: Remove this if you want to retain the created files. And you do need to.
