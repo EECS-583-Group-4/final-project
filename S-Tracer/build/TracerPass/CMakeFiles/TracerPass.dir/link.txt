@@ -1,1 +1,0 @@
-/usr/bin/c++ -fPIC  -Wl,-rpath-link,  -Wl,--gc-sections -shared  -o TracerPass.so CMakeFiles/TracerPass.dir/TracerPass.cpp.o  -Wl,-rpath,"\$ORIGIN/../lib:/home/ngawad/final-project/S-Tracer/build/MAS/build:" ../MAS/build/libMAS.so 
