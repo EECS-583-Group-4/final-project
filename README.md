@@ -25,7 +25,7 @@ make
 The tests may then be run from the `S-Detector/benchmarks` directory. For example... 
 
 ```
-chmod +x simple_run.sh
+chmod +x run.sh
 ./run.sh test1
 ```
 
