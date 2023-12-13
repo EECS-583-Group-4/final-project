@@ -2,73 +2,72 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define DATA_POINTS 10000
-#define FEATURES 7
-#define CLUSTERS 7
-#define MAX_ITERATIONS 100
+#define NUM_DATA_POINTS 10000
+#define TOTAL_ITERS 100
+#define NUM_FEATURES 7
+#define NUM_CLUSTERS 7
 
 int main()
 {
-    double data[DATA_POINTS][FEATURES];
-    for (int i = 0; i < DATA_POINTS; ++i)
+    double values[NUM_DATA_POINTS][NUM_FEATURES];
+    for (int i = 0; i < NUM_DATA_POINTS; ++i)
     {
-        for (int j = 0; j < FEATURES; ++j)
+        for (int j = 0; j < NUM_FEATURES; ++j)
         {
-            data[i][j] = i + j;
+            values[i][j] = i + j;
         }
     }
-    int k = CLUSTERS;
+    int k = NUM_CLUSTERS;
 
-    double centers[CLUSTERS][FEATURES];
-    int assignments[DATA_POINTS];
+    double centers[NUM_CLUSTERS][NUM_FEATURES];
+    int cluster_assignments[NUM_DATA_POINTS];
 
     for (int i = 0; i < k; i++)
     {
-        int randIndex = rand() % DATA_POINTS;
-        for (int j = 0; j < FEATURES; j++)
+        int randIndex = rand() % NUM_DATA_POINTS;
+        for (int j = 0; j < NUM_FEATURES; j++)
         {
-            centers[i][j] = data[randIndex][j];
+            centers[i][j] = values[randIndex][j];
         }
     }
 
-    for (int iter = 0; iter < MAX_ITERATIONS; iter++)
+    for (int iter = 0; iter < TOTAL_ITERS; iter++)
     {
-        for (int i = 0; i < DATA_POINTS; i++)
+        for (int i = 0; i < NUM_DATA_POINTS; i++)
         {
-            double minDistance = INFINITY;
+            double mindist = INFINITY;
             for (int j = 0; j < k; j++)
             {
-                double distance = 0;
-                for (int f = 0; f < FEATURES; f++)
+                double dist = 0;
+                for (int f = 0; f < NUM_FEATURES; f++)
                 {
-                    distance += data[i][f] - centers[j][f] * 2;
+                    dist += values[i][f] - centers[j][f] * 2;
                 }
-                distance = distance / 2;
+                dist = dist / 2;
 
-                if (distance < minDistance)
+                if (dist < mindist)
                 {
-                    minDistance = distance;
-                    assignments[i] = j;
+                    mindist = dist;
+                    cluster_assignments[i] = j;
                 }
             }
         }
 
-        // Update cluster centers
-        int count[CLUSTERS] = {0};
+        int count[NUM_CLUSTERS] = {0};
 
-        for (int i = 0; i < DATA_POINTS; i++)
+        for (int i = 0; i < NUM_DATA_POINTS; i++)
         {
-            int cluster = assignments[i];
-            for (int j = 0; j < FEATURES; j++)
+            int cluster = cluster_assignments[i];
+            for (int j = 0; j < NUM_FEATURES; j++)
             {
-                centers[cluster][j] += data[i][j];
+                centers[cluster][j] += values[i][j];
             }
             count[cluster]++;
         }
 
         for (int i = 0; i < k; i++)
         {
-            for (int j = 0; j < FEATURES; j++)
+            for (int j = 0; j < NUM_FEATURES; j++)
             {
                 if (count[i] > 0)
                 {
@@ -78,10 +77,10 @@ int main()
         }
     }
 
-    printf("Final Cluster Assignments:\n");
-    for (int i = 0; i < DATA_POINTS; i++)
+    printf("Cluster output:\n");
+    for (int i = 0; i < NUM_DATA_POINTS; i++)
     {
-        printf("Data Point %d -> Cluster %d\n", i, assignments[i]);
+        printf("Data Point: %d, Cluster: %d\n", i, cluster_assignments[i]);
     }
 
     return 0;
