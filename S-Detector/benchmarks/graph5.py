@@ -11,8 +11,8 @@ X_axis = np.arange(len(nodes))
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 W = 0.4
-plt.bar(X_axis, ((v_m - v_u) /v_u), W, color='blue', edgecolor='black', label="MAS Based Pass")
-plt.bar(X_axis + W, ((v_n - v_u) /v_u), W, color='red', edgecolor='black', label="Naive Pass")
+plt.bar(X_axis, ((v_m - v_u) /v_u), W, color='white', hatch='//', edgecolor='black', label="MAS Based Pass")
+plt.bar(X_axis + W, ((v_n - v_u) /v_u), W, color='gray', edgecolor='black', label="Naive Pass")
  
 
 plt.xticks(X_axis + W/2, nodes, rotation=40) 

@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/ngawad/final-project/MAS/MASPass/MAS.cpp" "/home/ngawad/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.o" "gcc" "/home/ngawad/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.o.d"
+  "/home/leshlu/final-project/MAS/MASPass/MAS.cpp" "/home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.o" "gcc" "/home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.o.d"
   )
 
 # Targets to which this target links.

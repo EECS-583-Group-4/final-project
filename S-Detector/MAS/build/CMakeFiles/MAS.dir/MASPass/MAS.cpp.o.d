@@ -1,6 +1,6 @@
-/home/ngawad/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.o: \
- /home/ngawad/final-project/MAS/MASPass/MAS.cpp \
- /usr/include/stdc-predef.h /home/ngawad/final-project/MAS/MASPass/MAS.h \
+/home/leshlu/final-project/S-Detector/MAS/build/CMakeFiles/MAS.dir/MASPass/MAS.cpp.o: \
+ /home/leshlu/final-project/MAS/MASPass/MAS.cpp \
+ /usr/include/stdc-predef.h /home/leshlu/final-project/MAS/MASPass/MAS.h \
  /usr/local/include/llvm/IR/Value.h /usr/local/include/llvm-c/Types.h \
  /usr/local/include/llvm-c/DataTypes.h /usr/include/inttypes.h \
  /usr/include/features.h /usr/include/features-time64.h \
