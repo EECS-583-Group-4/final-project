@@ -22,11 +22,11 @@ cmake ..
 make
 ```
 
-The tests may then be run from the `S-Detector/MASBasedPass/tests` directory. For example... 
+The tests may then be run from the `S-Detector/benchmarks` directory. For example... 
 
 ```
 chmod +x simple_run.sh
-./simple_run.sh test1
+./run.sh test1
 ```
 
 Be sure to not include the .c when running a given test. 
