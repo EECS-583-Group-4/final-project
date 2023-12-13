@@ -33,4 +33,4 @@ clang ${1}.mas.bc -o ${1}_stracer
 
 # Here we could generate an executable
 
-#rm -f *.in *.in.Z default.profraw *_prof *_fplicm *.ll *.bc *.profdata *_output words
+rm -f *.in *.in.Z default.profraw *_prof *_fplicm *.ll *.bc *.profdata *_output words *_stracer *.mas.bc

@@ -34,7 +34,7 @@ namespace
     {
       int base_mem_addr_index = 0, use_base_mem_addr_index;
       std::map<llvm::Value*,int> base_mem_addr;
-      std::map<llvm::Value*,int>::iterator it;
+      std::map<llvm::Value*,int>::iterator it_use_base_mem_addr_index;
 
       MAS::MAS curr_mas = MAS::MAS(&F, &FAM);
 
@@ -76,51 +76,32 @@ namespace
       // and categorized by type.
       curr_mas.print();
 
+ 
+
       //std::vector<std::pair<std::string instruction, ptr p>> list;
       //std::vector<MASNode *> masnodes = curr_mas.getRoots();
-      llvm::errs() << "Trying output\n";
+      
       for (MAS::MASNode *r : curr_mas.getRoots()){
-        //llvm::errs() << r->getValue() << "\n";
         if(llvm::isa<llvm::LoadInst>(r->getValue())){
-          llvm::errs() << "Load";
           fout << "Load ";
         }
         else if(llvm::isa<llvm::StoreInst>(r->getValue())){
-          llvm::errs() << "Store";
           fout << "Store ";
         }
-        llvm::errs() << *r << "\n";
         std::vector<MAS::MASNode *> *leaves = curr_mas.getLeaves(r);
         for(MAS::MASNode *leaf : *leaves){
-          //llvm::errs() << *leaf << "\n";
-          //if(llvm::isa<llvm::GetElementPtrInst>(leaf->getValue())){
-          //  llvm::errs() << "GetElementPtrInst";
-          //}
-          if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::CONST)){
-            //llvm::errs() << "CONST\n";
-          }
           if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::BASE_MEM_ADDR)){
-            if(leaf->getValue()<r->getValue()){
-              llvm::errs() << "leaf comes before root\n";
-            }
-            
-            
-            llvm::errs() << "BASE_MEM_ADDR\n";
-            llvm::errs() << *leaf << "\n";
-            llvm::errs() << "IN LOOP\n";
             llvm::Instruction *inst = llvm::dyn_cast<llvm::Instruction>(leaf->getValue());
-            it = base_mem_addr.find(leaf->getValue());
-            if (it != base_mem_addr.end()){
-              use_base_mem_addr_index = it->second;
+            it_use_base_mem_addr_index = base_mem_addr.find(leaf->getValue());
+            if (it_use_base_mem_addr_index != base_mem_addr.end()){
+              use_base_mem_addr_index = it_use_base_mem_addr_index->second;
             }
-              //mymap.erase (it);
             else {
               base_mem_addr.insert(std::pair<llvm::Value*,int>(leaf->getValue(),base_mem_addr_index));
               use_base_mem_addr_index = base_mem_addr_index;
               base_mem_addr_index++;
               std::vector<llvm::Value *> inputs;
               llvm::Value *number = builder.getInt32(use_base_mem_addr_index);
-              llvm::errs() << *number << "\n";
 
               llvm::Value *format = builder.CreateGlobalStringPtr("BASE_MEM_ADDR %d %x\n", "str", 0U, module);
               inputs.push_back(format);
@@ -132,74 +113,17 @@ namespace
               builder.CreateCall(printfFunc, argsV, "calltmp");
             }
             fout << "BASE_MEM_ADDR " << llvm::format_decimal(use_base_mem_addr_index, 1) << " ";
-            llvm::errs() << *inst << "\n";
-            
-            /*
-            argsV = inputs;
-
-            builder.SetInsertPoint(inst->getParent()->getTerminator());
-            builder.CreateCall(printfFunc, argsV, "calltmp");
-            */
-            //llvm::Value *format2 = builder.CreateGlobalStringPtr("Pointer = %x\n", "str", 0U, module);
-            //inputs.push_back(format2);
-            
-            
-
-            //llvm::Value *str = builder.CreateGlobalStringPtr("Test\n", "str", 0U, module);
-            //std::vector<llvm::Value *> args({str});
-
-            
-            //IRBuilder<> Builder(pi);
-            //CallInst* callOne = Builder.CreateCall(...);
-            //CallInst* callTwo = Builder.CreateCall(...);
-            //Value* result = Builder.CreateMul(callOne, callTwo);
-            //llvm::CallInst *testprint = llvm::CallInst::Create(printf,nullptr,"trace");
-            //testprint->insertAfter(leaf->getValue());
-            //auto *testprint = new llvm::CallInst(printf, nullptr, "trace");
-            //testprint->insertAfter(leaf->getValue());
-            //llvm::errs() << leaf->getValue() << "\n";
-          }
-          if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::FUNC_PARAM)){
-            //llvm::errs() << "FUNC_PARAM\n";
-          }
-          if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::DATA_DEP_VAR)){
-            //llvm::errs() << "DATA_DEP_VAR\n";
-          }
-          if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::FUNC_RET_VAL)){
-            //llvm::errs() << "FUNC_RET_VAL\n";
           }
           if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::LOOP_IND_VAR)){
-            llvm::errs() << "LOOP_IND_VAR\n";
-            llvm::errs() << *leaf << "\n";
-            llvm::errs() << *(leaf->getValue()) << "\n";
             int start = leaf->getTrueLoopStart();
             int end = leaf->getTrueLoopEnd();
-            //int trip_count = leaf->getTripCount();
-            //int offset = ((end-start)/trip_count) + 1;
             int offset = leaf->getStep();
-            llvm::errs() << leaf->getStep() << "\n";
             fout << "START " << llvm::format_decimal(start, 1) << 
                     " END " << llvm::format_decimal(end, 1) << 
-                    " OFFSET " << llvm::format_decimal(offset, 1);
+                    " OFFSET " << llvm::format_decimal(offset, 1) << " ";
           }
-          if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::OPERATION)){
-            //llvm::errs() << "OPERATION\n";
-          }
-          if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::UNSET)){
-            llvm::errs() << "UNSET\n";
-            llvm::errs() << *leaf << "\n";
-          }
-          if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::MEM_ALLOC)){
-            //llvm::errs() << "MEM_ALLOC\n";
-          }
-          if(leaf->getLabel()==MAS::LEAF_TYPE(MAS::MEM_DEALLOC)){
-            //llvm::errs() << "MEM_DEALLOC\n";
-          }
-          
-          //llvm::errs() << MAS::LEAF_TYPE(leaf->getLabel())<< "\n";
         }
         fout << "\n";
-        //base_mem_addr_index++;
       }
 
       return llvm::PreservedAnalyses::all();
