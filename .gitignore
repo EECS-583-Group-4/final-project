@@ -14,4 +14,4 @@ default.profraw
 *_naive-pass
 .vscode/
 Spindle/
-*/build
+build/
