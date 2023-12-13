@@ -41,4 +41,4 @@ cmake ..
 make
 ```
 
-Examples may then be run with the `S-Tracer/run.sh` script similarly to S-Detector, with the keyword argument being an input file. In this case, the demo included `bubblesort` and `patterns`. 
+Examples may then be run with the `S-Tracer/run.sh` script similarly to S-Detector, with the argument being an input file. In this case, the demo included `bubblesort` and `patterns`. 
